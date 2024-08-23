@@ -1,1 +1,1 @@
-# Project-BIN-I_Informative_Waste_Management_Portal
+## BIN-I: Informative Waste Management Portal
