@@ -12,7 +12,7 @@ First, run the development server:
 npm run start:bini-dev
 
 # Production Build
-npm run start:bini-prod
+npm run start:bini
 
 ```
 
