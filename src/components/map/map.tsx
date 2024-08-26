@@ -4,7 +4,7 @@ import { MapContainer, Marker, Popup, TileLayer, Polyline, useMapEvents } from "
 import "leaflet/dist/leaflet.css"
 import "leaflet-defaulticon-compatibility"
 import "leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css"
-import { LatLngExpression } from "leaflet"
+import L, { LatLngExpression } from "leaflet"
 import { useState } from "react"
 
 function ClickHandler({ setPosition }: { setPosition: (position: [number, number]) => void }) {
