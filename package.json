@@ -9,6 +9,7 @@
   "dependencies": {
     "@maptiler/leaflet-maptilersdk": "^2.0.0",
     "@t3-oss/env-nextjs": "^0.11.0",
+    "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "leaflet": "^1.9.4",
@@ -26,6 +27,7 @@
     "zustand": "^4.5.5"
   },
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/leaflet": "^1.9.12",
     "@types/node": "^20",
     "@types/react": "^18",
