@@ -1,10 +1,11 @@
 import { RouteStatusEnum } from "@/enums/routeStatus.enum";
 import { IRoute } from "@/types/IRoute.dto";
-import mongoose, { Schema } from "mongoose";
+import { ObjectId } from "mongodb";
+import mongoose, { Schema, Types } from "mongoose";
 
-export interface IRouteDocument extends IRoute, Document {}
+export interface IRoutesDocument extends IRoute, Document {}
 
-const routesSchema: Schema<IRouteDocument> = new Schema(
+const routesSchema: Schema<IRoutesDocument> = new Schema(
   {
     schedule_id: { 
       type: Schema.Types.ObjectId, 
@@ -42,6 +43,6 @@ const routesSchema: Schema<IRouteDocument> = new Schema(
   }
 );
 
-const RoutesModel = mongoose.model<IRouteDocument>('Route', routesSchema);
+const RoutesModel = mongoose.model<IRoutesDocument>('Route', routesSchema);
 
 export default RoutesModel;

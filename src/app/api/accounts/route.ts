@@ -3,10 +3,10 @@ import { AccountService } from '@/services/accounts.service';
 import { ErrorResponses } from '@/utils/errorResponses';
 import { MongoDbConnect } from '@/utils/mongodb';
 import { ChangeAccountPasswordRequestSchema, CreateAccountRequestSchema, LoginRequestSchema, UpdateAccountRequestSchema } from '@/validation/accounts.validation';
-import { NextResponse } from 'next/server';
+import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new account
-export async function POST(req: Request) {
+export async function POST(req: NextRequest) {
     const url = new URL(req.url);
     const action = url.searchParams.get('action');
     try {
@@ -29,7 +29,7 @@ export async function POST(req: Request) {
 }
 
 // GET method: Fetch account details or all accounts
-export async function GET(req: Request) {
+export async function GET(req: NextRequest) {
     const url = new URL(req.url);
     const id = url.searchParams.get('id');
     try {
@@ -50,7 +50,7 @@ export async function GET(req: Request) {
 }
 
 // PUT method: Update an account
-export async function PUT(req: Request) {
+export async function PUT(req: NextRequest) {
     const url = new URL(req.url);
     const id = url.searchParams.get('id');
     try {
@@ -72,7 +72,7 @@ export async function PUT(req: Request) {
 }
 
 // PATCH method: Change account password
-export async function PATCH(req: Request) {
+export async function PATCH(req: NextRequest) {
     const url = new URL(req.url);
     const id = url.searchParams.get('id');
     const action = url.searchParams.get('action');
@@ -81,10 +81,8 @@ export async function PATCH(req: Request) {
         try {
             await MongoDbConnect();
             const accountService = new AccountService(AccountModel);
-            const parsedRequest = ChangeAccountPasswordRequestSchema.parse(await req.json());
-            console.log("changsssssin1")            
+            const parsedRequest = ChangeAccountPasswordRequestSchema.parse(await req.json());        
             if (id && parsedRequest.newPassword && parsedRequest.oldPassword) {
-                console.log("changsssssin")
                 const result = await accountService.changeAccountPassword(id, parsedRequest.newPassword);
                 return NextResponse.json(result);
             } else {
@@ -102,7 +100,7 @@ export async function PATCH(req: Request) {
 }
 
 // DELETE method: Delete an account
-export async function DELETE(req: Request) {
+export async function DELETE(req: NextRequest) {
     const url = new URL(req.url);
     const id = url.searchParams.get('id');
 

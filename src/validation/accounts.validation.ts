@@ -1,4 +1,3 @@
-import { minify } from "next/dist/build/swc";
 import { z } from "zod";
 
 export interface ICreateAccountRequest extends z.infer<typeof CreateAccountRequestSchema> { }

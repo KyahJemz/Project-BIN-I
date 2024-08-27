@@ -1,6 +1,5 @@
 
 import { AccountTypeEnum } from "@/enums/accountType.enum";
-import { Schema } from "mongoose";
 
 export interface IAccount {
     firstName: string;

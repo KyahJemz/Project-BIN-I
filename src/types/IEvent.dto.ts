@@ -1,5 +1,4 @@
 import { EventStatusEnum } from "@/enums/eventStatus.enum";
-import { Schema } from "mongoose";
 
 export interface IEvent {
     title: string;

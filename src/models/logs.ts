@@ -11,7 +11,7 @@ const logsSchema: Schema<ILogDocument> = new Schema(
       type: Schema.Types.ObjectId,
       required: true,
     },
-    collection: {
+    actionCollection: {
       type: String,
       enum: Object.values(CollectionsEnum),
       required: true,

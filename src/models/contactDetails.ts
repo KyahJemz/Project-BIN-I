@@ -1,9 +1,9 @@
 import { IContactDetail } from "@/types/IContactDetail.dto";
 import mongoose, { Schema, Document } from "mongoose";
 
-export interface IContactDetailDocument extends IContactDetail, Document {}
+export interface IContactDetailsDocument extends IContactDetail, Document {}
 
-const contactDetailsSchema: Schema<IContactDetailDocument> = new Schema(
+const contactDetailsSchema: Schema<IContactDetailsDocument> = new Schema(
   {
     name: { 
       type: String, 
@@ -36,6 +36,6 @@ const contactDetailsSchema: Schema<IContactDetailDocument> = new Schema(
   }
 );
 
-const ContactDetailsModel = mongoose.model<IContactDetailDocument>('ContactDetail', contactDetailsSchema);
+const ContactDetailsModel = mongoose.model<IContactDetailsDocument>('ContactDetail', contactDetailsSchema);
 
 export default ContactDetailsModel;
