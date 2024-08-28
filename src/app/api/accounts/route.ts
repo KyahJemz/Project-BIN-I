@@ -9,16 +9,15 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
     const url = new URL(req.url);
     const action = url.searchParams.get('action');
+    const accountService = new AccountService(AccountModel);
     try {
         await MongoDbConnect();
         if (action && action.includes('verify')) {
             const parsedRequest = LoginRequestSchema.parse(await req.json());
-            const accountService = new AccountService(AccountModel);
             const account = await accountService.validateAccount(parsedRequest);
-            return NextResponse.json(account, { status: 201 });
+            return NextResponse.json(account, { status: 200 });
         } else {
             const parsedRequest = CreateAccountRequestSchema.parse(await req.json());
-            const accountService = new AccountService(AccountModel);
             const account = await accountService.createAccount(parsedRequest);
             return NextResponse.json(account, { status: 201 });
         }
@@ -35,7 +34,6 @@ export async function GET(req: NextRequest) {
     try {
         await MongoDbConnect();
         const accountService = new AccountService(AccountModel);
-
         if (id) {
             const account = await accountService.getAccountById(id);
             return NextResponse.json(account);
@@ -57,7 +55,6 @@ export async function PUT(req: NextRequest) {
         await MongoDbConnect();
         const parsedRequest = UpdateAccountRequestSchema.parse(await req.json());
         const accountService = new AccountService(AccountModel);
-
         if (id) {
             const updatedAccount = await accountService.updateAccount(id, parsedRequest);
             return NextResponse.json(updatedAccount);
@@ -103,11 +100,9 @@ export async function PATCH(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
     const url = new URL(req.url);
     const id = url.searchParams.get('id');
-
     try {
         await MongoDbConnect();
         const accountService = new AccountService(AccountModel);
-
         if (id) {
             await accountService.deleteAccount(id);
             return NextResponse.json({ message: `Account with ID: ${id} deleted successfully` });
