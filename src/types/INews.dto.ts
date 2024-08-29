@@ -1,8 +1,7 @@
 export interface INews {
-    title: string;
-    author: string;
-    content: string; 
-    image: string;
-    deletedAt?: Date | null;
+	title: string;
+	author: string;
+	content: string;
+	image: string;
+	deletedAt?: Date | null;
 }
-  

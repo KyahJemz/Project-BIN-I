@@ -1,5 +1,3 @@
 export default function Schedules() {
-  return (
-    <>Schedules</>
-  );
+	return <>Schedules</>;
 }

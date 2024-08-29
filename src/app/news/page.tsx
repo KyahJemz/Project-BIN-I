@@ -1,5 +1,3 @@
 export default function News() {
-  return (
-    <>News</>
-  );
+	return <>News</>;
 }

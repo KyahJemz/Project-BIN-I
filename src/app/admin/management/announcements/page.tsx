@@ -1,5 +1,3 @@
 export default function ManageAnnouncements() {
-  return (
-    <>Manage Announcements</>
-  );
+	return <>Manage Announcements</>;
 }

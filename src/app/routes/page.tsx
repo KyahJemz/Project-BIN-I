@@ -1,5 +1,3 @@
 export default function Routes() {
-  return (
-    <>Routes</>
-  );
+	return <>Routes</>;
 }

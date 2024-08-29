@@ -1,5 +1,3 @@
 export default function ManageSchedules() {
-  return (
-    <>Manage Schedules</>
-  );
+	return <>Manage Schedules</>;
 }

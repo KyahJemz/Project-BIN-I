@@ -1,5 +1,3 @@
 export default function Admin() {
-  return (
-    <>Admin</>
-  );
+	return <>Admin</>;
 }

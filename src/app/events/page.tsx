@@ -1,5 +1,3 @@
 export default function Events() {
-  return (
-    <>Events</>
-  );
+	return <>Events</>;
 }

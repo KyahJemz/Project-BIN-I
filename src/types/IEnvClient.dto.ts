@@ -1,6 +1,5 @@
 export interface IEnvClient {
-    Environment?: string,
-    ApiBaseUrl?: string,
-    BaseUrl?: string,
+	Environment?: string;
+	ApiBaseUrl?: string;
+	BaseUrl?: string;
 }
-
