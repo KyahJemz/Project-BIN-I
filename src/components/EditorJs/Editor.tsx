@@ -1,15 +1,10 @@
+// @ts-nocheck
 import React, { useEffect, useRef } from 'react';
-import EditorJS, { OutputData } from '@editorjs/editorjs';
+import EditorJS, { EditorConfig } from '@editorjs/editorjs';
 import { EDITOR_TOOLS } from './EditorTools';
 
-interface EditorProps {
-	data: OutputData; // Typing for the initial data
-	onChange: (data: OutputData) => void; // Function called on change
-	holder: string; // ID of the holder element
-}
-
-const Editor: React.FC<EditorProps> = ({ data, onChange, holder }) => {
-	const ref = useRef<EditorJS | null>(null);
+const Editor = ({ data, onChange, holder }) => {
+	const ref = useRef(null);
 
 	useEffect(() => {
 		if (!ref.current) {

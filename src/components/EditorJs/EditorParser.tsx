@@ -5,7 +5,6 @@ import styles from './EditorParser.module.css';
 export default function EditorParser() {
 	const convertDataToHtml = (blocks) => {
 		let convertedHtml = '';
-
 		blocks.forEach((block) => {
 			let blockElement;
 			switch (block.type) {
@@ -152,14 +151,11 @@ export default function EditorParser() {
 					console.log('Unknown block type', block.type);
 					break;
 			}
-
 			if (blockElement) {
 				convertedHtml += ReactDOMServer.renderToString(blockElement);
 			}
 		});
-
 		return convertedHtml;
 	};
-
 	return { convertDataToHtml };
 }

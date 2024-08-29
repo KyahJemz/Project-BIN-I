@@ -7,7 +7,7 @@ export default function PreviewRenderer({ data }: PreviewRendererProps) {
 
 	let htmlContent;
 	try {
-		console.log('parsinge this data:', data.blocks);
+		console.log('parsing this data:', data.blocks);
 		htmlContent = convertDataToHtml(data.blocks);
 	} catch (error) {
 		console.error('Error parsing EditorJS data:', error);

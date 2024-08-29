@@ -5,9 +5,23 @@ import {
 	IUpdateEventRequest,
 } from '@/validation/events.validation';
 import { EventStatusEnum } from '@/enums/eventStatus.enum';
+import LogsModel from '@/models/logs';
+import { LogsService } from './logs.service';
+import { ICreateLogsRequest } from '@/validation/logs.validation';
+import { ActionsEnum } from '@/enums/actions.enum';
+import { CollectionsEnum } from '@/enums/collections.enum';
 
 export class EventService {
-	constructor(private readonly eventModel: Model<IEventDocument>) {}
+	private readonly logsService: LogsService;
+	constructor(private readonly eventModel: Model<IEventDocument>,
+		logsService: LogsService = new LogsService(LogsModel)
+	) {
+		this.logsService = logsService;
+	}
+
+	private async createLogs(request: ICreateLogsRequest) {
+		return await this.logsService.createLogs(request);
+	}
 
 	async createEvent(request: ICreateEventRequest) {
 		try {
@@ -15,6 +29,12 @@ export class EventService {
 			if (!event) {
 				throw new Error('Event creation failed');
 			}
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Events,
+				action: ActionsEnum.Create,
+				action_id: (event._id || "").toString(),
+			})
 			return event;
 		} catch (error) {
 			throw error;
@@ -74,16 +94,26 @@ export class EventService {
 				event.status = request.status as EventStatusEnum;
 			}
 			const updatedEvent = await event.save();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Events,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+			})
 			return updatedEvent.toObject();
 		} catch (error) {
 			throw error;
 		}
 	}
 	async deleteEvent(id: string) {
-		const event = await this.eventModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
 		try {
+			const event = await this.eventModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Events,
+				action: ActionsEnum.Delete,
+				action_id: (id || "").toString(),
+			})
 			return event;
 		} catch (error) {
 			throw error;

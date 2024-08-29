@@ -1,11 +1,8 @@
-import { Model, Schema } from 'mongoose';
+import { Model } from 'mongoose';
 import { ILogDocument } from '@/models/logs';
 import {
 	ICreateLogsRequest,
-	IUpdateLogsRequest,
 } from '@/validation/logs.validation';
-import { CollectionsEnum } from '@/enums/collections.enum';
-import { ActionsEnum } from '@/enums/actions.enum';
 
 export class LogsService {
 	constructor(private readonly logsModel: Model<ILogDocument>) {}

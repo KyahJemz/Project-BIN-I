@@ -1,91 +1,167 @@
-import { Model } from 'mongoose';
-import { IContactDetailsDocument } from '@/models/contactDetails';
-import {
-	ICreateContactDetailsRequest,
-	IUpdateContactDetailsRequest,
-} from '@/validation/contactDetails.validation';
+'use client';
 
-export class ContactDetailsService {
-	constructor(
-		private readonly contactDetailsModel: Model<IContactDetailsDocument>,
-	) {}
+import apiRoutes from '@/utils/apiRoutes';
+import { ICreateContactDetailsRequest, IUpdateContactDetailsRequest } from '@/validation/contactDetails.validation';
+import { useState } from 'react';
 
-	async createContactDetails(request: ICreateContactDetailsRequest) {
+export const useCreateContactDetailsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const createContactDetails = async (request: ICreateContactDetailsRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const contactDetails =
-				await this.contactDetailsModel.create(request);
-			if (!contactDetails) {
-				throw new Error('Contact Details creation failed');
+			const res = await fetch(`${apiRoutes.createContactDetails()}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to create contact details',
+				);
 			}
-			return contactDetails;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getContactDetailsById(id: string) {
+	};
+	return { createContactDetails, isLoading, error, response };
+}
+
+export const useGetContactDetailsByIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getContactDetailsById = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const contactDetails = await this.contactDetailsModel
-				.findOne({ _id: id, deletedAt: null })
-				.lean();
-			if (!contactDetails) {
-				throw new Error('No Contact Details found');
+			const res = await fetch(`${apiRoutes.getContactDetailsById(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get contact details',
+				);
 			}
-			return contactDetails;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getAllContactDetails() {
+	};
+	return { getContactDetailsById, isLoading, error, response };
+}
+
+export const useGetAllContactDetailsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAllContactDetails = async () => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const contactDetails = await this.contactDetailsModel
-				.find({ deletedAt: null })
-				.lean();
-			if (!contactDetails) {
-				throw new Error('No Contact Details found');
+			const res = await fetch(`${apiRoutes.getAllContactDetails()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get contact details',
+				);
 			}
-			return contactDetails;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async updateContactDetails(
-		id: string,
-		request: IUpdateContactDetailsRequest,
-	) {
+	};
+	return { getAllContactDetails, isLoading, error, response };
+}
+
+export const useUpdateContactDetailsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const updateContactDetails = async (id: string, request: IUpdateContactDetailsRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const contactDetails = await this.contactDetailsModel.findById(id);
-			if (!contactDetails) {
-				throw new Error('ContactDetails not found');
+			const res = await fetch(`${apiRoutes.updateContactDetails(id)}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to update contact details',
+				);
 			}
-			if (request.name !== undefined) {
-				contactDetails.name = request.name;
-			}
-			if (request.contactDetails !== undefined) {
-				contactDetails.contactDetails = request.contactDetails;
-			}
-			if (request.type !== undefined) {
-				contactDetails.type = request.type;
-			}
-			if (request.description !== undefined) {
-				contactDetails.description = request.description;
-			}
-			if (request.priorityIndex !== undefined) {
-				contactDetails.priorityIndex = +request.priorityIndex;
-			}
-			const updatedContactDetails = await contactDetails.save();
-			return updatedContactDetails.toObject();
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async deleteContactDetails(id: string) {
-		const contactDetails = await this.contactDetailsModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
+	};
+	return { updateContactDetails, isLoading, error, response };
+}
+
+export const useDeleteContactDetailsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const deleteContactDetails = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			return contactDetails;
-		} catch (error) {
-			throw error;
+			const res = await fetch(`${apiRoutes.deleteContactDetails(id)}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to delete contact details',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
+	return { deleteContactDetails, isLoading, error, response };
 }

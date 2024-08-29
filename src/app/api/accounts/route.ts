@@ -1,5 +1,6 @@
 import AccountModel from '@/models/accounts';
 import { AccountService } from '@/services/accounts.service';
+import { LogsService } from '@/services/logs.service';
 import { ErrorResponses } from '@/utils/errorResponses';
 import { MongoDbConnect } from '@/utils/mongodb';
 import {

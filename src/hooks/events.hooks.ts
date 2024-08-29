@@ -1,92 +1,167 @@
-import { Model } from 'mongoose';
-import { IEventDocument } from '@/models/events';
-import {
-	ICreateEventRequest,
-	IUpdateEventRequest,
-} from '@/validation/events.validation';
-import { EventStatusEnum } from '@/enums/eventStatus.enum';
+'use client';
 
-export class EventService {
-	constructor(private readonly eventModel: Model<IEventDocument>) {}
+import apiRoutes from '@/utils/apiRoutes';
+import { ICreateEventRequest, IUpdateEventRequest } from '@/validation/events.validation';
+import { useState } from 'react';
 
-	async createEvent(request: ICreateEventRequest) {
+export const useCreateEventHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const createEvent = async (request: ICreateEventRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const event = await this.eventModel.create(request);
-			if (!event) {
-				throw new Error('Event creation failed');
+			const res = await fetch(`${apiRoutes.createEvent()}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to create event',
+				);
 			}
-			return event;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getEventById(id: string) {
+	};
+	return { createEvent, isLoading, error, response };
+}
+
+export const useGetEventByIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getEventById = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const event = await this.eventModel
-				.findOne({ _id: id, deletedAt: null })
-				.lean();
-			if (!event) {
-				throw new Error('No event found');
+			const res = await fetch(`${apiRoutes.getEventById(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get event',
+				);
 			}
-			return event;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getAllEvent() {
+	};
+	return { getEventById, isLoading, error, response };
+}
+
+export const useGetAllEventsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAllEvents = async () => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const event = await this.eventModel
-				.find({ deletedAt: null })
-				.lean();
-			if (!event) {
-				throw new Error('No events found');
+			const res = await fetch(`${apiRoutes.getAllEvents()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get events',
+				);
 			}
-			return event;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async updateEvent(id: string, request: IUpdateEventRequest) {
+	};
+	return { getAllEvents, isLoading, error, response };
+}
+
+export const useUpdateEventHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const updateEvent = async (id: string, request: IUpdateEventRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const event = await this.eventModel.findById(id);
-			if (!event) {
-				throw new Error('Event not found');
+			const res = await fetch(`${apiRoutes.updateEvent(id)}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to update event',
+				);
 			}
-			if (request.title !== undefined) {
-				event.title = request.title;
-			}
-			if (request.author !== undefined) {
-				event.author = request.author;
-			}
-			if (request.content !== undefined) {
-				event.content = request.content;
-			}
-			if (request.image !== undefined) {
-				event.image = request.image;
-			}
-			if (request.eventDate !== undefined) {
-				event.eventDate = new Date(request.eventDate);
-			}
-			if (request.eventTime !== undefined) {
-				event.eventTime = request.eventTime;
-			}
-			if (request.status !== undefined) {
-				event.status = request.status as EventStatusEnum;
-			}
-			const updatedEvent = await event.save();
-			return updatedEvent.toObject();
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async deleteEvent(id: string) {
-		const event = await this.eventModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
+	};
+	return { updateEvent, isLoading, error, response };
+}
+
+export const useDeleteEventHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const deleteEvent = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			return event;
-		} catch (error) {
-			throw error;
+			const res = await fetch(`${apiRoutes.deleteEvent(id)}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to delete event',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
+	return { deleteEvent, isLoading, error, response };
 }

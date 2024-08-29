@@ -4,8 +4,22 @@ import {
 	ICreateNewsRequest,
 	IUpdateNewsRequest,
 } from '@/validation/news.validation';
+import LogsModel from '@/models/logs';
+import { LogsService } from './logs.service';
+import { ICreateLogsRequest } from '@/validation/logs.validation';
+import { CollectionsEnum } from '@/enums/collections.enum';
+import { ActionsEnum } from '@/enums/actions.enum';
 export class NewsService {
-	constructor(private readonly newsModel: Model<INewsDocument>) {}
+	private readonly logsService: LogsService;
+	constructor(private readonly newsModel: Model<INewsDocument>,		
+		logsService: LogsService = new LogsService(LogsModel)
+	) {
+		this.logsService = logsService;
+	}
+
+	private async createLogs(request: ICreateLogsRequest) {
+		return await this.logsService.createLogs(request);
+	}
 
 	async createNews(request: ICreateNewsRequest) {
 		try {
@@ -13,6 +27,12 @@ export class NewsService {
 			if (!news) {
 				throw new Error('News creation failed');
 			}
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.News,
+				action: ActionsEnum.Create,
+				action_id: (news._id || "").toString(),
+			})
 			return news;
 		} catch (error) {
 			throw error;
@@ -61,16 +81,26 @@ export class NewsService {
 				news.image = request.image;
 			}
 			const updatedNews = await news.save();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.News,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+			})
 			return updatedNews.toObject();
 		} catch (error) {
 			throw error;
 		}
 	}
 	async deleteNews(id: string) {
-		const news = await this.newsModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
 		try {
+			const news = await this.newsModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.News,
+				action: ActionsEnum.Delete,
+				action_id: (id || "").toString(),
+			})
 			return news;
 		} catch (error) {
 			throw error;

@@ -1,85 +1,167 @@
-import { Model, Schema } from 'mongoose';
-import { IScheduleDocument } from '@/models/schedules';
-import {
-	ICreateScheduleRequest,
-	IUpdateScheduleRequest,
-} from '@/validation/schedule.validation';
+'use client';
 
-export class ScheduleService {
-	constructor(private readonly scheduleModel: Model<IScheduleDocument>) {}
+import apiRoutes from '@/utils/apiRoutes';
+import { ICreateScheduleRequest, IUpdateScheduleRequest } from '@/validation/schedule.validation';
+import { useState } from 'react';
 
-	async createSchedule(request: ICreateScheduleRequest) {
+export const useCreateScheduleHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const createSchedule = async (request: ICreateScheduleRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const schedule = await this.scheduleModel.create(request);
-			if (!schedule) {
-				throw new Error('Schedule creation failed');
+			const res = await fetch(`${apiRoutes.createSchedule()}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to create schedule',
+				);
 			}
-			return schedule;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getScheduleById(id: string) {
+	};
+	return { createSchedule, isLoading, error, response };
+}
+
+export const useGetScheduleByIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getScheduleById = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const schedule = await this.scheduleModel
-				.findOne({ _id: id, deletedAt: null })
-				.lean();
-			if (!schedule) {
-				throw new Error('No schedule found');
+			const res = await fetch(`${apiRoutes.getScheduleById(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get schedule',
+				);
 			}
-			return schedule;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getAllSchedules() {
+	};
+	return { getScheduleById, isLoading, error, response };
+}
+
+export const useGetAllSchedulesHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAllSchedules = async () => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const schedule = await this.scheduleModel
-				.find({ deletedAt: null })
-				.lean();
-			if (!schedule) {
-				throw new Error('No schedules found');
+			const res = await fetch(`${apiRoutes.getAllSchedules()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get schedules',
+				);
 			}
-			return schedule;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async updateSchedule(id: string, request: IUpdateScheduleRequest) {
+	};
+	return { getAllSchedules, isLoading, error, response };
+}
+
+export const useUpdateScheduleHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const updateSchedule = async (id: string, request: IUpdateScheduleRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const schedule = await this.scheduleModel.findById(id);
-			if (!schedule) {
-				throw new Error('Schedule not found');
+			const res = await fetch(`${apiRoutes.updateSchedule(id)}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to update schedule',
+				);
 			}
-			if (request.schedule !== undefined) {
-				schedule.schedule = request.schedule;
-			}
-			if (request.scheduleLocation !== undefined) {
-				schedule.scheduleLocation = request.scheduleLocation;
-			}
-			if (request.wasteType !== undefined) {
-				schedule.wasteType = request.wasteType;
-			}
-			if (request.status !== undefined) {
-				schedule.status = request.status;
-			}
-			if (request.notes !== undefined) {
-				schedule.notes = request.notes;
-			}
-			const updatedSchedule = await schedule.save();
-			return updatedSchedule.toObject();
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async deleteSchedule(id: string) {
-		const schedule = await this.scheduleModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
+	};
+	return { updateSchedule, isLoading, error, response };
+}
+
+export const useDeleteScheduleHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const deleteSchedule = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			return schedule;
-		} catch (error) {
-			throw error;
+			const res = await fetch(`${apiRoutes.deleteSchedule(id)}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to delete schedule',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
+	return { deleteSchedule, isLoading, error, response };
 }

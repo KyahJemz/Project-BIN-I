@@ -1,79 +1,167 @@
-import { Model } from 'mongoose';
-import { INewsDocument } from '@/models/news';
-import {
-	ICreateNewsRequest,
-	IUpdateNewsRequest,
-} from '@/validation/news.validation';
-export class NewsService {
-	constructor(private readonly newsModel: Model<INewsDocument>) {}
+'use client';
 
-	async createNews(request: ICreateNewsRequest) {
+import apiRoutes from '@/utils/apiRoutes';
+import { ICreateNewsRequest, IUpdateNewsRequest } from '@/validation/news.validation';
+import { useState } from 'react';
+
+export const useCreateNewsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const createNews = async (request: ICreateNewsRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const news = await this.newsModel.create(request);
-			if (!news) {
-				throw new Error('News creation failed');
+			const res = await fetch(`${apiRoutes.createNews()}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to create news',
+				);
 			}
-			return news;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getNewsById(id: string) {
+	};
+	return { createNews, isLoading, error, response };
+}
+
+export const useGetNewsByIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getNewsById = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const news = await this.newsModel
-				.findOne({ _id: id, deletedAt: null })
-				.lean();
-			if (!news) {
-				throw new Error('No news found');
+			const res = await fetch(`${apiRoutes.getNewsById(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get news',
+				);
 			}
-			return news;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getAllNews() {
+	};
+	return { getNewsById, isLoading, error, response };
+}
+
+export const useGetAllNewsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAllNews = async () => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const news = await this.newsModel.find({ deletedAt: null }).lean();
-			if (!news) {
-				throw new Error('No news found');
+			const res = await fetch(`${apiRoutes.getAllNews()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get news',
+				);
 			}
-			return news;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async updateNews(id: string, request: IUpdateNewsRequest) {
+	};
+	return { getAllNews, isLoading, error, response };
+}
+
+export const useUpdateNewsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const updateNews = async (id: string, request: IUpdateNewsRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const news = await this.newsModel.findById(id);
-			if (!news) {
-				throw new Error('News not found');
+			const res = await fetch(`${apiRoutes.updateNews(id)}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to update news',
+				);
 			}
-			if (request.title !== undefined) {
-				news.title = request.title;
-			}
-			if (request.author !== undefined) {
-				news.author = request.author;
-			}
-			if (request.content !== undefined) {
-				news.content = request.content;
-			}
-			if (request.image !== undefined) {
-				news.image = request.image;
-			}
-			const updatedNews = await news.save();
-			return updatedNews.toObject();
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async deleteNews(id: string) {
-		const news = await this.newsModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
+	};
+	return { updateNews, isLoading, error, response };
+}
+
+export const useDeleteNewsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const deleteNews = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			return news;
-		} catch (error) {
-			throw error;
+			const res = await fetch(`${apiRoutes.deleteNews(id)}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to delete news',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
+	return { deleteNews, isLoading, error, response };
 }

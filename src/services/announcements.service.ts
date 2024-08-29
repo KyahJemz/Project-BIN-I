@@ -4,11 +4,24 @@ import {
 	ICreateAnnouncementRequest,
 	IUpdateAnnouncementRequest,
 } from '@/validation/announcements.validation';
+import LogsModel from '@/models/logs';
+import { LogsService } from './logs.service';
+import { CollectionsEnum } from '@/enums/collections.enum';
+import { ActionsEnum } from '@/enums/actions.enum';
+import { ICreateLogsRequest } from '@/validation/logs.validation';
 
 export class AnnouncementService {
+	private readonly logsService: LogsService;
 	constructor(
 		private readonly announcementModel: Model<IAnnouncementDocument>,
-	) {}
+		logsService: LogsService = new LogsService(LogsModel)
+	) {
+		this.logsService = logsService;
+	}
+
+	private async createLogs(request: ICreateLogsRequest) {
+		return await this.logsService.createLogs(request);
+	}
 
 	async createAnnouncement(request: ICreateAnnouncementRequest) {
 		try {
@@ -16,6 +29,12 @@ export class AnnouncementService {
 			if (!announcement) {
 				throw new Error('announcement creation failed');
 			}
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Announcements,
+				action: ActionsEnum.Create,
+				action_id: (announcement._id || "").toString(),
+			})
 			return announcement;
 		} catch (error) {
 			throw error;
@@ -66,16 +85,26 @@ export class AnnouncementService {
 				announcement.image = request.image;
 			}
 			const updatedAnnouncement = await announcement.save();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Announcements,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+			})
 			return updatedAnnouncement.toObject();
 		} catch (error) {
 			throw error;
 		}
 	}
 	async deleteAnnouncement(id: string) {
-		const announcement = await this.announcementModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
 		try {
+			const announcement = await this.announcementModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Announcements,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+			})
 			return announcement;
 		} catch (error) {
 			throw error;

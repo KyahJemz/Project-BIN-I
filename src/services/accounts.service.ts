@@ -7,16 +7,37 @@ import {
 } from '@/validation/accounts.validation';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { LogsService } from './logs.service';
+import LogsModel from '@/models/logs';
+import { ICreateLogsRequest } from '@/validation/logs.validation';
+import { ActionsEnum } from '@/enums/actions.enum';
+import { CollectionsEnum } from '@/enums/collections.enum';
 
 export class AccountService {
-	constructor(private readonly accountModel: Model<IAccountDocument>) {}
+	private readonly logsService: LogsService;
+	constructor(
+		private readonly accountModel: Model<IAccountDocument>,
+		logsService: LogsService = new LogsService(LogsModel)
+	) {
+		this.logsService = logsService;
+	}
+
+	private async createLogs(request: ICreateLogsRequest) {
+		return await this.logsService.createLogs(request);
+	}
 
 	async createAccount(request: ICreateAccountRequest) {
 		try {
-			const account = await this.accountModel.create(request);
+			const account: IAccountDocument = await this.accountModel.create(request);
 			if (!account) {
 				throw new Error('Account creation failed');
 			}
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Accounts,
+				action: ActionsEnum.Create,
+				action_id: (account._id || "").toString(),
+			})
 			return account;
 		} catch (error) {
 			throw error;
@@ -76,6 +97,12 @@ export class AccountService {
 				account.password = request.password;
 			}
 			const updatedAccount = await account.save();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Accounts,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+			})
 			return updatedAccount.toObject();
 		} catch (error) {
 			throw error;
@@ -106,16 +133,26 @@ export class AccountService {
 			}
 			account.password = password;
 			const updatedAccount = await account.save();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Accounts,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+			})
 			return updatedAccount.toObject();
 		} catch (error) {
 			throw error;
 		}
 	}
 	async deleteAccount(id: string) {
-		const account = await this.accountModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
 		try {
+			const account = await this.accountModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.Accounts,
+				action: ActionsEnum.Delete,
+				action_id: (id || "").toString(),
+			})
 			return account;
 		} catch (error) {
 			throw error;

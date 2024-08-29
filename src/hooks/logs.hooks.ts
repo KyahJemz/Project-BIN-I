@@ -1,46 +1,68 @@
-import { Model, Schema } from 'mongoose';
-import { ILogDocument } from '@/models/logs';
-import {
-	ICreateLogsRequest,
-	IUpdateLogsRequest,
-} from '@/validation/logs.validation';
-import { CollectionsEnum } from '@/enums/collections.enum';
-import { ActionsEnum } from '@/enums/actions.enum';
+'use client';
 
-export class LogsService {
-	constructor(private readonly logsModel: Model<ILogDocument>) {}
+import apiRoutes from '@/utils/apiRoutes';
+import { useState } from 'react';
 
-	async createLogs(request: ICreateLogsRequest) {
+export const useGetLogByIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getLogById = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const logs = await this.logsModel.create(request);
-			if (!logs) {
-				throw new Error('Logs creation failed');
+			const res = await fetch(`${apiRoutes.getLogById(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get logs',
+				);
 			}
-			return logs;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getLogsById(id: string) {
+	};
+	return { getLogById, isLoading, error, response };
+}
+
+export const useGetAllLogsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAllLogs = async () => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const logs = await this.logsModel.findOne({ _id: id }).lean();
-			if (!logs) {
-				throw new Error('No log found');
+			const res = await fetch(`${apiRoutes.getAllLogs()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get events',
+				);
 			}
-			return logs;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getAllLogs() {
-		try {
-			const logs = await this.logsModel.find().lean();
-			if (!logs) {
-				throw new Error('No logs found');
-			}
-			return logs;
-		} catch (error) {
-			throw error;
-		}
-	}
+	};
+	return { getAllLogs, isLoading, error, response };
 }

@@ -1,3 +1,4 @@
+// @ts-nocheck
 import Marker from '@editorjs/marker';
 import InlineCode from '@editorjs/inline-code';
 import Underline from '@editorjs/underline';

@@ -4,11 +4,24 @@ import {
 	ICreateContactDetailsRequest,
 	IUpdateContactDetailsRequest,
 } from '@/validation/contactDetails.validation';
+import LogsModel from '@/models/logs';
+import { LogsService } from './logs.service';
+import { ICreateLogsRequest } from '@/validation/logs.validation';
+import { ActionsEnum } from '@/enums/actions.enum';
+import { CollectionsEnum } from '@/enums/collections.enum';
 
 export class ContactDetailsService {
+	private readonly logsService: LogsService;
 	constructor(
 		private readonly contactDetailsModel: Model<IContactDetailsDocument>,
-	) {}
+		logsService: LogsService = new LogsService(LogsModel)
+	) {
+		this.logsService = logsService;
+	}
+
+	private async createLogs(request: ICreateLogsRequest) {
+		return await this.logsService.createLogs(request);
+	}
 
 	async createContactDetails(request: ICreateContactDetailsRequest) {
 		try {
@@ -17,6 +30,12 @@ export class ContactDetailsService {
 			if (!contactDetails) {
 				throw new Error('Contact Details creation failed');
 			}
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.ContactDetails,
+				action: ActionsEnum.Create,
+				action_id: (contactDetails._id || "").toString(),
+			})
 			return contactDetails;
 		} catch (error) {
 			throw error;
@@ -73,16 +92,26 @@ export class ContactDetailsService {
 				contactDetails.priorityIndex = +request.priorityIndex;
 			}
 			const updatedContactDetails = await contactDetails.save();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.ContactDetails,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+			})
 			return updatedContactDetails.toObject();
 		} catch (error) {
 			throw error;
 		}
 	}
 	async deleteContactDetails(id: string) {
-		const contactDetails = await this.contactDetailsModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
 		try {
+			const contactDetails = await this.contactDetailsModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
+			await this.createLogs({
+				account_id: "ADMIN_ACCOUNT",
+				actionCollection: CollectionsEnum.ContactDetails,
+				action: ActionsEnum.Delete,
+				action_id: (id || "").toString(),
+			})
 			return contactDetails;
 		} catch (error) {
 			throw error;

@@ -1,84 +1,167 @@
-import { Model } from 'mongoose';
-import { IAnnouncementDocument } from '@/models/announcements';
-import {
-	ICreateAnnouncementRequest,
-	IUpdateAnnouncementRequest,
-} from '@/validation/announcements.validation';
+'use client';
 
-export class AnnouncementService {
-	constructor(
-		private readonly announcementModel: Model<IAnnouncementDocument>,
-	) {}
+import apiRoutes from '@/utils/apiRoutes';
+import { ICreateAnnouncementRequest, IUpdateAnnouncementRequest } from '@/validation/announcements.validation';
+import { useState } from 'react';
 
-	async createAnnouncement(request: ICreateAnnouncementRequest) {
+export const useCreateAnnouncementHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const createAnnouncement = async (request: ICreateAnnouncementRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const announcement = await this.announcementModel.create(request);
-			if (!announcement) {
-				throw new Error('announcement creation failed');
+			const res = await fetch(`${apiRoutes.createAnnouncement()}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to create announcement',
+				);
 			}
-			return announcement;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getAnnouncementById(id: string) {
+	};
+	return { createAnnouncement, isLoading, error, response };
+}
+
+export const useGetAnnouncementByIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAnnouncementById = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const announcement = await this.announcementModel
-				.findOne({ _id: id, deletedAt: null })
-				.lean();
-			if (!announcement) {
-				throw new Error('No announcement found');
+			const res = await fetch(`${apiRoutes.getAnnouncementById(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get announcement',
+				);
 			}
-			return announcement;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async getAllAnnouncements() {
+	};
+	return { getAnnouncementById, isLoading, error, response };
+}
+
+export const useGetAllAnnouncementsHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAllAnnouncements = async () => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const announcement = await this.announcementModel
-				.find({ deletedAt: null })
-				.lean();
-			if (!announcement) {
-				throw new Error('No announcement found');
+			const res = await fetch(`${apiRoutes.getAllAnnouncements()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get announcements',
+				);
 			}
-			return announcement;
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async updateAnnouncement(id: string, request: IUpdateAnnouncementRequest) {
+	};
+	return { getAllAnnouncements, isLoading, error, response };
+}
+
+export const useUpdateAnnouncementHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const updateAnnouncement = async (id: string, request: IUpdateAnnouncementRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const announcement = await this.announcementModel.findById(id);
-			if (!announcement) {
-				throw new Error('Announcement not found');
+			const res = await fetch(`${apiRoutes.updateAnnouncement(id)}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to update announcements',
+				);
 			}
-			if (request.title !== undefined) {
-				announcement.title = request.title;
-			}
-			if (request.author !== undefined) {
-				announcement.author = request.author;
-			}
-			if (request.content !== undefined) {
-				announcement.content = request.content;
-			}
-			if (request.image !== undefined) {
-				announcement.image = request.image;
-			}
-			const updatedAnnouncement = await announcement.save();
-			return updatedAnnouncement.toObject();
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async deleteAnnouncement(id: string) {
-		const announcement = await this.announcementModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
+	};
+	return { updateAnnouncement, isLoading, error, response };
+}
+
+export const useDeleteAnnouncementHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const deleteAnnouncement = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			return announcement;
-		} catch (error) {
-			throw error;
+			const res = await fetch(`${apiRoutes.deleteAnnouncement(id)}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to delete announcements',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
+	return { deleteAnnouncement, isLoading, error, response };
 }

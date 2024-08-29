@@ -1,103 +1,199 @@
-import { Model, Schema } from 'mongoose';
-import { IRoutesDocument } from '@/models/routes';
-import {
-	ICreateRoutesRequest,
-	IUpdateRoutesRequest,
-} from '@/validation/routes.validation';
-import { RouteStatusEnum } from '@/enums/routeStatus.enum';
-export class RoutesService {
-	constructor(private readonly routesModel: Model<IRoutesDocument>) {}
+'use client';
 
-	async createRoute(request: ICreateRoutesRequest) {
+import apiRoutes from '@/utils/apiRoutes';
+import { ICreateRoutesRequest, IUpdateRoutesRequest } from '@/validation/routes.validation';
+import { useState } from 'react';
+
+export const useCreateRouteHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const createRoute = async (request: ICreateRoutesRequest) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			const routes = await this.routesModel.create(request);
-			if (!routes) {
-				throw new Error('Routes creation failed');
-			}
-			return routes;
-		} catch (error) {
-			throw error;
-		}
-	}
-	async getRouteById(id: string) {
-		try {
-			const routes = await this.routesModel
-				.findOne({ _id: id, deletedAt: null })
-				.lean();
-			if (!routes) {
-				throw new Error('No routes found');
-			}
-			return routes;
-		} catch (error) {
-			throw error;
-		}
-	}
-	async getAllRoutes() {
-		try {
-			const routes = await this.routesModel
-				.find({ deletedAt: null })
-				.lean();
-			if (!routes) {
-				throw new Error('No routes found');
-			}
-			return routes;
-		} catch (error) {
-			throw error;
-		}
-	}
-	async getRouteByScheduleId(id: string) {
-		try {
-			const routes = await this.routesModel
-				.findOne({ schedule_id: id, deletedAt: null })
-				.lean();
-			if (!routes) {
-				throw new Error('No routes found');
-			}
-			return routes;
-		} catch (error) {
-			throw error;
-		}
-	}
-	async updateRoute(id: string, request: IUpdateRoutesRequest) {
-		try {
-			const routes = await this.routesModel.findById(id);
-			if (!routes) {
-				throw new Error('Routes not found');
-			}
-			if (request.schedule_id !== undefined) {
-				routes.schedule_id = new Schema.Types.ObjectId(
-					request.schedule_id,
+			const res = await fetch(`${apiRoutes.createRoute()}`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to create route',
 				);
 			}
-			if (request.routeName !== undefined) {
-				routes.routeName = request.routeName;
-			}
-			if (request.pickupPoints !== undefined) {
-				routes.pickupPoints = request.pickupPoints;
-			}
-			if (request.description !== undefined) {
-				routes.description = request.description;
-			}
-			if (request.status !== undefined) {
-				routes.status = request.status as RouteStatusEnum;
-			}
-			if (request.notes !== undefined) {
-				routes.notes = request.notes;
-			}
-			const updatedRoutes = await routes.save();
-			return updatedRoutes.toObject();
-		} catch (error) {
-			throw error;
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
-	async deleteRoute(id: string) {
-		const routes = await this.routesModel
-			.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
-			.lean();
+	};
+	return { createRoute, isLoading, error, response };
+}
+
+export const useGetRouteByIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getRouteById = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
 		try {
-			return routes;
-		} catch (error) {
-			throw error;
+			const res = await fetch(`${apiRoutes.getRouteById(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get route',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
 		}
-	}
+	};
+	return { getRouteById, isLoading, error, response };
+}
+
+export const useGetAllRoutesHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getAllRoutes = async () => {
+		setIsLoading(true);
+		setError(null);
+		try {
+			const res = await fetch(`${apiRoutes.getAllRoutes()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get routes',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return { getAllRoutes, isLoading, error, response };
+}
+
+export const useGetRouteByScheduleIdHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const getRouteByScheduleId = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
+		try {
+			const res = await fetch(`${apiRoutes.getRouteByScheduleId(id)}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to get routes',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return { getRouteByScheduleId, isLoading, error, response };
+}
+
+export const useUpdateRouteHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const updateRoute = async (id: string, request: IUpdateRoutesRequest) => {
+		setIsLoading(true);
+		setError(null);
+		try {
+			const res = await fetch(`${apiRoutes.updateRoute(id)}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to update route',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return { updateRoute, isLoading, error, response };
+}
+
+export const useDeleteRouteHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+	const deleteRoute = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
+		try {
+			const res = await fetch(`${apiRoutes.deleteRoute(id)}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to delete route',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return { deleteRoute, isLoading, error, response };
 }
