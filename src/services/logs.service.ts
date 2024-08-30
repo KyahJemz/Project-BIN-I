@@ -1,4 +1,4 @@
-import { Model } from 'mongoose';
+import { Model, Schema } from 'mongoose';
 import { ILogDocument } from '@/models/logs';
 import {
 	ICreateLogsRequest,
@@ -9,7 +9,12 @@ export class LogsService {
 
 	async createLogs(request: ICreateLogsRequest) {
 		try {
-			const logs = await this.logsModel.create(request);
+			const parsedRequest = {
+				...request,
+				account_id: '66cedc33c4dcd2eafbe55f6e',
+				action_id: request.action_id,
+			}
+			const logs = await this.logsModel.create(parsedRequest);
 			if (!logs) {
 				throw new Error('Logs creation failed');
 			}

@@ -1,5 +1,5 @@
 import { INews } from '@/types/INews.dto';
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 export interface INewsDocument extends INews, Document {}
 
@@ -32,6 +32,8 @@ const newsSchema: Schema<INewsDocument> = new Schema(
 	},
 );
 
-const NewsModel = mongoose.model<INewsDocument>('News', newsSchema);
+const NewsModel =
+	mongoose.models.News ||
+	mongoose.model<INewsDocument>('News', newsSchema);
 
 export default NewsModel;

@@ -1,5 +1,5 @@
 import { ISchedule } from '@/types/ISchedule.dto';
-import mongoose, { Schema } from 'mongoose';
+import mongoose, { Schema, Document } from 'mongoose';
 
 export interface IScheduleDocument extends ISchedule, Document {}
 
@@ -36,9 +36,8 @@ const schedulesSchema: Schema<IScheduleDocument> = new Schema(
 	},
 );
 
-const SchedulesModel = mongoose.model<IScheduleDocument>(
-	'Schedule',
-	schedulesSchema,
-);
+const SchedulesModel =
+	mongoose.models.Schedule ||
+	mongoose.model<IScheduleDocument>('Schedule', schedulesSchema);
 
 export default SchedulesModel;

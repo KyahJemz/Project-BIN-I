@@ -10,9 +10,9 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new announcement
 export async function POST(req: NextRequest) {
-	const announcementService = new AnnouncementService(AnnouncementsModel);
 	try {
 		await MongoDbConnect();
+		const announcementService = new AnnouncementService(AnnouncementsModel);
 		const parsedRequest = CreateAnnouncementRequestSchema.parse(
 			await req.json(),
 		);

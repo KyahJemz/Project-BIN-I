@@ -32,6 +32,8 @@ const logsSchema: Schema<ILogDocument> = new Schema(
 	},
 );
 
-const LogsModel = mongoose.model<ILogDocument>('Logs', logsSchema);
+const LogsModel =
+	mongoose.models.Logs ||
+	mongoose.model<ILogDocument>('Logs', logsSchema);
 
 export default LogsModel;

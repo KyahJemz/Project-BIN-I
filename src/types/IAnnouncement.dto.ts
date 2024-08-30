@@ -3,4 +3,5 @@ export interface IAnnouncement {
 	author: string;
 	content: string;
 	image: string;
+	deletedAt?: Date | null;
 }

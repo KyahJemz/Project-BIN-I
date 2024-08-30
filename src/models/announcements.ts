@@ -21,6 +21,10 @@ const announcementsSchema: Schema<IAnnouncementDocument> = new Schema(
 			type: String,
 			required: true,
 		},
+		deletedAt: {
+			type: Date,
+			default: null,
+		}
 	},
 	{
 		timestamps: true,
@@ -28,9 +32,8 @@ const announcementsSchema: Schema<IAnnouncementDocument> = new Schema(
 	},
 );
 
-const AnnouncementsModel = mongoose.model<IAnnouncementDocument>(
-	'Announcement',
-	announcementsSchema,
-);
+const AnnouncementsModel =
+	mongoose.models.Announcement ||
+	mongoose.model<IAnnouncementDocument>('Announcement', announcementsSchema);
 
 export default AnnouncementsModel;

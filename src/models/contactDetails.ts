@@ -36,9 +36,8 @@ const contactDetailsSchema: Schema<IContactDetailsDocument> = new Schema(
 	},
 );
 
-const ContactDetailsModel = mongoose.model<IContactDetailsDocument>(
-	'ContactDetail',
-	contactDetailsSchema,
-);
+const ContactDetailsModel =
+	mongoose.models.ContactDetail ||
+	mongoose.model<IContactDetailsDocument>('ContactDetail', contactDetailsSchema);
 
 export default ContactDetailsModel;
