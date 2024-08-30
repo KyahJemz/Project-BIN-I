@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import EditorJS, { OutputData } from "@editorjs/editorjs";
+import EditorJS from "@editorjs/editorjs";
 import { EDITOR_TOOLS } from "./EditorTools";
 import { useEditorStore } from '@/stores/useEditorStore';
 
@@ -16,10 +16,10 @@ export default function Editor({ holder }: EditorProps) {
       const editor = new EditorJS({
         holder: holder,
         tools: EDITOR_TOOLS,
-        data: editorData,  // Use Zustand's state
+        data: editorData,
         async onChange(api) {
           const data = await api.saver.save();
-          setEditorData(data);  // Update Zustand's state
+          setEditorData(data);
         },
       });
       ref.current = editor;

@@ -128,7 +128,7 @@ export default function HomePage({
 		<div className="min-h-screen">
 
     {/* Header */}
-    <Header headerItems={headerItems} headerTitle={headerTitle} headerButton={headerButton}/>
+    {/* <Header headerItems={headerItems} headerTitle={headerTitle} headerButton={headerButton}/> */}
 
     {/* Hero Section */}
     <section className="bg-sky-blue text-dark-gray py-20 text-center">
@@ -244,15 +244,6 @@ export default function HomePage({
             </div>
         </div>
     </section>
-
-    {/* Footer */}
-    <footer className="bg-forest-green text-white py-4">
-        <div className="container mx-auto text-center">
-            <p>
-                © 2024 BIN-I: INFORMATIVE WASTE MANAGEMENT PORTAL FOR CAVITE CITY. All Rights Reserved.
-            </p>
-        </div>
-    </footer>
 </div>
 	);
 }

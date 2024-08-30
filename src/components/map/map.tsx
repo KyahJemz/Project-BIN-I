@@ -32,9 +32,9 @@ function ClickHandler({
 
 const customIcon = L.icon({
 	iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // Example URL, replace with your icon URL
-	iconSize: [38, 38], // Size of the icon
-	iconAnchor: [19, 38], // Point of the icon which will correspond to marker's location
-	popupAnchor: [0, -38], // Point from which the popup should open relative to the iconAnchor
+	iconSize: [38, 38],
+	iconAnchor: [19, 38],
+	popupAnchor: [0, -38],
 });
 
 export default function MyMap(props: any) {

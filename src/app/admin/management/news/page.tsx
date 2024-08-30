@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { useState } from 'react';
 import PreviewRenderer from '@/components/EditorJs/PreviewRenderer';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
@@ -21,7 +20,7 @@ export default function EditorPage() {
 				<h1>Preview</h1>
 				<div className="border rounded-md">
 					<div className="p-16">
-						<PreviewRenderer  />
+						<PreviewRenderer data={null}/>
 					</div>
 				</div>
 			</div>

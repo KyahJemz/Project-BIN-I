@@ -1,5 +1,6 @@
 'use client';
 
+import PreviewRenderer from '@/components/EditorJs/PreviewRenderer';
 import {
 	useCreateAnnouncementHook,
 	useGetAllAnnouncementsHook,
@@ -7,17 +8,17 @@ import {
 	useUpdateAnnouncementHook,
 	useDeleteAnnouncementHook,
 } from '@/hooks/announcements.hooks';
-import { OutputData } from '@editorjs/editorjs';
+import { useEditorStore } from '@/stores/useEditorStore';
 import dynamic from 'next/dynamic';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
+	ssr: false,
+});
 
 
 const AnnouncementsManagement = () => {
 
-	const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
-		ssr: false,
-	});
-	
 	const {
 		createAnnouncement,
 		isLoading: isCreating,
@@ -57,13 +58,25 @@ const AnnouncementsManagement = () => {
 	});
 	const [announcementId, setAnnouncementId] = useState('');
 	const [updateAnnouncementData, setUpdateAnnouncementData] = useState({ ...announcementData });
-	const [editorJsData, setEditorJsData] = useState<OutputData | null>(null);
+	const { editorData, setEditorData } = useEditorStore();
 
 	useEffect(() => {
-		if (editorJsData) {
-		  setAnnouncementData(prevData => ({ ...prevData, content: JSON.stringify(editorJsData) }));
+		if (editorData) {
+		  setAnnouncementData(prevData => ({ ...prevData, content: JSON.stringify(editorData) }));
 		}
-	  }, [editorJsData]);
+	  }, [editorData]);
+
+
+	  
+	// const onUpdateHandler = () => {
+	// 	setAnnouncementData({ ...announcementData, content: editorData })
+	// };
+
+	// const onCreateHandler = () => {
+	// 	setAnnouncementData({ ...announcementData, content: editorData })
+	// 	createAnnouncement(announcementData);
+	// 	setEditorData(null);
+	// };
 
 	return (
 		<div>
@@ -89,11 +102,7 @@ const AnnouncementsManagement = () => {
 			<div className="col-span-1">
 				<h1>Editor</h1>
 				<div className="border rounded-md">
-					<Editor
-						data={editorJsData}
-						onChange={setEditorJsData}
-						holder="editorjs-container"
-					/>
+					<Editor holder="editorjs-container"/>
 				</div>
 			</div>
 			<input
@@ -130,7 +139,18 @@ const AnnouncementsManagement = () => {
 			</button>
 			{getByIdError && <p>Error: {getByIdError}</p>}
 			{getByIdResponse && (
-				<p>Announcement Data: {JSON.stringify(getByIdResponse)}</p>
+				<>
+					<p>Announcement Data: {JSON.stringify(getByIdResponse)}</p>
+					<div className="col-span-1">
+					<h1>Preview</h1>
+					<div className="border rounded-md">
+						<div className="p-16">
+							{console.log('parsing this ssssssss:', JSON.parse(getByIdResponse.content).blocks)}
+							<PreviewRenderer data={JSON.parse(getByIdResponse.content).blocks}/>
+						</div>
+					</div>
+					</div>
+				</>
 			)}
 
 			<br />
