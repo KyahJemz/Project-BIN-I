@@ -15,7 +15,7 @@ const routesSchema: Schema<IRoutesDocument> = new Schema(
 			required: true,
 		},
 		pickupPoints: {
-			type: [{ lat: Number, lng: Number }],
+			type: [Number],
 			required: true,
 		},
 		description: {
@@ -43,7 +43,7 @@ const routesSchema: Schema<IRoutesDocument> = new Schema(
 );
 
 const RoutesModel =
-	mongoose.models.Route ||
-	mongoose.model<IRoutesDocument>('Route', routesSchema);
+	mongoose.models.Routes ||
+	mongoose.model<IRoutesDocument>('Routes', routesSchema);
 
 export default RoutesModel;

@@ -13,6 +13,7 @@ import 'leaflet-defaulticon-compatibility';
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css';
 import L, { LatLngExpression } from 'leaflet';
 import { useState } from 'react';
+import { defaultPosition, defaultZoom, routeColors, routeColorsWeight } from '@/app/constants';
 
 function ClickHandler({
 	setPosition,
@@ -39,55 +40,51 @@ const customIcon = L.icon({
 
 export default function MyMap(props: any) {
 	const {
+		positionText,
 		position,
-		routeCoordinates,
+		zoom,
+		routeCoordinates = [],
+		isClickable = false,
+
 	}: {
-		position: LatLngExpression | undefined;
-		routeCoordinates: LatLngExpression[];
+		positionText?: string;
+		position?: LatLngExpression | undefined;
+		zoom?: number;
+		routeCoordinates: [LatLngExpression][];
+		isClickable?: boolean;
 	} = props;
 
-	const [clickedPosition, setClickedPosition] = useState<
-		[number, number] | null
-	>(null);
+	console.log('routeCoordinates:', routeCoordinates);
 
-	const defaultPosition: LatLngExpression | undefined = [51.505, -0.09];
-	const defaultZoom: number = 100;
-
-	const isValidPosition =
-		Array.isArray(position) &&
-		position.length === 2 &&
-		typeof position[0] === 'number' &&
-		typeof position[1] === 'number';
-
-	const mapCenter: LatLngExpression | undefined = isValidPosition
-		? position
-		: defaultPosition;
-
+	const [clickedPosition, setClickedPosition] = useState<[number, number] | null>(null);
 	return (
 		<MapContainer
-			center={mapCenter}
-			zoom={defaultZoom}
+			center={position}
+			zoom={zoom ?? defaultZoom}
 			style={{ height: '100%', width: '100%' }}
 		>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 			/>
-			{isValidPosition && (
-				<Marker position={position}>
-					<Popup>
-						A pretty CSS3 popup. <br /> Easily customizable.
-					</Popup>
+			{position && (
+				<Marker position={position ?? defaultPosition}>
+					<Popup>{positionText ?? "Cavite City"}</Popup>
 				</Marker>
 			)}
-			{routeCoordinates && Array.isArray(routeCoordinates) && (
-				<Polyline
-					positions={routeCoordinates}
-					color="blue"
-					weight={5}
-				/>
-			)}
-			{clickedPosition && (
+			{Array.isArray(routeCoordinates) && Array.isArray(routeCoordinates[0]) &&
+				routeCoordinates.map((routes, index) => {
+				const color = routeColors[index % routeColors.length];
+				return (
+					<Polyline
+						key={index}
+						positions={routes}
+						color={color}
+						weight={routeColorsWeight}
+					/>
+				);
+			})}
+			{isClickable && clickedPosition && (
 				<Marker position={clickedPosition} icon={customIcon}>
 					<Popup>
 						You clicked here: <br /> Lat: {clickedPosition[0]}, Lng:{' '}
@@ -95,7 +92,7 @@ export default function MyMap(props: any) {
 					</Popup>
 				</Marker>
 			)}
-			<ClickHandler setPosition={setClickedPosition} />
+			{isClickable && <ClickHandler setPosition={setClickedPosition} />}
 		</MapContainer>
 	);
 }

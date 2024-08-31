@@ -1,3 +1,5 @@
+import { LatLngExpression } from "leaflet"
+
 
 // Menu Items
 
@@ -9,7 +11,6 @@ export const headerMoreItems = [
     { name: 'Routes', description: 'View and track waste collection routes and timings', href: '/routes', icon: '' },
     { name: 'Contact', description: 'Get in touch for inquiries and support.', href: '/about', icon: '' },
 ]
-  
 export const headerItems = [
     { name: 'Home', href: '/', items: null},
     { name: 'About', href: '/about', items: null },
@@ -21,9 +22,25 @@ export const headerButton = {
     name: 'Login',
     href: '/admin'
 }
-  
 export const headerTitle = {
     name: 'BIN-I Portal',
     href: '/',
-    image: "",
+    image: "/images/logo.png",
 }
+
+
+// Leaflet Map Constants
+
+export const defaultZoom = 15
+export const defaultPosition: LatLngExpression = [14.48325406944822, 120.90889155864716]
+export const routeColors = [
+    'green',
+    'blue',
+    'red',
+    'purple',
+    'orange',
+    'yellow',
+    'pink',
+    'black',
+]
+export const routeColorsWeight = 5;

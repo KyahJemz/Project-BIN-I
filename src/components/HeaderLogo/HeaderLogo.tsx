@@ -16,11 +16,21 @@ export interface HeaderLogoProps {
 export function HeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoProps) {
     return (
         <>
-            <div className="flex lg:flex-1 w-auto">
-                <Link href={headerTitle.href} className="-m-1.5 p-1.5 h-auto">
-                    <span className="sr-only w-auto h-auto">{headerTitle.name}</span>
-                    <Image alt={headerTitle.name} src={headerTitle.image} className="h-8 w-auto" />
+            <div className="flex lg:flex-1 w-auto items-center">
+            
+                <Link href={headerTitle.href} className="flex items-center -m-1.5 p-1.5 h-auto relative">
+                    <Image
+                        alt={headerTitle.name}
+                        src={headerTitle.image}
+                        layout="intrinsic"
+                        width={20}
+                        height={20}
+                        objectFit="contain"
+                        className="h-10 w-auto"
+                    />
+                    <span className="ml-3 text-xl font-bold">{headerTitle.name}</span>
                 </Link>
+
             </div>
 
             <div className="flex lg:hidden">
@@ -40,12 +50,14 @@ export function HeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoProps) 
 export function MobileHeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoProps) {
     return (
         <div className="flex items-center justify-between">
-            <Link href="/" className="-m-1.5 p-1.5">
+            <Link href="/" className="flex items-center -m-1.5 p-1.5">
                 <span className="sr-only">{headerTitle.name}</span>
                 <Image
                     alt={headerTitle.name}
                     src={headerTitle.image}
                     className="h-8 w-auto"
+                    width={80} // Set appropriate width
+                    height={10} // Set appropriate height
                 />
             </Link>
             <button
