@@ -1,0 +1,170 @@
+[{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfc6"
+  },
+  "title": "Waste Segregation Guidelines Updated",
+  "author": "DENR",
+  "description": "New guidelines for waste segregation effective from October 1st.",
+  "content": "{\"time\":1725028690452,\"blocks\":[{\"id\":\"block1\",\"type\":\"paragraph\",\"data\":{\"text\":\"We have updated the waste segregation guidelines to enhance recycling efforts.\"}},{\"id\":\"block2\",\"type\":\"paragraph\",\"data\":{\"text\":\"Please follow the updated guidelines to ensure proper waste disposal.\"}},{\"id\":\"block3\",\"type\":\"paragraph\",\"data\":{\"text\":\"For details, visit the updated guidelines on our website.\"}}],\"version\":\"2.30.5\"}",
+  "image": "segregation-guidelines.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfc7"
+  },
+  "title": "New Recycling Program Launch",
+  "author": "City Council",
+  "description": "Introducing a new recycling program starting next month.",
+  "content": "{\"time\":1725028690453,\"blocks\":[{\"id\":\"block4\",\"type\":\"paragraph\",\"data\":{\"text\":\"A new recycling program will be launched on October 15th.\"}},{\"id\":\"block5\",\"type\":\"paragraph\",\"data\":{\"text\":\"The program aims to improve recycling rates in Cavite City.\"}},{\"id\":\"block6\",\"type\":\"paragraph\",\"data\":{\"text\":\"More information will be available on our website soon.\"}}],\"version\":\"2.30.5\"}",
+  "image": "recycling-program.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-02T11:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-02T11:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfc8"
+  },
+  "title": "Monthly Waste Collection Schedule",
+  "author": "Waste Management Team",
+  "description": "Check out the updated waste collection schedule for this month.",
+  "content": "{\"time\":1725028690454,\"blocks\":[{\"id\":\"block7\",\"type\":\"paragraph\",\"data\":{\"text\":\"The waste collection schedule has been updated for this month.\"}},{\"id\":\"block8\",\"type\":\"paragraph\",\"data\":{\"text\":\"Make sure to check your collection day on our website.\"}},{\"id\":\"block9\",\"type\":\"paragraph\",\"data\":{\"text\":\"Please adhere to the schedule to ensure timely collection.\"}}],\"version\":\"2.30.5\"}",
+  "image": "collection-schedule.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-03T12:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-03T12:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfc9"
+  },
+  "title": "Upcoming Environmental Seminar",
+  "author": "Green City Initiative",
+  "description": "Join our seminar to learn more about environmental conservation.",
+  "content": "{\"time\":1725028690455,\"blocks\":[{\"id\":\"block10\",\"type\":\"paragraph\",\"data\":{\"text\":\"An environmental seminar will be held on October 20th.\"}},{\"id\":\"block11\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn about effective conservation practices and waste management.\"}},{\"id\":\"block12\",\"type\":\"paragraph\",\"data\":{\"text\":\"Register on our website to attend the seminar.\"}}],\"version\":\"2.30.5\"}",
+  "image": "environmental-seminar.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-04T13:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-04T13:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfca"
+  },
+  "title": "New Waste Reduction Tips",
+  "author": "Waste Management Expert",
+  "description": "Check out our latest tips for reducing waste at home.",
+  "content": "{\"time\":1725028690456,\"blocks\":[{\"id\":\"block13\",\"type\":\"paragraph\",\"data\":{\"text\":\"We have compiled new tips for reducing waste at home.\"}},{\"id\":\"block14\",\"type\":\"paragraph\",\"data\":{\"text\":\"Implement these tips to contribute to waste reduction.\"}},{\"id\":\"block15\",\"type\":\"paragraph\",\"data\":{\"text\":\"Visit our website for the full list of tips.\"}}],\"version\":\"2.30.5\"}",
+  "image": "waste-tips.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-05T14:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-05T14:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfcb"
+  },
+  "title": "Community Recycling Drive",
+  "author": "Local NGOs",
+  "description": "Participate in our community recycling drive this weekend.",
+  "content": "{\"time\":1725028690457,\"blocks\":[{\"id\":\"block16\",\"type\":\"paragraph\",\"data\":{\"text\":\"A community recycling drive will take place on September 7th.\"}},{\"id\":\"block17\",\"type\":\"paragraph\",\"data\":{\"text\":\"Drop off your recyclable materials at the designated locations.\"}},{\"id\":\"block18\",\"type\":\"paragraph\",\"data\":{\"text\":\"For more details, check our website.\"}}],\"version\":\"2.30.5\"}",
+  "image": "recycling-drive.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-06T15:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-06T15:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfcc"
+  },
+  "title": "Waste Management Workshop",
+  "author": "Environmental Group",
+  "description": "Attend our workshop to learn more about effective waste management practices.",
+  "content": "{\"time\":1725028690458,\"blocks\":[{\"id\":\"block19\",\"type\":\"paragraph\",\"data\":{\"text\":\"A waste management workshop will be held on October 5th.\"}},{\"id\":\"block20\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn best practices for managing waste at home.\"}},{\"id\":\"block21\",\"type\":\"paragraph\",\"data\":{\"text\":\"Register on our website to secure your spot.\"}}],\"version\":\"2.30.5\"}",
+  "image": "workshop.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-07T16:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-07T16:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfcd"
+  },
+  "title": "Sustainable Living Tips",
+  "author": "Eco Friendly Team",
+  "description": "Explore our new tips for living sustainably.",
+  "content": "{\"time\":1725028690459,\"blocks\":[{\"id\":\"block22\",\"type\":\"paragraph\",\"data\":{\"text\":\"Discover new tips for sustainable living.\"}},{\"id\":\"block23\",\"type\":\"paragraph\",\"data\":{\"text\":\"Implement these tips to reduce your environmental footprint.\"}},{\"id\":\"block24\",\"type\":\"paragraph\",\"data\":{\"text\":\"Visit our website for the complete guide.\"}}],\"version\":\"2.30.5\"}",
+  "image": "sustainable-living.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-08T17:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-08T17:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfce"
+  },
+  "title": "Zero Waste Challenge",
+  "author": "Green Initiatives",
+  "description": "Participate in our zero waste challenge starting next month.",
+  "content": "{\"time\":1725028690460,\"blocks\":[{\"id\":\"block25\",\"type\":\"paragraph\",\"data\":{\"text\":\"We are launching a zero waste challenge on October 1st.\"}},{\"id\":\"block26\",\"type\":\"paragraph\",\"data\":{\"text\":\"Join us in reducing waste and living sustainably.\"}},{\"id\":\"block27\",\"type\":\"paragraph\",\"data\":{\"text\":\"Sign up on our website to participate.\"}}],\"version\":\"2.30.5\"}",
+  "image": "zero-waste.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-09T18:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-09T18:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d1d95b29dc46cd200cdfcf"
+  },
+  "title": "Recycling Bin Distribution",
+  "author": "City Council",
+  "description": "New recycling bins will be distributed to households next week.",
+  "content": "{\"time\":1725028690461,\"blocks\":[{\"id\":\"block28\",\"type\":\"paragraph\",\"data\":{\"text\":\"Recycling bins will be distributed starting September 15th.\"}},{\"id\":\"block29\",\"type\":\"paragraph\",\"data\":{\"text\":\"Ensure to place your recyclables in the new bins.\"}},{\"id\":\"block30\",\"type\":\"paragraph\",\"data\":{\"text\":\"For more information, visit our website.\"}}],\"version\":\"2.30.5\"}",
+  "image": "bin-distribution.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-09-10T19:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-09-10T19:00:00.000Z"
+  }
+}]

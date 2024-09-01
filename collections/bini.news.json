@@ -1,0 +1,170 @@
+[{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f2f"
+  },
+  "title": "Waste Collection Schedule Update",
+  "author": "BIN-I Team",
+  "description": "The waste collection schedule for Cavite City has been updated. Please check the new schedule to ensure timely waste disposal.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"1\",\"type\":\"paragraph\",\"data\":{\"text\":\"The waste collection schedule has been revised to improve efficiency.\"}},{\"id\":\"2\",\"type\":\"paragraph\",\"data\":{\"text\":\"Check the updated schedule on our website.\"}},{\"id\":\"3\",\"type\":\"paragraph\",\"data\":{\"text\":\"For any questions, contact our support team.\"}}],\"version\":\"2.30.5\"}",
+  "image": "waste_collection_schedule.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f30"
+  },
+  "title": "New Recycling Program Launched",
+  "author": "BIN-I Team",
+  "description": "A new recycling program is now available in Cavite City. Learn more about how you can participate and help the environment.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"4\",\"type\":\"paragraph\",\"data\":{\"text\":\"Our new recycling program aims to increase recycling rates.\"}},{\"id\":\"5\",\"type\":\"paragraph\",\"data\":{\"text\":\"Participants will receive special recycling bins.\"}},{\"id\":\"6\",\"type\":\"paragraph\",\"data\":{\"text\":\"Visit our website for more details.\"}}],\"version\":\"2.30.5\"}",
+  "image": "recycling_program.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f31"
+  },
+  "title": "Community Cleanup Event",
+  "author": "BIN-I Team",
+  "description": "Join us for a community cleanup event to make Cavite City cleaner and greener. Your participation is valuable!",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"7\",\"type\":\"paragraph\",\"data\":{\"text\":\"Our community cleanup event is scheduled for next weekend.\"}},{\"id\":\"8\",\"type\":\"paragraph\",\"data\":{\"text\":\"Volunteers will be provided with cleanup kits.\"}},{\"id\":\"9\",\"type\":\"paragraph\",\"data\":{\"text\":\"Sign up on our website to participate.\"}}],\"version\":\"2.30.5\"}",
+  "image": "community_cleanup.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f32"
+  },
+  "title": "Environmental Awareness Workshop",
+  "author": "BIN-I Team",
+  "description": "Attend our workshop to learn more about environmental conservation and how you can contribute to a sustainable future.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"10\",\"type\":\"paragraph\",\"data\":{\"text\":\"We are hosting a workshop on environmental awareness.\"}},{\"id\":\"11\",\"type\":\"paragraph\",\"data\":{\"text\":\"The workshop will cover various topics related to sustainability.\"}},{\"id\":\"12\",\"type\":\"paragraph\",\"data\":{\"text\":\"Register on our website to secure your spot.\"}}],\"version\":\"2.30.5\"}",
+  "image": "environmental_workshop.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f33"
+  },
+  "title": "New Waste Segregation Guidelines",
+  "author": "BIN-I Team",
+  "description": "Updated guidelines for waste segregation have been released. Please follow these new guidelines to improve waste management.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"13\",\"type\":\"paragraph\",\"data\":{\"text\":\"We have updated our waste segregation guidelines.\"}},{\"id\":\"14\",\"type\":\"paragraph\",\"data\":{\"text\":\"These guidelines are designed to enhance waste sorting and recycling.\"}},{\"id\":\"15\",\"type\":\"paragraph\",\"data\":{\"text\":\"Read the full guidelines on our website.\"}}],\"version\":\"2.30.5\"}",
+  "image": "waste_guidelines.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f34"
+  },
+  "title": "Green Living Tips",
+  "author": "BIN-I Team",
+  "description": "Discover tips for living a greener lifestyle and reducing your environmental impact.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"16\",\"type\":\"paragraph\",\"data\":{\"text\":\"Our latest article provides tips on green living.\"}},{\"id\":\"17\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn how to reduce your carbon footprint.\"}},{\"id\":\"18\",\"type\":\"paragraph\",\"data\":{\"text\":\"Check out our website for more green living tips.\"}}],\"version\":\"2.30.5\"}",
+  "image": "green_living_tips.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f35"
+  },
+  "title": "Recycling Success Stories",
+  "author": "BIN-I Team",
+  "description": "Read about successful recycling efforts and how they have positively impacted our community.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"19\",\"type\":\"paragraph\",\"data\":{\"text\":\"We are highlighting successful recycling stories from our community.\"}},{\"id\":\"20\",\"type\":\"paragraph\",\"data\":{\"text\":\"These stories showcase the positive impact of recycling.\"}},{\"id\":\"21\",\"type\":\"paragraph\",\"data\":{\"text\":\"Visit our website to read the full stories.\"}}],\"version\":\"2.30.5\"}",
+  "image": "recycling_success.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f36"
+  },
+  "title": "Environmental Policy Updates",
+  "author": "BIN-I Team",
+  "description": "Stay informed about recent updates to environmental policies that affect Cavite City.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"22\",\"type\":\"paragraph\",\"data\":{\"text\":\"We have updated our environmental policies.\"}},{\"id\":\"23\",\"type\":\"paragraph\",\"data\":{\"text\":\"These updates are aimed at improving environmental protection.\"}},{\"id\":\"24\",\"type\":\"paragraph\",\"data\":{\"text\":\"Read more about these changes on our website.\"}}],\"version\":\"2.30.5\"}",
+  "image": "environmental_policy.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f37"
+  },
+  "title": "Green Infrastructure Projects",
+  "author": "BIN-I Team",
+  "description": "Explore new green infrastructure projects being implemented in Cavite City to promote sustainability.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"25\",\"type\":\"paragraph\",\"data\":{\"text\":\"We are excited to announce new green infrastructure projects.\"}},{\"id\":\"26\",\"type\":\"paragraph\",\"data\":{\"text\":\"These projects aim to enhance urban sustainability.\"}},{\"id\":\"27\",\"type\":\"paragraph\",\"data\":{\"text\":\"Learn more about these projects on our website.\"}}],\"version\":\"2.30.5\"}",
+  "image": "green_infrastructure.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2b81f7adc8022d56c9f38"
+  },
+  "title": "Community Engagement Initiatives",
+  "author": "BIN-I Team",
+  "description": "Learn about new community engagement initiatives aimed at promoting environmental awareness.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"28\",\"type\":\"paragraph\",\"data\":{\"text\":\"Our new community engagement initiatives are designed to raise awareness.\"}},{\"id\":\"29\",\"type\":\"paragraph\",\"data\":{\"text\":\"These initiatives will include workshops and outreach programs.\"}},{\"id\":\"30\",\"type\":\"paragraph\",\"data\":{\"text\":\"Stay tuned for more details on our website.\"}}],\"version\":\"2.30.5\"}",
+  "image": "community_engagement.jpg",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-30T14:38:19.650Z"
+  }
+}]

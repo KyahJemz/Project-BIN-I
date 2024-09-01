@@ -1,0 +1,1067 @@
+[{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d9"
+  },
+  "scheduleLocation": "Barangay 1 (HEN. M. ALVAREZ) Zone 1",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Monday",
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Monday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17da"
+  },
+  "scheduleLocation": "Barangay 2 (C. TIRONA) Zone 1",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      5
+    ],
+    "timeStart": "09:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 5th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17db"
+  },
+  "scheduleLocation": "Barangay 3 (HEN. E. AGUINALDO) Zone 1",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 2,
+    "dayOfWeek": "Wednesday",
+    "timeStart": "10:00"
+  },
+  "status": "Active",
+  "notes": "Bi-weekly collection every Wednesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17dc"
+  },
+  "scheduleLocation": "Barangay 4 (HEN. M. TRIAS) Zone 1",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      15
+    ],
+    "timeStart": "11:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 15th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17dd"
+  },
+  "scheduleLocation": "Barangay 5 (HEN. E. EVANGELISTA) Zone 1",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Friday",
+    "timeStart": "07:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Friday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17de"
+  },
+  "scheduleLocation": "Barangay 6 (DIEGO SILANG) Zone 1",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      1,
+      15
+    ],
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 1st and 15th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17df"
+  },
+  "scheduleLocation": "Barangay 7 (KAPITAN KONG) Zone 1",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 2,
+    "dayOfWeek": "Tuesday",
+    "timeStart": "09:00"
+  },
+  "status": "Active",
+  "notes": "Bi-weekly collection every Tuesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e0"
+  },
+  "scheduleLocation": "Barangay 8 (MANUEL S. ROJAS) Zone 1",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      10
+    ],
+    "timeStart": "10:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 10th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e1"
+  },
+  "scheduleLocation": "Barangay 9 (KANAWAY) Zone 2",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Thursday",
+    "timeStart": "06:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Thursday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e2"
+  },
+  "scheduleLocation": "Barangay 10 (KINGFISHER) Zone 2",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      20
+    ],
+    "timeStart": "07:30"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 20th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e3"
+  },
+  "scheduleLocation": "Barangay 10-A (KINGFISHER-A) Zone 2",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Saturday",
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Saturday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e4"
+  },
+  "scheduleLocation": "Barangay 10-B (KINGFISHER-B) Zone 2",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      5,
+      25
+    ],
+    "timeStart": "09:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 5th and 25th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e5"
+  },
+  "scheduleLocation": "Barangay 11 (LAWIN) Zone 2",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 2,
+    "dayOfWeek": "Monday",
+    "timeStart": "07:00"
+  },
+  "status": "Active",
+  "notes": "Bi-weekly collection every Monday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e6"
+  },
+  "scheduleLocation": "Barangay 12 (LOVE BIRD) Zone 2",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      10
+    ],
+    "timeStart": "11:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 10th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e7"
+  },
+  "scheduleLocation": "Barangay 13 (AGUILA) Zone 2",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Thursday",
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Thursday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e8"
+  },
+  "scheduleLocation": "Barangay 14 (LORO) Zone 2",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      15
+    ],
+    "timeStart": "09:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 15th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17e9"
+  },
+  "scheduleLocation": "Barangay 15 (KILYAWAN) Zone 2",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Saturday",
+    "timeStart": "07:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Saturday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17ea"
+  },
+  "scheduleLocation": "Barangay 16 (MARTINES) Zone 2",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      5
+    ],
+    "timeStart": "11:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 5th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17eb"
+  },
+  "scheduleLocation": "Barangay 17 (KALAPATI) Zone 2",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 2,
+    "dayOfWeek": "Saturday",
+    "timeStart": "07:00"
+  },
+  "status": "Active",
+  "notes": "Bi-weekly collection every Saturday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17ec"
+  },
+  "scheduleLocation": "Barangay 18 (MAYA) Zone 2",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      10,
+      25
+    ],
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 10th and 25th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17ed"
+  },
+  "scheduleLocation": "Barangay 19 (GEMINI) Zone 3",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Thursday",
+    "timeStart": "09:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Thursday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17ee"
+  },
+  "scheduleLocation": "Barangay 20 (VIRGO) Zone 3",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      15
+    ],
+    "timeStart": "07:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 15th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17ef"
+  },
+  "scheduleLocation": "Barangay 21 (SCORPIO) Zone 3",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Monday",
+    "timeStart": "10:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Monday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f0"
+  },
+  "scheduleLocation": "Barangay 22 (LEO) Zone 3",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      1,
+      20
+    ],
+    "timeStart": "08:30"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 1st and 20th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f1"
+  },
+  "scheduleLocation": "Barangay 23 (AQUARIUS) Zone 3",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      5,
+      25
+    ],
+    "timeStart": "10:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 5th and 25th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f2"
+  },
+  "scheduleLocation": "Barangay 24 (LIBRA) Zone 3",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Wednesday",
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Wednesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f3"
+  },
+  "scheduleLocation": "Barangay 25 (CAPRICORN) Zone 3",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      10,
+      30
+    ],
+    "timeStart": "09:30"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 10th and 30th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f4"
+  },
+  "scheduleLocation": "Barangay 26 (CANCER) Zone 3",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      5
+    ],
+    "timeStart": "07:30"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 5th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f5"
+  },
+  "scheduleLocation": "Barangay 27 (SAGITARIUS) Zone 3",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Tuesday",
+    "timeStart": "10:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Tuesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f6"
+  },
+  "scheduleLocation": "Barangay 28 (TAURUS) Zone 3",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      1,
+      15
+    ],
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 1st and 15th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f7"
+  },
+  "scheduleLocation": "Barangay 29 (LAO-LAO) Zone 4",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Wednesday",
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Wednesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f8"
+  },
+  "scheduleLocation": "Barangay 30 (BID-BID) Zone 4",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      10,
+      25
+    ],
+    "timeStart": "09:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 10th and 25th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17f9"
+  },
+  "scheduleLocation": "Barangay 31 (MAYA-MAYA) Zone 4",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Tuesday",
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Tuesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17fa"
+  },
+  "scheduleLocation": "Barangay 32 (SALAY-SALAY) Zone 4",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      1,
+      15
+    ],
+    "timeStart": "10:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 1st and 15th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17fb"
+  },
+  "scheduleLocation": "Barangay 33 (BUWAN-BUWAN) Zone 4",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Friday",
+    "timeStart": "07:00"
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Friday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17fc"
+  },
+  "scheduleLocation": "Barangay 34 (LAPU-LAPU) Zone 4",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "daysOfMonth": [
+      5,
+      20
+    ],
+    "timeStart": "08:00"
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 5th and 20th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T00:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17ce"
+  },
+  "scheduleLocation": "Barangay 35 (HASA-HASA) Zone 4",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Tuesday",
+    "timeStart": "07:00",
+    "daysOfMonth": [],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Tuesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17cf"
+  },
+  "scheduleLocation": "Barangay 36 (SAP-SAP) Zone 4",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "dayOfWeek": null,
+    "timeStart": "09:00",
+    "daysOfMonth": [
+      10
+    ],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 10th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d0"
+  },
+  "scheduleLocation": "Barangay 37 (CADENA DE AMOR) Zone 5",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 2,
+    "dayOfWeek": "Wednesday",
+    "timeStart": "08:00",
+    "daysOfMonth": [],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Bi-weekly collection every Wednesday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d1"
+  },
+  "scheduleLocation": "Barangay 38 (SAMPAGUITA) Zone 5",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "dayOfWeek": null,
+    "timeStart": "10:00",
+    "daysOfMonth": [
+      20
+    ],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 20th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d2"
+  },
+  "scheduleLocation": "Barangay 40 (GUMAMELA) Zone 5",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Friday",
+    "timeStart": "07:00",
+    "daysOfMonth": [],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Friday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d3"
+  },
+  "scheduleLocation": "Barangay 42 (PINAGBUKLOD) Zone 6",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "dayOfWeek": null,
+    "timeStart": "11:00",
+    "daysOfMonth": [
+      5
+    ],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 5th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d4"
+  },
+  "scheduleLocation": "Barangay 44 (MALIGAYA) Zone 6",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Monday",
+    "timeStart": "08:00",
+    "daysOfMonth": [],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Monday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d5"
+  },
+  "scheduleLocation": "Barangay 48 (NARRA) Zone 7",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "dayOfWeek": null,
+    "timeStart": "09:00",
+    "daysOfMonth": [
+      15
+    ],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 15th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d6"
+  },
+  "scheduleLocation": "Barangay 49 (AKASYA) Zone 7",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 2,
+    "dayOfWeek": "Thursday",
+    "timeStart": "08:00",
+    "daysOfMonth": [],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Bi-weekly collection every Thursday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d7"
+  },
+  "scheduleLocation": "Barangay 54 (PECHAY) Zone 8",
+  "schedule": {
+    "frequency": "monthly",
+    "interval": 1,
+    "dayOfWeek": null,
+    "timeStart": "07:00",
+    "daysOfMonth": [
+      25
+    ],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Monthly collection on the 25th of each month.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2f980764fbd4bd68f17d8"
+  },
+  "scheduleLocation": "Barangay 57 (REPOLYO) Zone 8",
+  "schedule": {
+    "frequency": "weekly",
+    "interval": 1,
+    "dayOfWeek": "Saturday",
+    "timeStart": "09:00",
+    "daysOfMonth": [],
+    "specificDate": null
+  },
+  "status": "Active",
+  "notes": "Weekly collection every Saturday.",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  },
+  "updatedAt": {
+    "$date": "2024-10-01T10:00:00.000Z"
+  }
+}]

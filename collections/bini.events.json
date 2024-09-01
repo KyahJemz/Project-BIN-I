@@ -1,0 +1,200 @@
+[{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f26"
+  },
+  "title": "Community Cleanup",
+  "author": "City Council",
+  "description": "Join us for a community cleanup event to beautify our parks.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block1\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: September 10, 2024\"}},{\"id\":\"block2\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 8:00 AM - 12:00 PM\"}},{\"id\":\"block3\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: Central Park\"}},{\"id\":\"block4\",\"type\":\"paragraph\",\"data\":{\"text\":\"Bring gloves and trash bags.\"}}],\"version\":\"2.30.5\"}",
+  "image": "cleanup.jpg",
+  "eventTime": "8:00 AM - 12:00 PM",
+  "eventDate": "2024-09-10",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f27"
+  },
+  "title": "Recycling Awareness Workshop",
+  "author": "Waste Management Team",
+  "description": "Attend our workshop to learn more about recycling practices.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block5\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: September 15, 2024\"}},{\"id\":\"block6\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 10:00 AM - 2:00 PM\"}},{\"id\":\"block7\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: Community Center\"}},{\"id\":\"block8\",\"type\":\"paragraph\",\"data\":{\"text\":\"Materials will be provided.\"}}],\"version\":\"2.30.5\"}",
+  "image": "recycling_workshop.jpg",
+  "eventTime": "10:00 AM - 2:00 PM",
+  "eventDate": "2024-09-15",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f28"
+  },
+  "title": "Green Living Fair",
+  "author": "Environmental Group",
+  "description": "Join us for a fair showcasing green living products and practices.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block9\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: October 1, 2024\"}},{\"id\":\"block10\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 9:00 AM - 5:00 PM\"}},{\"id\":\"block11\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: City Hall Grounds\"}},{\"id\":\"block12\",\"type\":\"paragraph\",\"data\":{\"text\":\"Free entry for all visitors.\"}}],\"version\":\"2.30.5\"}",
+  "image": "green_fair.jpg",
+  "eventTime": "9:00 AM - 5:00 PM",
+  "eventDate": "2024-10-01",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f29"
+  },
+  "title": "Waste Segregation Seminar",
+  "author": "City Council",
+  "description": "Learn how to properly segregate waste in this informative seminar.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block13\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: October 10, 2024\"}},{\"id\":\"block14\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 2:00 PM - 4:00 PM\"}},{\"id\":\"block15\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: City Library\"}},{\"id\":\"block16\",\"type\":\"paragraph\",\"data\":{\"text\":\"RSVP required.\"}}],\"version\":\"2.30.5\"}",
+  "image": "seminar.jpg",
+  "eventTime": "2:00 PM - 4:00 PM",
+  "eventDate": "2024-10-10",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f2a"
+  },
+  "title": "Eco-Friendly Product Launch",
+  "author": "Green Innovations",
+  "description": "Discover new eco-friendly products and technologies at our launch event.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block17\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: October 20, 2024\"}},{\"id\":\"block18\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 11:00 AM - 3:00 PM\"}},{\"id\":\"block19\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: Innovation Center\"}},{\"id\":\"block20\",\"type\":\"paragraph\",\"data\":{\"text\":\"Product demonstrations will be available.\"}}],\"version\":\"2.30.5\"}",
+  "image": "product_launch.jpg",
+  "eventTime": "11:00 AM - 3:00 PM",
+  "eventDate": "2024-10-20",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f2b"
+  },
+  "title": "Sustainability Expo",
+  "author": "Green City Initiative",
+  "description": "Explore various sustainability initiatives and programs at our expo.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block21\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: November 5, 2024\"}},{\"id\":\"block22\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 10:00 AM - 4:00 PM\"}},{\"id\":\"block23\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: Expo Hall\"}},{\"id\":\"block24\",\"type\":\"paragraph\",\"data\":{\"text\":\"Entry is free for all attendees.\"}}],\"version\":\"2.30.5\"}",
+  "image": "sustainability_expo.jpg",
+  "eventTime": "10:00 AM - 4:00 PM",
+  "eventDate": "2024-11-05",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f2c"
+  },
+  "title": "Energy Conservation Workshop",
+  "author": "Energy Group",
+  "description": "Learn about energy conservation techniques and their benefits.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block25\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: November 15, 2024\"}},{\"id\":\"block26\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 1:00 PM - 3:00 PM\"}},{\"id\":\"block27\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: Eco Center\"}},{\"id\":\"block28\",\"type\":\"paragraph\",\"data\":{\"text\":\"Workshop materials will be provided.\"}}],\"version\":\"2.30.5\"}",
+  "image": "energy_workshop.jpg",
+  "eventTime": "1:00 PM - 3:00 PM",
+  "eventDate": "2024-11-15",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f2d"
+  },
+  "title": "Plastic Waste Reduction Campaign",
+  "author": "City Council",
+  "description": "Join our campaign to reduce plastic waste and promote recycling.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block29\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: December 1, 2024\"}},{\"id\":\"block30\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 9:00 AM - 12:00 PM\"}},{\"id\":\"block31\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: City Plaza\"}},{\"id\":\"block32\",\"type\":\"paragraph\",\"data\":{\"text\":\"Bring your recyclable plastic waste.\"}}],\"version\":\"2.30.5\"}",
+  "image": "plastic_reduction.jpg",
+  "eventTime": "9:00 AM - 12:00 PM",
+  "eventDate": "2024-12-01",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f2e"
+  },
+  "title": "Urban Gardening Workshop",
+  "author": "Green Thumb Initiative",
+  "description": "Learn the basics of urban gardening and start your own garden.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block33\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: December 10, 2024\"}},{\"id\":\"block34\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 10:00 AM - 1:00 PM\"}},{\"id\":\"block35\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: Community Garden\"}},{\"id\":\"block36\",\"type\":\"paragraph\",\"data\":{\"text\":\"All materials provided.\"}}],\"version\":\"2.30.5\"}",
+  "image": "gardening_workshop.jpg",
+  "eventTime": "10:00 AM - 1:00 PM",
+  "eventDate": "2024-12-10",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "66d2ae297adc8022d56c9f2f"
+  },
+  "title": "Environmental Awareness Day",
+  "author": "City Council",
+  "description": "Participate in activities to raise environmental awareness.",
+  "content": "{\"time\":1725028690447,\"blocks\":[{\"id\":\"block37\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Date: December 20, 2024\"}},{\"id\":\"block38\",\"type\":\"paragraph\",\"data\":{\"text\":\"Event Time: 9:00 AM - 3:00 PM\"}},{\"id\":\"block39\",\"type\":\"paragraph\",\"data\":{\"text\":\"Location: City Plaza\"}},{\"id\":\"block40\",\"type\":\"paragraph\",\"data\":{\"text\":\"Free entry and activities for all.\"}}],\"version\":\"2.30.5\"}",
+  "image": "environmental_day.jpg",
+  "eventTime": "9:00 AM - 3:00 PM",
+  "eventDate": "2024-12-20",
+  "status": "upcoming",
+  "deletedAt": null,
+  "createdAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  },
+  "updatedAt": {
+    "$date": "2024-08-31T14:38:19.650Z"
+  }
+}]
