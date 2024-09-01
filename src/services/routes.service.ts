@@ -10,6 +10,7 @@ import { LogsService } from './logs.service';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
 import { CollectionsEnum } from '@/enums/collections.enum';
 import { ActionsEnum } from '@/enums/actions.enum';
+import { MongoDbConnect } from '@/utils/mongodb';
 export class RoutesService {
 	private readonly logsService: LogsService;
 	constructor(private readonly routesModel: Model<IRoutesDocument>,
@@ -24,6 +25,7 @@ export class RoutesService {
 
 	async createRoute(request: ICreateRoutesRequest) {
 		try {
+			await MongoDbConnect();
 			const routes = await this.routesModel.create(request);
 			if (!routes) {
 				throw new Error('Routes creation failed');
@@ -41,6 +43,7 @@ export class RoutesService {
 	}
 	async getRouteById(id: string) {
 		try {
+			await MongoDbConnect();
 			const routes = await this.routesModel
 				.findOne({ _id: id, deletedAt: null })
 				.lean();
@@ -54,6 +57,7 @@ export class RoutesService {
 	}
 	async getAllRoutes() {
 		try {
+			await MongoDbConnect();
 			const routes = await this.routesModel
 				.find({ deletedAt: null })
 				.lean();
@@ -67,6 +71,7 @@ export class RoutesService {
 	}
 	async getRouteByScheduleId(id: string) {
 		try {
+			await MongoDbConnect();
 			const routes = await this.routesModel
 				.findOne({ schedule_id: id, deletedAt: null })
 				.lean();
@@ -80,6 +85,7 @@ export class RoutesService {
 	}
 	async updateRoute(id: string, request: IUpdateRoutesRequest) {
 		try {
+			await MongoDbConnect();
 			const routes = await this.routesModel.findById(id);
 			if (!routes) {
 				throw new Error('Routes not found');
@@ -118,6 +124,7 @@ export class RoutesService {
 	}
 	async deleteRoute(id: string) {
 		try {
+			await MongoDbConnect();
 			const routes = await this.routesModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",

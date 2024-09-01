@@ -9,6 +9,7 @@ import { LogsService } from './logs.service';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
 import { CollectionsEnum } from '@/enums/collections.enum';
 import { ActionsEnum } from '@/enums/actions.enum';
+import { MongoDbConnect } from '@/utils/mongodb';
 export class NewsService {
 	private readonly logsService: LogsService;
 	constructor(private readonly newsModel: Model<INewsDocument>,		
@@ -23,6 +24,7 @@ export class NewsService {
 
 	async createNews(request: ICreateNewsRequest) {
 		try {
+			await MongoDbConnect();
 			const news = await this.newsModel.create(request);
 			if (!news) {
 				throw new Error('News creation failed');
@@ -40,6 +42,7 @@ export class NewsService {
 	}
 	async getNewsById(id: string) {
 		try {
+			await MongoDbConnect();
 			const news = await this.newsModel
 				.findOne({ _id: id, deletedAt: null })
 				.lean();
@@ -53,6 +56,7 @@ export class NewsService {
 	}
 	async getAllNews() {
 		try {
+			await MongoDbConnect();
 			const news = await this.newsModel.find({ deletedAt: null }).lean();
 			if (!news) {
 				throw new Error('No news found');
@@ -64,6 +68,7 @@ export class NewsService {
 	}
 	async updateNews(id: string, request: IUpdateNewsRequest) {
 		try {
+			await MongoDbConnect();
 			const news = await this.newsModel.findById(id);
 			if (!news) {
 				throw new Error('News not found');
@@ -94,6 +99,7 @@ export class NewsService {
 	}
 	async deleteNews(id: string) {
 		try {
+			await MongoDbConnect();
 			const news = await this.newsModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",

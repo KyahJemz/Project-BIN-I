@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 		ContactDetailsModel,
 	);
 	try {
-		await MongoDbConnect();
+		
 		const parsedRequest = CreateContactDetailsRequestSchema.parse(
 			await req.json(),
 		);
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const contactDetailsService = new ContactDetailsService(
 			ContactDetailsModel,
 		);
@@ -57,7 +57,7 @@ export async function PUT(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const parsedRequest = UpdateContactDetailsRequestSchema.parse(
 				await req.json(),
 			);
@@ -87,7 +87,7 @@ export async function DELETE(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const contactDetailsService = new ContactDetailsService(
 				ContactDetailsModel,
 			);

@@ -10,6 +10,7 @@ import { LogsService } from './logs.service';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
 import { ActionsEnum } from '@/enums/actions.enum';
 import { CollectionsEnum } from '@/enums/collections.enum';
+import { MongoDbConnect } from '@/utils/mongodb';
 
 export class EventService {
 	private readonly logsService: LogsService;
@@ -25,6 +26,7 @@ export class EventService {
 
 	async createEvent(request: ICreateEventRequest) {
 		try {
+			await MongoDbConnect();
 			const event = await this.eventModel.create(request);
 			if (!event) {
 				throw new Error('Event creation failed');
@@ -42,6 +44,7 @@ export class EventService {
 	}
 	async getEventById(id: string) {
 		try {
+			await MongoDbConnect();
 			const event = await this.eventModel
 				.findOne({ _id: id, deletedAt: null })
 				.lean();
@@ -55,6 +58,7 @@ export class EventService {
 	}
 	async getAllEvent() {
 		try {
+			await MongoDbConnect();
 			const event = await this.eventModel
 				.find({ deletedAt: null })
 				.lean();
@@ -68,6 +72,7 @@ export class EventService {
 	}
 	async updateEvent(id: string, request: IUpdateEventRequest) {
 		try {
+			await MongoDbConnect();
 			const event = await this.eventModel.findById(id);
 			if (!event) {
 				throw new Error('Event not found');
@@ -107,6 +112,7 @@ export class EventService {
 	}
 	async deleteEvent(id: string) {
 		try {
+			await MongoDbConnect();
 			const event = await this.eventModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",

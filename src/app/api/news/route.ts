@@ -12,7 +12,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
 	const newsService = new NewsService(NewsModel);
 	try {
-		await MongoDbConnect();
+		
 		const parsedRequest = CreateNewsRequestSchema.parse(await req.json());
 		const news = await newsService.createNews(parsedRequest);
 		return NextResponse.json(news, { status: 201 });
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const newsService = new NewsService(NewsModel);
 		if (id) {
 			const news = await newsService.getNewsById(id);
@@ -48,7 +48,7 @@ export async function PUT(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const parsedRequest = UpdateNewsRequestSchema.parse(
 				await req.json(),
 			);
@@ -75,7 +75,7 @@ export async function DELETE(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const newsService = new NewsService(NewsModel);
 			await newsService.deleteNews(id);
 			return NextResponse.json({

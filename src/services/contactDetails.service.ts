@@ -9,6 +9,7 @@ import { LogsService } from './logs.service';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
 import { ActionsEnum } from '@/enums/actions.enum';
 import { CollectionsEnum } from '@/enums/collections.enum';
+import { MongoDbConnect } from '@/utils/mongodb';
 
 export class ContactDetailsService {
 	private readonly logsService: LogsService;
@@ -25,6 +26,7 @@ export class ContactDetailsService {
 
 	async createContactDetails(request: ICreateContactDetailsRequest) {
 		try {
+			await MongoDbConnect();
 			const contactDetails =
 				await this.contactDetailsModel.create(request);
 			if (!contactDetails) {
@@ -43,6 +45,7 @@ export class ContactDetailsService {
 	}
 	async getContactDetailsById(id: string) {
 		try {
+			await MongoDbConnect();
 			const contactDetails = await this.contactDetailsModel
 				.findOne({ _id: id, deletedAt: null })
 				.lean();
@@ -56,6 +59,7 @@ export class ContactDetailsService {
 	}
 	async getAllContactDetails() {
 		try {
+			await MongoDbConnect();
 			const contactDetails = await this.contactDetailsModel
 				.find({ deletedAt: null })
 				.lean();
@@ -72,6 +76,7 @@ export class ContactDetailsService {
 		request: IUpdateContactDetailsRequest,
 	) {
 		try {
+			await MongoDbConnect();
 			const contactDetails = await this.contactDetailsModel.findById(id);
 			if (!contactDetails) {
 				throw new Error('ContactDetails not found');
@@ -105,6 +110,7 @@ export class ContactDetailsService {
 	}
 	async deleteContactDetails(id: string) {
 		try {
+			await MongoDbConnect();
 			const contactDetails = await this.contactDetailsModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",

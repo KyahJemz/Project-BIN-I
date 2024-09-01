@@ -12,6 +12,7 @@ import LogsModel from '@/models/logs';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
 import { ActionsEnum } from '@/enums/actions.enum';
 import { CollectionsEnum } from '@/enums/collections.enum';
+import { MongoDbConnect } from '@/utils/mongodb';
 
 export class AccountService {
 	private readonly logsService: LogsService;
@@ -28,6 +29,7 @@ export class AccountService {
 
 	async createAccount(request: ICreateAccountRequest) {
 		try {
+			await MongoDbConnect();
 			const account: IAccountDocument = await this.accountModel.create(request);
 			if (!account) {
 				throw new Error('Account creation failed');
@@ -45,6 +47,7 @@ export class AccountService {
 	}
 	async getAccountById(id: string) {
 		try {
+			await MongoDbConnect();
 			const account = await this.accountModel
 				.findOne({ _id: id, deletedAt: null })
 				.lean();
@@ -58,6 +61,7 @@ export class AccountService {
 	}
 	async getAllAccounts() {
 		try {
+			await MongoDbConnect();
 			const account = await this.accountModel
 				.find({ deletedAt: null })
 				.lean();
@@ -71,6 +75,7 @@ export class AccountService {
 	}
 	async updateAccount(id: string, request: IUpdateAccountRequest) {
 		try {
+			await MongoDbConnect();
 			const account = await this.accountModel.findById(id);
 			if (!account) {
 				throw new Error('Account not found');
@@ -110,6 +115,7 @@ export class AccountService {
 	}
 	async validateAccount(request: ILoginRequest) {
 		try {
+			await MongoDbConnect();
 			const account = await this.accountModel
 				.findOne({ email: request.email })
 				.lean();
@@ -127,6 +133,7 @@ export class AccountService {
 	}
 	async changeAccountPassword(id: string, password: string) {
 		try {
+			await MongoDbConnect();
 			const account = await this.accountModel.findById(id);
 			if (!account) {
 				throw new Error('Account not found');
@@ -146,6 +153,7 @@ export class AccountService {
 	}
 	async deleteAccount(id: string) {
 		try {
+			await MongoDbConnect();
 			const account = await this.accountModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",

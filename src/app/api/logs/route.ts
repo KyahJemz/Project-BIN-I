@@ -9,7 +9,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const logsService = new LogsService(LogsModel);
 		if (id) {
 			const logs = await logsService.getLogsById(id);

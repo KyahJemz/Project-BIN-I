@@ -11,7 +11,7 @@ import { NextResponse, NextRequest } from 'next/server';
 // POST method: Create a new announcement
 export async function POST(req: NextRequest) {
 	try {
-		await MongoDbConnect();
+		
 		const announcementService = new AnnouncementService(AnnouncementsModel);
 		const parsedRequest = CreateAnnouncementRequestSchema.parse(
 			await req.json(),
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const announcementService = new AnnouncementService(AnnouncementsModel);
 		if (id) {
 			const announcement =
@@ -53,7 +53,7 @@ export async function PUT(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const parsedRequest = UpdateAnnouncementRequestSchema.parse(
 				await req.json(),
 			);
@@ -80,7 +80,7 @@ export async function DELETE(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const announcementService = new AnnouncementService(
 				AnnouncementsModel,
 			);

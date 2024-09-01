@@ -3,12 +3,14 @@ import { ILogDocument } from '@/models/logs';
 import {
 	ICreateLogsRequest,
 } from '@/validation/logs.validation';
+import { MongoDbConnect } from '@/utils/mongodb';
 
 export class LogsService {
 	constructor(private readonly logsModel: Model<ILogDocument>) {}
 
 	async createLogs(request: ICreateLogsRequest) {
 		try {
+			await MongoDbConnect();
 			const parsedRequest = {
 				...request,
 				account_id: '66cedc33c4dcd2eafbe55f6e',
@@ -25,6 +27,7 @@ export class LogsService {
 	}
 	async getLogsById(id: string) {
 		try {
+			await MongoDbConnect();
 			const logs = await this.logsModel.findOne({ _id: id }).lean();
 			if (!logs) {
 				throw new Error('No log found');
@@ -36,6 +39,7 @@ export class LogsService {
 	}
 	async getAllLogs() {
 		try {
+			await MongoDbConnect();
 			const logs = await this.logsModel.find().lean();
 			if (!logs) {
 				throw new Error('No logs found');

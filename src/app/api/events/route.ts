@@ -12,7 +12,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
 	const eventService = new EventService(EventsModel);
 	try {
-		await MongoDbConnect();
+		
 		const parsedRequest = CreateEventRequestSchema.parse(await req.json());
 		const event = await eventService.createEvent(parsedRequest);
 		return NextResponse.json(event, { status: 201 });
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const eventService = new EventService(EventsModel);
 		if (id) {
 			const event = await eventService.getEventById(id);
@@ -48,7 +48,7 @@ export async function PUT(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const parsedRequest = UpdateEventRequestSchema.parse(
 				await req.json(),
 			);
@@ -75,7 +75,7 @@ export async function DELETE(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const eventService = new EventService(EventsModel);
 			await eventService.deleteEvent(id);
 			return NextResponse.json({

@@ -12,7 +12,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
 	const schedulesService = new ScheduleService(SchedulesModel);
 	try {
-		await MongoDbConnect();
+		
 		const parsedRequest = CreateScheduleRequestSchema.parse(
 			await req.json(),
 		);
@@ -29,7 +29,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const schedulesService = new ScheduleService(SchedulesModel);
 		if (id) {
 			const news = await schedulesService.getScheduleById(id);
@@ -50,7 +50,7 @@ export async function PUT(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const parsedRequest = UpdateScheduleRequestSchema.parse(
 				await req.json(),
 			);
@@ -77,7 +77,7 @@ export async function DELETE(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const schedulesService = new ScheduleService(SchedulesModel);
 			await schedulesService.deleteSchedule(id);
 			return NextResponse.json({

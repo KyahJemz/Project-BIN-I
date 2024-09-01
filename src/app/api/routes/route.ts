@@ -12,7 +12,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
 	const routesService = new RoutesService(RoutesModel);
 	try {
-		await MongoDbConnect();
+		
 		const parsedRequest = CreateRoutesRequestSchema.parse(await req.json());
 		const news = await routesService.createRoute(parsedRequest);
 		return NextResponse.json(news, { status: 201 });
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const routesService = new RoutesService(RoutesModel);
 		if (id) {
 			const news = await routesService.getRouteById(id);
@@ -48,7 +48,7 @@ export async function PUT(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const parsedRequest = UpdateRoutesRequestSchema.parse(
 				await req.json(),
 			);
@@ -75,7 +75,7 @@ export async function DELETE(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			await MongoDbConnect();
+			
 			const routesService = new RoutesService(RoutesModel);
 			await routesService.deleteRoute(id);
 			return NextResponse.json({

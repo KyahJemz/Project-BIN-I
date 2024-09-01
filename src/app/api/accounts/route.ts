@@ -17,7 +17,6 @@ export async function POST(req: NextRequest) {
 	const action = url.searchParams.get('action');
 	const accountService = new AccountService(AccountModel);
 	try {
-		await MongoDbConnect();
 		if (action && action.includes('verify')) {
 			const parsedRequest = LoginRequestSchema.parse(await req.json());
 			const account = await accountService.validateAccount(parsedRequest);
@@ -40,7 +39,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const accountService = new AccountService(AccountModel);
 		if (id) {
 			const account = await accountService.getAccountById(id);
@@ -60,7 +59,7 @@ export async function PUT(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const parsedRequest = UpdateAccountRequestSchema.parse(
 			await req.json(),
 		);
@@ -90,7 +89,7 @@ export async function PATCH(req: NextRequest) {
 
 	if (action && action.includes('change-password')) {
 		try {
-			await MongoDbConnect();
+			
 			const accountService = new AccountService(AccountModel);
 			const parsedRequest = ChangeAccountPasswordRequestSchema.parse(
 				await req.json(),
@@ -123,7 +122,7 @@ export async function DELETE(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		await MongoDbConnect();
+		
 		const accountService = new AccountService(AccountModel);
 		if (id) {
 			await accountService.deleteAccount(id);

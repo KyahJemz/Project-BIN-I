@@ -9,6 +9,7 @@ import { LogsService } from './logs.service';
 import { CollectionsEnum } from '@/enums/collections.enum';
 import { ActionsEnum } from '@/enums/actions.enum';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
+import { MongoDbConnect } from '@/utils/mongodb';
 
 export class AnnouncementService {
 	private readonly logsService: LogsService;
@@ -25,6 +26,7 @@ export class AnnouncementService {
 
 	async createAnnouncement(request: ICreateAnnouncementRequest) {
 		try {
+			await MongoDbConnect();
 			const announcement = await this.announcementModel.create(request);
 			if (!announcement) {
 				throw new Error('announcement creation failed');
@@ -42,6 +44,7 @@ export class AnnouncementService {
 	}
 	async getAnnouncementById(id: string) {
 		try {
+			await MongoDbConnect();
 			const announcement = await this.announcementModel
 				.findOne({ _id: id, deletedAt: null })
 				.lean();
@@ -55,6 +58,7 @@ export class AnnouncementService {
 	}
 	async getAllAnnouncements() {
 		try {
+			await MongoDbConnect();
 			const announcement = await this.announcementModel
 				.find({ deletedAt: null })
 				.lean();
@@ -68,6 +72,7 @@ export class AnnouncementService {
 	}
 	async updateAnnouncement(id: string, request: IUpdateAnnouncementRequest) {
 		try {
+			await MongoDbConnect();
 			const announcement = await this.announcementModel.findById(id);
 			if (!announcement) {
 				throw new Error('Announcement not found');
@@ -98,6 +103,7 @@ export class AnnouncementService {
 	}
 	async deleteAnnouncement(id: string) {
 		try {
+			await MongoDbConnect();
 			const announcement = await this.announcementModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",

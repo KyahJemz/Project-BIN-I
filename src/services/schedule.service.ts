@@ -9,6 +9,7 @@ import { LogsService } from './logs.service';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
 import { ActionsEnum } from '@/enums/actions.enum';
 import { CollectionsEnum } from '@/enums/collections.enum';
+import { MongoDbConnect } from '@/utils/mongodb';
 
 export class ScheduleService {
 	private readonly logsService: LogsService;
@@ -24,6 +25,7 @@ export class ScheduleService {
 
 	async createSchedule(request: ICreateScheduleRequest) {
 		try {
+			await MongoDbConnect();
 			const schedule = await this.scheduleModel.create(request);
 			if (!schedule) {
 				throw new Error('Schedule creation failed');
@@ -41,6 +43,7 @@ export class ScheduleService {
 	}
 	async getScheduleById(id: string) {
 		try {
+			await MongoDbConnect();
 			const schedule = await this.scheduleModel
 				.findOne({ _id: id, deletedAt: null })
 				.lean();
@@ -54,6 +57,7 @@ export class ScheduleService {
 	}
 	async getAllSchedules() {
 		try {
+			await MongoDbConnect();
 			const schedule = await this.scheduleModel
 				.find({ deletedAt: null })
 				.lean();
@@ -67,6 +71,7 @@ export class ScheduleService {
 	}
 	async updateSchedule(id: string, request: IUpdateScheduleRequest) {
 		try {
+			await MongoDbConnect();
 			const schedule = await this.scheduleModel.findById(id);
 			if (!schedule) {
 				throw new Error('Schedule not found');
@@ -100,6 +105,7 @@ export class ScheduleService {
 	}
 	async deleteSchedule(id: string) {
 		try {
+			await MongoDbConnect();
 			const schedule = await this.scheduleModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",
