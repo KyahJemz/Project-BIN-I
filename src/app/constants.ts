@@ -41,6 +41,6 @@ export const routeColors = [
     'orange',
     'yellow',
     'pink',
-    'black',
+    'black',  
 ]
 export const routeColorsWeight = 5;

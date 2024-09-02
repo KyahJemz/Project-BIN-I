@@ -9,10 +9,10 @@ First, run the development server:
 ```bash
 
 # Development Build
-npm run start:bini-dev
+npm run bini-dev
 
 # Production Build
-npm run start:bini
+npm run bini
 
 ```
 

@@ -1,7 +1,7 @@
 'use client';
 
+import PreviewRenderer from '@/components/EditorJsRenderer/PreviewRenderer';
 import dynamic from 'next/dynamic';
-import PreviewRenderer from '@/components/EditorJs/PreviewRenderer';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,

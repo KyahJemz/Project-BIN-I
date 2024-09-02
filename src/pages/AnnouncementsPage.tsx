@@ -33,7 +33,7 @@ export default function AnnouncementsPage({
 }: AnnouncementsPageProps) {
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen bg-gray-100">
 
             {/* Announcements Section */}
             <AnnouncementsSection data={allAnnouncements.reverse()}/>

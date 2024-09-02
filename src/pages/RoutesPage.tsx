@@ -45,7 +45,7 @@ export default function RoutesPage({
     const allRoutesGathered = getAllRoutes(allRoutes);
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen bg-gray-100">
 
             {/* Routes Section */}
             <RoutesSection data={allRoutesGathered.reverse() as unknown as LatLngExpression[][]}  />

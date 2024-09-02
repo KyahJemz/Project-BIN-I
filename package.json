@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "bini-dev": "next dev",
+    "bini-build": "next build",
+    "bini-start": "next start",
+    "bini": "next build && next start",
     "lint": "next lint"
   },
   "dependencies": {

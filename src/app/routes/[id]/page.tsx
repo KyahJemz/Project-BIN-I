@@ -1,8 +1,11 @@
-export default async function RouteId({ params }: { params: { id: string } }) {
+import IdSchedulesPage, { getIdSchedulesPageProps } from "@/pages/IdSchedulesPage";
+
+export default async function ScheduleId({ params }: { params: { id: string } }) {
 	const id = params.id;
+	const { props } = await getIdSchedulesPageProps(id);
 	return (
 		<>
-			{id}
+			<IdSchedulesPage idSchedules={props.idSchedules} />
 		</>
 	);
 }

@@ -9,10 +9,21 @@ const formatDaysOfMonth = (daysOfMonth?: number[]) => {
 
 const formatSchedule = (schedule: IScheduleSchedule) => {
   if (schedule.frequency === 'monthly') {
-    return schedule.specificDate ? `On ${schedule.specificDate}` : `Every ${schedule.interval} month(s)`;
+      if (schedule.specificDate) {
+          return `On ${schedule.specificDate} at ${schedule.timeStart}`;
+      } else if (schedule.daysOfMonth && schedule.daysOfMonth.length > 0) {
+          const days = schedule.daysOfMonth.join(', ');
+          return `Every ${schedule.interval} month(s) on the ${days} day(s) at ${schedule.timeStart}`;
+      }
+      return `Every ${schedule.interval} month(s) at ${schedule.timeStart}`;
+  } else if (schedule.frequency === 'biweekly') {
+      return `Every 2 weeks on ${schedule.dayOfWeek || 'N/A'} at ${schedule.timeStart}`;
+  } else if (schedule.frequency === 'weekly') {
+      return `Every ${schedule.interval} week(s) on ${schedule.dayOfWeek || 'N/A'} at ${schedule.timeStart}`;
   }
-  return `Every ${schedule.interval} week(s) on ${schedule.dayOfWeek || 'N/A'}`;
+  return `Every ${schedule.interval} week(s) at ${schedule.timeStart}`;
 };
+
 
 const SchedulesTable = ({ schedules }:{schedules: IScheduleDocument[]}) => {
   return (
@@ -28,9 +39,6 @@ const SchedulesTable = ({ schedules }:{schedules: IScheduleDocument[]}) => {
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
               Time Start
-            </th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-              Days of Month
             </th>
             <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
               Notes
@@ -51,9 +59,6 @@ const SchedulesTable = ({ schedules }:{schedules: IScheduleDocument[]}) => {
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {schedule.schedule.timeStart}
-              </td>
-              <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                {formatDaysOfMonth(schedule.schedule.daysOfMonth)}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                 {schedule.notes || 'N/A'}

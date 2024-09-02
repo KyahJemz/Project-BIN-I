@@ -20,7 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="max-h-screen pt-20">
+        <div className="max-h-screen pt-20 bg-gray-100">
           <Header headerTitle={headerTitle} headerItems={headerItems} headerButton={headerButton}/>
           {children}
           <Footer />

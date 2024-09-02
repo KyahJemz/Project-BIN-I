@@ -42,6 +42,7 @@ export default function MyMap(props: any) {
 	const {
 		positionText,
 		position,
+		cameraPosition,
 		zoom,
 		routeCoordinates = [],
 		isClickable = false,
@@ -49,6 +50,7 @@ export default function MyMap(props: any) {
 	}: {
 		positionText?: string;
 		position?: LatLngExpression | undefined;
+		cameraPosition?: LatLngExpression | undefined;
 		zoom?: number;
 		routeCoordinates: [LatLngExpression][];
 		isClickable?: boolean;
@@ -59,7 +61,7 @@ export default function MyMap(props: any) {
 	const [clickedPosition, setClickedPosition] = useState<[number, number] | null>(null);
 	return (
 		<MapContainer
-			center={position}
+			center={cameraPosition ?? position ?? defaultPosition}
 			zoom={zoom ?? defaultZoom}
 			style={{ height: '100%', width: '100%' }}
 		>

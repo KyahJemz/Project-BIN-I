@@ -34,7 +34,7 @@ export default function SchedulePage({
 }: SchedulesPageProps) {
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen bg-gray-100">
 
             {/* Garbage Collection Schedules Section */}
             <SchedulesSection data={allSchedules.reverse()} />

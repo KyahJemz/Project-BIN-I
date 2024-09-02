@@ -21,10 +21,10 @@ export default function IdAnnouncementsPage({
 }: AnnouncementsPageProps) {
 
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen bg-gray-100">
 
             {/* Announcements Section */}
-            <IdAnnouncementsSection data={idAnnouncements}/>
+            <IdAnnouncementsSection announcement={idAnnouncements}/>
 
         </div>
 	);

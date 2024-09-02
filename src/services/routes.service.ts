@@ -1,4 +1,4 @@
-import { Model, Schema } from 'mongoose';
+import { Model, Types } from 'mongoose';
 import { IRoutesDocument } from '@/models/routes';
 import {
 	ICreateRoutesRequest,
@@ -73,11 +73,13 @@ export class RoutesService {
 		try {
 			await MongoDbConnect();
 			const routes = await this.routesModel
-				.findOne({ schedule_id: id, deletedAt: null })
+				.find({ schedule_id: new Types.ObjectId(id), deletedAt: null })
 				.lean();
 			if (!routes) {
-				throw new Error('No routes found');
+				console.log('no routes found');
+				return [];
 			}
+			console.log('routes', routes);
 			return routes;
 		} catch (error) {
 			throw error;

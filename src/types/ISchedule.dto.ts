@@ -1,3 +1,4 @@
+import { IRoutesDocument } from "@/models/routes";
 import { IScheduleSchedule } from "./IScheduleSchedule";
 
 export interface ISchedule {
@@ -7,5 +8,6 @@ export interface ISchedule {
 	status: string;
 	notes?: string | null;
 	deletedAt?: Date | null;
+	routes?: IRoutesDocument[];
 }
 

@@ -3,6 +3,7 @@ import { LatLngExpression } from "leaflet";
 import dynamic from "next/dynamic";
 import React from "react";
 import Link from "next/link";
+import { IScheduleSchedule } from "@/types/IScheduleSchedule";
 
 const Map = dynamic(
 	() => import('@/components/map/map'),
@@ -11,6 +12,17 @@ const Map = dynamic(
 		ssr: false,
 	},
 );
+
+const formatDaysOfMonth = (daysOfMonth?: number[]) => {
+return daysOfMonth?.length ? daysOfMonth.join(', ') : 'N/A';
+};
+
+const formatSchedule = (schedule: IScheduleSchedule) => {
+if (schedule.frequency === 'monthly') {
+    return schedule.specificDate ? `On ${schedule.specificDate}` : `Every ${schedule.interval} month(s)`;
+}
+return `Every ${schedule.interval} week(s) on ${schedule.dayOfWeek || 'N/A'}`;
+};
 
 export default function RoutesSection({data}: {data: LatLngExpression[][]}) {
     return (
@@ -23,6 +35,7 @@ export default function RoutesSection({data}: {data: LatLngExpression[][]}) {
                     zoom={15}
                     positionText="Cavite City"
                     position={defaultPosition} 
+                    cameraPosition={defaultPosition}
                     routeCoordinates={data}
                     isClickable={false}
                 />

@@ -33,7 +33,7 @@ export default function NewsPage({
     allNews,
 }: NewsPageProps) {
 	return (
-		<div className="min-h-screen">
+		<div className="min-h-screen bg-gray-100">
 
             {/* News Highlights Section */}
             <NewsSection data={allNews.reverse()} />

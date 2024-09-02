@@ -15,7 +15,7 @@ const routesSchema: Schema<IRoutesDocument> = new Schema(
 			required: true,
 		},
 		pickupPoints: {
-			type: [Number],
+			type: [[Number]],
 			required: true,
 		},
 		description: {

@@ -10,13 +10,18 @@ import { ICreateLogsRequest } from '@/validation/logs.validation';
 import { ActionsEnum } from '@/enums/actions.enum';
 import { CollectionsEnum } from '@/enums/collections.enum';
 import { MongoDbConnect } from '@/utils/mongodb';
+import { RoutesService } from './routes.service';
+import RoutesModel from '@/models/routes';
 
 export class ScheduleService {
 	private readonly logsService: LogsService;
+	private readonly routesService: RoutesService;
 	constructor(private readonly scheduleModel: Model<IScheduleDocument>,
-		logsService: LogsService = new LogsService(LogsModel)
+		logsService: LogsService = new LogsService(LogsModel),
+		routesService: RoutesService = new RoutesService(RoutesModel)
 	) {
 		this.logsService = logsService;
+		this.routesService = routesService;
 	}
 
 	private async createLogs(request: ICreateLogsRequest) {
@@ -50,7 +55,8 @@ export class ScheduleService {
 			if (!schedule) {
 				throw new Error('No schedule found');
 			}
-			return schedule;
+			const routes = await this.routesService.getRouteByScheduleId(id);
+			return {...schedule, routes: routes};
 		} catch (error) {
 			throw error;
 		}

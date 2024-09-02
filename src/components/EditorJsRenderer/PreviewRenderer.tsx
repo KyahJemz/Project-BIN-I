@@ -1,5 +1,5 @@
-import EditorParser from './EditorParser';
 import { useEditorStore } from '@/stores/useEditorStore';
+import EditorParser from '../EditorJsParser/EditorParser';
 interface PreviewRendererProps {
 	data: any;
 }
