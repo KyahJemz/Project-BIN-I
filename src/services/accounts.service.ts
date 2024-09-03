@@ -131,6 +131,21 @@ export class AccountService {
 			throw error;
 		}
 	}
+
+	async getByEmail(string: string) {
+		try {
+			await MongoDbConnect();
+			const account = await this.accountModel
+				.findOne({ email: string })
+				.lean();
+			if (!account) {
+				throw new Error('Account not found');
+			}
+			return account;
+		} catch (error) {
+			throw error;
+		}
+	}
 	async changeAccountPassword(id: string, password: string) {
 		try {
 			await MongoDbConnect();

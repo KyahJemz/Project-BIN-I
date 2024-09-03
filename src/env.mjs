@@ -9,6 +9,8 @@ export const env = createEnv({
 		MONGODB_URL: z.string().url(),
 		MONGODB_DATABASE: z.string().min(1),
 		MONGODB_SECRET: z.string().min(1),
+		NEXTAUTH_SECRET: z.string().min(1),
+		NEXTAUTH_URL: z.string().min(1),
 	},
 	client: {
 		NEXT_PUBLIC_ENVIRONMENT: z.string().min(1),
@@ -25,5 +27,7 @@ export const env = createEnv({
 		NEXT_PUBLIC_ENVIRONMENT: process.env.NEXT_PUBLIC_ENVIRONMENT,
 		NEXT_PUBLIC_API_BASE_URL: process.env.NEXT_PUBLIC_API_BASE_URL,
 		NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+		NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
+		NEXTAUTH_URL: process.env.NEXTAUTH_URL,
 	},
 });

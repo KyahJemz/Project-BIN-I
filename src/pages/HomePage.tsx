@@ -17,6 +17,8 @@ import AnnouncementsSection from '@/components/AnnouncementsSection/Announcement
 import HeroSection from '@/components/HeroSection/HeroSection';
 import SchedulesSection from '@/components/SchedulesSection/SchedulesSection';
 import { LatLngExpression } from 'leaflet';
+import Routes from '@/app/routes/page';
+import Link from 'next/link';
 
 export interface HomePageProps {
     allAnnouncements: IAnnouncementDocument[]; 
@@ -117,7 +119,18 @@ export default function HomePage({
             <SchedulesSection data={random5Schedules} />
 
             {/* Routes Section */}
-            <RoutesSection data={allRoutesGathered as unknown as LatLngExpression[][]}  />
+            <section className="py-10 px-4 bg-white">
+                <div className="container mx-auto text-center">
+                    <h2 className="text-3xl font-bold mb-2 text-dark-gray">Garbage Collection Routes</h2>
+                    <p className="text-lg mb-3 text-dark-gray">Check the garbage collection routes in cavite city.</p>
+                    <RoutesSection data={allRoutesGathered as unknown as LatLngExpression[][]}  />
+                    <div className="mt-2 flex justify-center">
+                        <Link href="/routes" className="inline-flex items-center mt-4 bg-sun-yellow text-dark-gray px-4 py-2 rounded shadow">
+                            View Routes Details
+                        </Link>
+                    </div>
+                </div>
+            </section>
 
         </div>
 	);

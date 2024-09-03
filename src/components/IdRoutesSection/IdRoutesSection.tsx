@@ -2,8 +2,6 @@ import { defaultPosition, routeColors } from "@/app/constants";
 import { LatLngExpression } from "leaflet";
 import dynamic from "next/dynamic";
 import React from "react";
-import Link from "next/link";
-import { IScheduleSchedule } from "@/types/IScheduleSchedule";
 import { IRoutesDocument } from "@/models/routes";
 
 const Map = dynamic(
@@ -66,17 +64,25 @@ const RoutesTable = ({ routes }:{routes: IRoutesDocument[]}) => {
     );
   };
 
-export default function RoutesSection({data}: {data: LatLngExpression[][]}) {
+export default function RoutesSection({data, routes}: {data: LatLngExpression[][], routes: IRoutesDocument[]}) {
     return (
-      <div className="bg-white h-96 p-2 rounded shadow-md">
-          <Map 
-              zoom={15}
-              positionText="Cavite City"
-              position={defaultPosition} 
-              cameraPosition={defaultPosition}
-              routeCoordinates={data}
-              isClickable={false}
-          />
-      </div>
+        <section className="py-10 px-4 bg-white">
+        <div className="container mx-auto text-center">
+            <h2 className="text-3xl font-bold mb-2 text-dark-gray">Garbage Collection Routes</h2>
+            <p className="text-lg mb-3 text-dark-gray">Check the garbage collection routes in cavite city.</p>
+
+            <div className="bg-white h-96 p-2 rounded shadow-md">
+                <Map 
+                    zoom={15}
+                    positionText="Cavite City"
+                    position={defaultPosition} 
+                    cameraPosition={defaultPosition}
+                    routeCoordinates={data}
+                    isClickable={false}
+                />
+            </div>
+
+        </div>
+    </section>
     );
 }
