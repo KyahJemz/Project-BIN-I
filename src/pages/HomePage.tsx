@@ -116,7 +116,18 @@ export default function HomePage({
             <AnnouncementsSection data={last5Announcements}/>
 
             {/* Garbage Collection Schedules Section */}
-            <SchedulesSection data={random5Schedules} />
+            <section className="bg-light-gray py-10 px-4">
+                <div className="container mx-auto text-center">
+                    <h2 className="text-3xl font-bold mb-2 text-dark-gray">Garbage Collection Schedules</h2>
+                    <p className="text-lg mb-6 text-dark-gray">Check the schedule for garbage collection in your area.</p>
+                    <SchedulesSection data={random5Schedules} />
+                    <div className="mt-2 flex justify-center">
+                        <Link href="/schedules" className="inline-flex items-center mt-4 bg-sun-yellow text-dark-gray px-4 py-2 rounded shadow">
+                            View All Schedules
+                        </Link>
+                    </div>
+                </div>
+            </section>
 
             {/* Routes Section */}
             <section className="py-10 px-4 bg-white">

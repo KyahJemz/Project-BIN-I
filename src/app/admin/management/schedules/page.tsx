@@ -1,15 +1,10 @@
-'use client';
-
-import {
-	useCreateScheduleHook,
-	useGetScheduleByIdHook,
-	useGetAllSchedulesHook,
-	useUpdateScheduleHook,
-	useDeleteScheduleHook,
-} from '@/hooks/schedule.service';
-import React, { useState } from 'react';
+import ManageSchedulesPage from '@/pages/ManageSchedulesPage';
+import React from 'react';
 
 const ScheduleManagement = () => {
-}
+	return (
+		<ManageSchedulesPage />
+	)
+}	
 
 export default ScheduleManagement;

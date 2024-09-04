@@ -3,7 +3,7 @@ import { ICoordinates } from './ICoordinates.dto';
 import { RouteStatusEnum } from '@/enums/routeStatus.enum';
 
 export interface IRoute {
-	schedule_id: Schema.Types.ObjectId;
+	schedule_id: Schema.Types.ObjectId | null;
 	routeName: string;
 	pickupPoints: number[][];
 	description?: string | null;

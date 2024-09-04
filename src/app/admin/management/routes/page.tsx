@@ -1,16 +1,8 @@
-'use client';
-
-import {
-	useCreateRouteHook,
-	useGetRouteByIdHook,
-	useGetAllRoutesHook,
-	useGetRouteByScheduleIdHook,
-	useUpdateRouteHook,
-	useDeleteRouteHook,
-} from '@/hooks/routes.hooks';
-import React, { useState } from 'react';
+import ManageRoutesPage from '@/pages/ManageRoutesPage';
+import React from 'react';
 
 const RoutesManagement = () => {
+	return <ManageRoutesPage />
 }
 
 export default RoutesManagement;

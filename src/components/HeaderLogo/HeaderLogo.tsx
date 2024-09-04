@@ -28,7 +28,7 @@ export function HeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoProps) 
                         objectFit="contain"
                         className="h-10 w-auto"
                     />
-                    <span className="ml-3 text-xl font-bold">{headerTitle.name}</span>
+                    <span className="ml-3 text-m">{headerTitle.name}</span>
                 </Link>
 
             </div>

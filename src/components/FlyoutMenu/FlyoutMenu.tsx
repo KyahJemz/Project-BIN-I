@@ -22,7 +22,7 @@ export function FlyoutMenu({ name, items }: FlyoutMenuProps) {
                 onClick={() => {
                     setOpen(!open);
                 }}
-                className="inline-flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
+                className="inline-flex items-center gap-x-1 text-s leading-6 text-gray-900"
             >
                 <span className='text-white'>{name}</span>
                 <ChevronDownIcon aria-hidden="true" className="h-5 w-5 text-white" />

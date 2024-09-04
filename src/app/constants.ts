@@ -23,7 +23,7 @@ export const headerButton = {
     href: '/admin'
 }
 export const headerTitle = {
-    name: 'BIN-I Portal',
+    name: 'BIN-I: Waste Management Portal',
     href: '/',
     image: "/images/logo.png",
 }

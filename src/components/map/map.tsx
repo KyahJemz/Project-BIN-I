@@ -17,18 +17,20 @@ import { defaultPosition, defaultZoom, routeColors, routeColorsWeight } from '@/
 
 function ClickHandler({
 	setPosition,
+	setEvent = () => {},
 }: {
 	setPosition: (position: [number, number]) => void;
+	setEvent?: (event: [number, number]) => void;
 }) {
 	useMapEvents({
 		click(e) {
-			const { lat, lng } = e.latlng; // Get the latitude and longitude from the click event
-			setPosition([lat, lng]); // Update the position state with the clicked coordinates
-			console.log('Clicked position:', lat, lng); // Optional: Log the clicked coordinates
+			const { lat, lng } = e.latlng;
+			setPosition([lat, lng]);
+			setEvent([lat, lng]);
 		},
 	});
 
-	return null; // This component does not render anything visible
+	return null;
 }
 
 const customIcon = L.icon({
@@ -46,6 +48,7 @@ export default function MyMap(props: any) {
 		zoom,
 		routeCoordinates = [],
 		isClickable = false,
+		onClick,
 
 	}: {
 		positionText?: string;
@@ -54,9 +57,8 @@ export default function MyMap(props: any) {
 		zoom?: number;
 		routeCoordinates: [LatLngExpression][];
 		isClickable?: boolean;
+		onClick?: (coordinates: [number, number]) => void;
 	} = props;
-
-	console.log('routeCoordinates:', routeCoordinates);
 
 	const [clickedPosition, setClickedPosition] = useState<[number, number] | null>(null);
 	return (
@@ -64,10 +66,12 @@ export default function MyMap(props: any) {
 			center={cameraPosition ?? position ?? defaultPosition}
 			zoom={zoom ?? defaultZoom}
 			style={{ height: '100%', width: '100%' }}
+			className='z-0'
 		>
 			<TileLayer
 				attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
 				url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+				zIndex={0}
 			/>
 			{position && (
 				<Marker position={position ?? defaultPosition}>
@@ -94,7 +98,7 @@ export default function MyMap(props: any) {
 					</Popup>
 				</Marker>
 			)}
-			{isClickable && <ClickHandler setPosition={setClickedPosition} />}
+			{isClickable && <ClickHandler setPosition={setClickedPosition} setEvent={onClick}/>}
 		</MapContainer>
 	);
 }

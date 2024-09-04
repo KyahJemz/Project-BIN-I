@@ -29,7 +29,7 @@ export default function Header({ headerItems, headerTitle, headerButton }: Heade
             <header className="fixed top-0 left-0 right-0 bg-forest-green text-white z-50">
                 
                 {/* WEB LAYOUT */}
-                <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+                <nav aria-label="Global" className="mx-auto flex max-w-7xl items-center justify-between p-3 lg:px-8">
                     
                     {headerTitle ? (
                         <HeaderLogo headerTitle={headerTitle} setMobileMenuOpen={setMobileMenuOpen} />

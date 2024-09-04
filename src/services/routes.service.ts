@@ -93,9 +93,16 @@ export class RoutesService {
 				throw new Error('Routes not found');
 			}
 			if (request.schedule_id !== undefined) {
-				routes.schedule_id = new Schema.Types.ObjectId(
-					request.schedule_id,
-				);
+				if(request.schedule_id?.toString() === "") {
+					console.log("schedule_id: ", routes.schedule_id);
+					routes.schedule_id = null;
+					
+				} else {
+					console.log("schedule_ssid: ", routes.schedule_id);
+					routes.schedule_id = new Types.ObjectId(
+						request.schedule_id,
+					);
+				}
 			}
 			if (request.routeName !== undefined) {
 				routes.routeName = request.routeName;

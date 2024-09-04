@@ -5,10 +5,7 @@ export const CreateRoutesRequestSchema = z.object({
 	schedule_id: z.string().min(1).trim(),
 	routeName: z.string().min(1).trim(),
 	pickupPoints: z.array(
-		z.object({
-			lat: z.number(),
-			lng: z.number(),
-		}),
+		z.array(z.number()),
 	),
 	description: z.string().optional().nullable().default(null),
 	status: z.string().min(1).trim(),
@@ -21,10 +18,7 @@ export const UpdateRoutesRequestSchema = z.object({
 	routeName: z.string().optional(),
 	pickupPoints: z
 		.array(
-			z.object({
-				lat: z.number(),
-				lng: z.number(),
-			}),
+			z.array(z.number()),
 		)
 		.optional(),
 	description: z.string().optional(),

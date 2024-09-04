@@ -8,7 +8,7 @@ export interface HeaderMenuProps {
 export function HeaderMenu({ name, href }: HeaderMenuProps) {
     const validHref = href || "#";
     return (
-        <Link href={validHref} prefetch className="text-l font-semibold leading-6 text-white">
+        <Link href={validHref} prefetch className="text-s leading-6 text-white">
             {name}
         </Link>
     )

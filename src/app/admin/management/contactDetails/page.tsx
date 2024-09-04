@@ -1,15 +1,8 @@
-'use client';
-
-import {
-	useCreateContactDetailsHook,
-	useGetContactDetailsByIdHook,
-	useGetAllContactDetailsHook,
-	useUpdateContactDetailsHook,
-	useDeleteContactDetailsHook,
-} from '@/hooks/contactDetails.hooks';
-import React, { useState } from 'react';
+import ManageContactDetailsPage from '@/pages/ManageContactDetailsPage';
+import React from 'react';
 
 const ContactDetailsManagement = () => {
+	return	<ManageContactDetailsPage />
 }
 
 export default ContactDetailsManagement;

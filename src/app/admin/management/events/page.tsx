@@ -1,15 +1,8 @@
-'use client';
-
-import {
-	useCreateEventHook,
-	useGetEventByIdHook,
-	useGetAllEventsHook,
-	useUpdateEventHook,
-	useDeleteEventHook,
-} from '@/hooks/events.hooks';
-import React, { useState } from 'react';
+import ManageEventsPage from '@/pages/ManageEventsPage';
+import React from 'react';
 
 const EventsManagement = () => {
+	return	<ManageEventsPage />
 }
 
 export default EventsManagement;

@@ -8,7 +8,8 @@ const routesSchema: Schema<IRoutesDocument> = new Schema(
 	{
 		schedule_id: {
 			type: Schema.Types.ObjectId,
-			required: true,
+			default: null,
+			required: false,
 		},
 		routeName: {
 			type: String,
