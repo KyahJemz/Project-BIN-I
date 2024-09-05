@@ -34,7 +34,7 @@ const scheduleSchema = new Schema<IScheduleSchedule>({
 }, { _id: false });
 
 
-const schedulesSchema: Schema<IScheduleDocument> = new Schema(
+export const schedulesSchema: Schema<IScheduleDocument> = new Schema(
 	{
 		scheduleLocation: {
 			type: String,
@@ -68,7 +68,7 @@ const schedulesSchema: Schema<IScheduleDocument> = new Schema(
 );
 
 const SchedulesModel =
-	mongoose.models.Schedule ||
-	mongoose.model<IScheduleDocument>('Schedule', schedulesSchema);
+	mongoose.models.Schedules ||
+	mongoose.model<IScheduleDocument>('Schedules', schedulesSchema);
 
 export default SchedulesModel;

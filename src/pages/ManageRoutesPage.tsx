@@ -45,6 +45,10 @@ const ManageRoutesPage = () => {
 
     function onDeleteRoute(id: string) {
         console.log('deleting route', id);
+        deleteRoute(id);
+        setTimeout(() => {
+            window.location.reload()
+        }, 500); 
     }
 
     const columns = [

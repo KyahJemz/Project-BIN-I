@@ -2,7 +2,7 @@ import { z } from 'zod';
 
 export type ICreateRoutesRequest = z.infer<typeof CreateRoutesRequestSchema>
 export const CreateRoutesRequestSchema = z.object({
-	schedule_id: z.string().min(1).trim(),
+	schedule_id: z.string().trim().optional().nullable().default(null),
 	routeName: z.string().min(1).trim(),
 	pickupPoints: z.array(
 		z.array(z.number()),

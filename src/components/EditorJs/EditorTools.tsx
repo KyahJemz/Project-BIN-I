@@ -1,4 +1,4 @@
-// @ts-nocheck
+
 import Marker from '@editorjs/marker';
 import InlineCode from '@editorjs/inline-code';
 import Underline from '@editorjs/underline';
@@ -10,7 +10,7 @@ import Paragraph from '@editorjs/paragraph';
 import Code from '@editorjs/code';
 
 import Image from '@editorjs/image';
-import Embed from '@editorjs/embed';
+import Embed from '@/class/editor.js-embed';
 import SimpleImage from '@editorjs/simple-image';
 import Link from '@editorjs/link';
 
@@ -20,6 +20,7 @@ import CheckList from '@editorjs/checklist';
 
 import Table from '@editorjs/table';
 import TextVariantTune from '@editorjs/text-variant-tune';
+import { env } from '@/env.mjs';
 
 const codeConfig = {
 	class: Code,
@@ -57,10 +58,9 @@ const embedConfig = {
 	class: Embed,
 	config: {
 		services: {
-			youtube: true, // Enable embedding of YouTube videos
-			twitter: true, // Enable embedding of Twitter posts
-			instagram: true, // Enable embedding of Instagram posts
-			// Add more services as needed
+			youtube: true,
+			twitter: true, 
+			instagram: true,
 		},
 	},
 };
@@ -68,18 +68,18 @@ const embedConfig = {
 const imageConfig = {
 	class: Image,
 	config: {
-		// endpoints: {
-		//   byFile: 'http://localhost:8008/uploadFile', // Endpoint for image file uploads
-		//   byUrl: 'http://localhost:8008/fetchUrl',    // Endpoint for image fetching by URL
-		// },
+		endpoints: {
+		  byFile: env.NEXT_PUBLIC_API_BASE_URL + '/upload', // Endpoint for image file uploads
+		},
 		captionPlaceholder: 'Add a caption...', // Placeholder text for the image caption
 		buttonContent: 'Select an image', // Text displayed on the file selection button
 		// additionalRequestHeaders: {             // Optional additional headers for the upload request
 		//   Authorization: 'Bearer token',        // Example of an additional header
 		// },
-		// additionalRequestData: {                // Optional additional data for the upload request
-		//   someKey: 'someValue',                 // Example additional request data
-		// },
+		additionalRequestData: {
+		  category: 'editorjs',
+		  id: new Date().toISOString().replace(/[:.]/g, '_'), 
+		},
 		field: 'image', // Field name for the image file in the request
 		types: 'image/*', // Accepted file types (e.g., images only)
 	},

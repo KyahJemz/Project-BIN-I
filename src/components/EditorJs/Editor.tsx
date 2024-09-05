@@ -13,6 +13,7 @@ export default function Editor({ holder }: EditorProps) {
 
   useEffect(() => {
     if (!ref.current) {
+      console.log("data to display in editor: ", editorData);
       const editor = new EditorJS({
         holder: holder,
         tools: EDITOR_TOOLS,

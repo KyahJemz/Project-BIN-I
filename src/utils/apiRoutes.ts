@@ -56,6 +56,9 @@ const apiRoutes = {
 	getAllSchedules: () => `${env.NEXT_PUBLIC_API_BASE_URL}/schedules`, // GET
 	updateSchedule: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/schedules?id=${id}`, // PUT
 	deleteSchedule: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/schedules?id=${id}`, // DELETE
+
+	// Files
+	uploadFile: () => `${env.NEXT_PUBLIC_API_BASE_URL}/upload`, // POST
 };
 
 export default apiRoutes;

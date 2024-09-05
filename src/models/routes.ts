@@ -1,6 +1,7 @@
 import { RouteStatusEnum } from '@/enums/routeStatus.enum';
 import { IRoute } from '@/types/IRoute.dto';
 import mongoose, { Schema, Document } from 'mongoose';
+import SchedulesModel, { schedulesSchema } from './schedules';
 
 export interface IRoutesDocument extends IRoute, Document {}
 
@@ -9,6 +10,7 @@ const routesSchema: Schema<IRoutesDocument> = new Schema(
 		schedule_id: {
 			type: Schema.Types.ObjectId,
 			default: null,
+			ref: SchedulesModel,
 			required: false,
 		},
 		routeName: {

@@ -1,152 +1,234 @@
 "use client";
 
-import React from "react";
-import { useRouter } from "next/navigation";
-import { IScheduleDocument } from "@/models/schedules";
-import dynamic from "next/dynamic";
-import { defaultPosition, routeColors } from "@/app/constants";
-import { IScheduleSchedule } from "@/types/IScheduleSchedule";
-import { IRoutesDocument } from "@/models/routes";
+import {
+	useGetScheduleByIdHook,
+	useUpdateScheduleHook
+} from '@/hooks/schedule.hooks';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { IUpdateScheduleRequest } from '@/validation/schedule.validation';
+import { IScheduleSchedule } from '@/types/IScheduleSchedule';
 
-const Map = dynamic(
-    () => import('@/components/map/map'),
-    {
-        loading: () => <p>A map is loading</p>,
-        ssr: false,
-    },
-);
-
-const RoutesTable = ({ routes }:{routes: IRoutesDocument[]}) => {
-    return (
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                Route Name
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                Color
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                Description
-              </th>
-              <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">
-                Notes
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white divide-y divide-gray-200">
-            {routes.map((route: IRoutesDocument, index: number) => {
-                const color = routeColors[index % routeColors.length];
-                return(
-                    <tr key={index}>
-                        <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium text-black`}>
-                            {route.routeName}
-                        </td>
-                        <td className={`px-6 py-4 font-bold whitespace-nowrap text-sm text-${route.status === 'active' ? 'green' : 'red'}-500`}>
-                            {route.status}
-                        </td>
-                        <td className={`px-6 py-4 whitespace-nowrap text-sm font-medium text-${color}-500`}>
-                            ▄▄▄▄
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {route.description || 'N/A'}
-                        </td>
-                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                            {route.notes || 'N/A'}
-                        </td>
-                    </tr>
-                )
-            })}
-          </tbody>
-        </table>
-      </div>
-    );
-  };
-
-const formatDaysOfMonth = (daysOfMonth?: number[]) => {
-    return daysOfMonth?.length ? daysOfMonth.join(', ') : 'N/A';
+type scheduleScheduleProps = {
+    frequency: "weekly" | "biweekly" | "monthly";
+    interval: number;
+    timeStart: string;
+    dayOfWeek?: "Monday" | "Tuesday" | "Wednesday" | "Thursday" | "Friday" | "Saturday" | "Sunday" | null;
+    daysOfMonth?: number[] | null;
 };
 
-const formatSchedule = (schedule: IScheduleSchedule) => {
-    if (schedule.frequency === 'monthly') {
-        if (schedule.specificDate) {
-            return `On ${schedule.specificDate} at ${schedule.timeStart}`;
-        } else if (schedule.daysOfMonth && schedule.daysOfMonth.length > 0) {
-            const days = schedule.daysOfMonth.join(', ');
-            return `Every ${schedule.interval} month(s) on the ${days} day(s) at ${schedule.timeStart}`;
-        }
-        return `Every ${schedule.interval} month(s) at ${schedule.timeStart}`;
-    } else if (schedule.frequency === 'biweekly') {
-        return `Every 2 weeks on ${schedule.dayOfWeek || 'N/A'} at ${schedule.timeStart}`;
-    } else if (schedule.frequency === 'weekly') {
-        return `Every ${schedule.interval} week(s) on ${schedule.dayOfWeek || 'N/A'} at ${schedule.timeStart}`;
-    }
-    return `Every ${schedule.interval} week(s) at ${schedule.timeStart}`;
+type scheduleProps = {
+    scheduleLocation: "weekly" | "biweekly" | "monthly";
+    schedule: scheduleScheduleProps;
+    status: 'active' | 'inactive';
+    notes?: string | null;
 };
 
-export default function IdSchedulesSection({ schedules }: { schedules: IScheduleDocument }) {
-    const { scheduleLocation, schedule, status, notes, createdAt, updatedAt, routes } = schedules;
-    const router = useRouter();
+const IdEditSchedule = ({ params }: { params: { id: string } }) => {
+	const router = useRouter();
 
-    const allPoints: number[][] = [];
-    const allLat: number[] = [];
-    const allLong: number[] = [];
+	const [scheduleLocation, setScheduleLocation] = useState<string>('');
+	const [schedule, setSchedule] = useState<scheduleScheduleProps>({
+		frequency: 'weekly',
+		interval: 1,
+		timeStart: '07:00',
+        dayOfWeek: null,
+		daysOfMonth: null,
+	});
+	const [status, setStatus] = useState<string>('active');
+	const [notes, setNotes] = useState<string>('');
 
-    if (routes) {
-        routes.forEach((route) => {
-            allPoints.push(route.pickupPoints);
-            route.pickupPoints.forEach((point: number[]) => {
-                allLat.push(+point[0]); 
-                allLong.push(+point[1]); 
-            });
-        });
-    }
+	const {
+		getScheduleById,
+		isLoading: isGettingScheduleById,
+		response: getScheduleByIdResponse,
+	} = useGetScheduleByIdHook();
 
-    const totalOfLats: number = allLat.reduce((a, b) => a + b, 0);
-    const totalOfLongs: number = allLong.reduce((a, b) => a + b, 0);
+	const {
+		updateSchedule,
+		isLoading: isUpdatingSchedule,
+		response: updateScheduleResponse,
+	} = useUpdateScheduleHook();
 
-    const centerOfMarks = (allLat.length > 0 && allLong.length > 0) ? [
-        totalOfLats / allLat.length,
-        totalOfLongs / allLong.length
-    ] : defaultPosition;
+	useEffect(() => {
+		const fetch = async () => {
+			await getScheduleById(params.id);
+		};
+		fetch();
+	}, []);
 
-    if (!schedules) {
-        return <p>Loading...</p>;
-    }
+	useEffect(() => {
+		if (updateScheduleResponse) {
+			router.back();
+		}
+	}, [updateScheduleResponse]);
 
-    return (
-        <div className="max-w-4xl h-auto mx-auto p-4 rounded-lg shadow-lg">
-            <h1 className="text-4xl font-bold mt-4 mb-2">{scheduleLocation}</h1>
-            <p className={`text-sm font-bold text-gray-500 mb-2 ${status === 'Active' ? 'text-green-500' : 'text-red-500'}`}>{status} Collection</p>
-            <p className="text-sm text-gray-500 mb-2">{formatSchedule(schedule)}</p>
-            <p className="text-sm text-gray-500 mb-4">Note: {notes}</p>
+	useEffect(() => {
+		if (getScheduleByIdResponse) {
+			setScheduleLocation(getScheduleByIdResponse?.scheduleLocation);
+			setSchedule(getScheduleByIdResponse?.schedule);
+			setStatus(getScheduleByIdResponse?.status);
+			setNotes(getScheduleByIdResponse?.notes);
+		}
+	}, [getScheduleByIdResponse]);
 
-            <div className="bg-white h-96 p-2 mb-4 rounded shadow-md">
-                <Map 
-                    zoom={15}
-                    cameraPosition={centerOfMarks} 
-                    routeCoordinates={allPoints}
-                    isClickable={false}
-                />
-            </div>
+	const onUpdateSchedule = () => {
+		const scheduleData: scheduleProps = {
+			scheduleLocation: scheduleLocation !== getScheduleByIdResponse?.scheduleLocation ? scheduleLocation : undefined,
+			schedule: schedule !== getScheduleByIdResponse?.schedule ? schedule : undefined,
+			status: status !== getScheduleByIdResponse?.status ? status : undefined,
+			notes: notes !== getScheduleByIdResponse?.notes ? notes : undefined,
+		};
+		updateSchedule(params.id, scheduleData);
+	};
 
-            <div className="bg-white h-auto p-2 mb-4 rounded shadow-md">
-                {routes && routes.length > 0 ? <RoutesTable routes={routes} /> : <p>No routes found for this schedule.</p>}
-            </div>
+	const formatSchedule = (schedule: scheduleScheduleProps) => {
+		if (schedule.frequency === 'monthly') {
+			if (schedule.daysOfMonth) {
+				return `On ${schedule.daysOfMonth} at ${schedule.timeStart}`;
+			} else if (schedule.daysOfMonth && schedule.daysOfMonth?.length > 0) {
+				const days = schedule.daysOfMonth?.join(', ');
+				return `Every ${schedule.interval} month(s) on the ${days} day(s) at ${schedule.timeStart}`;
+			}
+			return `Every ${schedule.interval} month(s) at ${schedule.timeStart}`;
+		} else if (schedule.frequency === 'biweekly') {
+			return `Every 2 weeks on ${schedule.dayOfWeek || 'N/A'} at ${schedule.timeStart}`;
+		} else if (schedule.frequency === 'weekly') {
+			return `Every ${schedule.interval} week(s) on ${schedule.dayOfWeek || 'N/A'} at ${schedule.timeStart}`;
+		}
+		return `Every ${schedule.interval} week(s) at ${schedule.timeStart}`;
+	};
 
-            <p className="text-sm text-gray-500 mb-2">Date created: {createdAt.toLocaleDateString()}</p>
-            <p className="text-sm text-gray-500 mb-4">Last update: {updatedAt.toLocaleDateString()}</p>
-            <button
-                onClick={() => router.back()}
-                className="bg-sun-yellow text-white px-4 py-2 rounded-md mt-4"
-            >
-                Go Back
-            </button>
-        </div>
-    );
+	return (
+		<>
+			{isGettingScheduleById && !getScheduleByIdResponse ? (
+				<p>Loading...</p>
+			) : (
+				<div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md mb-6">
+					<h2 className="text-2xl font-semibold text-gray-800 mb-6">Edit Schedule</h2>
+					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<div className="mb-4">
+							<label className="block text-gray-700 text-sm mb-2" htmlFor="scheduleLocation">
+								Schedule Location
+							</label>
+							<input
+								id="scheduleLocation"
+								type="text"
+								value={scheduleLocation}
+								onChange={(e) => setScheduleLocation(e.target.value)}
+								className="block w-full p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+							/>
+						</div>
+
+						{/* Grouped Schedule Fields */}
+						<div className="col-span-full">
+							<h3 className="text-lg font-semibold mb-4">Schedule Details</h3>
+
+							<div className="mb-4">
+								<label className="block text-gray-700 text-sm mb-2" htmlFor="frequency">
+									Frequency
+								</label>
+								<select
+									id="frequency"
+									value={schedule.frequency ?? ''}
+									onChange={(e) => setSchedule((prev) => ({ ...prev, frequency: e.target.value }))}
+									className="block w-full p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+								>
+									<option value="">-</option>
+									<option value="weekly">Weekly</option>
+									<option value="biweekly">Biweekly</option>
+									<option value="monthly">Monthly</option>
+								</select>
+							</div>
+
+							<div className="mb-4">
+								<label className="block text-gray-700 text-sm mb-2" htmlFor="interval">
+									Interval (in weeks/months)
+								</label>
+								<input
+									id="interval"
+									type="number"
+									placeholder="Enter interval"
+									value={schedule.interval ?? ''}
+									onChange={(e) => setSchedule((prev) => ({ ...prev, interval: Number(e.target.value) }))}
+									className="block w-full p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+								/>
+							</div>
+
+							<div className="mb-4">
+								<label className="block text-gray-700 text-sm mb-2" htmlFor="dayOfWeek">
+									Day of the Week
+								</label>
+								<select
+									id="dayOfWeek"
+									value={schedule.dayOfWeek ?? ''}
+									onChange={(e) => setSchedule((prev) => ({ ...prev, dayOfWeek: e.target.value }))}
+									className="block w-full p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+								>
+									<option value="">-</option>
+									<option value="Monday">Monday</option>
+									<option value="Tuesday">Tuesday</option>
+									<option value="Wednesday">Wednesday</option>
+									<option value="Thursday">Thursday</option>
+									<option value="Friday">Friday</option>
+									<option value="Saturday">Saturday</option>
+									<option value="Sunday">Sunday</option>
+								</select>
+							</div>
+
+							<div className="mb-4">
+								<label className="block text-gray-700 text-sm mb-2" htmlFor="timeStart">
+									Time Start
+								</label>
+								<input
+									id="timeStart"
+									type="time"
+									value={schedule.timeStart ?? ''}
+									onChange={(e) => setSchedule((prev) => ({ ...prev, timeStart: e.target.value }))}
+									className="block w-full p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+								/>
+							</div>
+
+							<div className="mb-4">
+								<label className="block text-gray-700 text-sm mb-2" htmlFor="daysOfMonth">
+									Days of the Month (comma-separated)
+								</label>
+								<input
+									id="daysOfMonth"
+									type="text"
+									placeholder="e.g., 1, 15, 30"
+									value={schedule.daysOfMonth?.join(', ') ?? ''}
+									onChange={(e) =>
+										setSchedule((prev) => ({
+											...prev,
+											daysOfMonth: e.target.value.split(',').map((day) => parseInt(day.trim())),
+										}))
+									}
+									className="block w-full p-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+								/>
+							</div>
+
+						</div>
+					</div>
+
+					<div className="mb-6">
+						<h4 className="text-lg font-semibold text-gray-700">Formatted Schedule:</h4>
+						<p className="text-gray-800">{formatSchedule(schedule)}</p>
+					</div>
+
+					<div className="text-right">
+						<button
+							onClick={onUpdateSchedule}
+							className="inline-block px-6 py-2 text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+							disabled={isUpdatingSchedule}
+						>
+							{isUpdatingSchedule ? 'Updating...' : 'Update Schedule'}
+						</button>
+					</div>
+				</div>
+			)}
+		</>
+	);
 };
+
+export default IdEditSchedule;

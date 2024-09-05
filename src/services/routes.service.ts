@@ -46,7 +46,8 @@ export class RoutesService {
 			await MongoDbConnect();
 			const routes = await this.routesModel
 				.findOne({ _id: id, deletedAt: null })
-				.lean();
+				.populate('schedule_id') 
+				.exec(); 
 			if (!routes) {
 				throw new Error('No routes found');
 			}

@@ -12,6 +12,7 @@ import { IScheduleDocument } from '@/models/schedules';
 import { IUpdateRoutesRequest } from '@/validation/routes.validation';
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 
 const Map = dynamic(
 	() => import('@/components/map/map'),
@@ -42,6 +43,8 @@ function getCenterPoint(points: number[][]) {
 }
 
 const IdEditRoute = ({ params }: { params: { id: string } }) => {
+	const router = useRouter();
+
 	const [scheduleId, setScheduleId] = useState<string>('');
 	const [routeName, setRouteName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
@@ -80,6 +83,12 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 	}, []);
 
 	useEffect(() => {
+		if (isUpdateRouteResponse) {
+			router.back();
+		}
+	}, [isUpdateRouteResponse]);
+
+	useEffect(() => {
 		if (getRouteByIdResponse) {
 			setScheduleId(getRouteByIdResponse?.schedule_id);
 			setRouteName(getRouteByIdResponse?.routeName);
@@ -100,6 +109,7 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 			pickupPoints: pickupPoints !== getRouteByIdResponse?.pickupPoints ? pickupPoints : undefined,
 		};
 		updateRoute(params.id, routeData);
+
 	}
 
 	function onPositionClick(position: number[]) {
@@ -133,7 +143,7 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 			{isGettingRouteById && !getRouteByIdResponse ? (
 				<p>Loading...</p>
 			) : (
-				<div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md">
+				<div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md mb-6">
 					<h2 className="text-2xl font-semibold text-gray-800 mb-6">Edit Route Details</h2>
 					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 						<div className="mb-4">
@@ -215,17 +225,17 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 	
 					<div className="mb-6">
 						<label className="block text-gray-700 text-sm font-bold mb-2">Route Map</label>
-						<div className="bg-gray-100 p-4 rounded-md shadow-sm h-96 flex flex-col justify-between">
-							<div className="flex space-x-4 mb-4">
+						<div className="bg-gray-100 p-4 rounded-md shadow-sm h-96 flex flex-col justify-end">
+							<div className="flex justify-end space-x-4 mb-4">
 								<button
 									onClick={onPositionsPopped}
-									className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 flex-1"
+									className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
 								>
 									Remove Last Point
 								</button>
 								<button
 									onClick={onPositionsCleard}
-									className="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 flex-1"
+									className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
 								>
 									Remove All Points
 								</button>
@@ -242,7 +252,7 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 						</div>
 					</div>
 	
-					<div className="text-center">
+					<div className="text-right">
 						<button
 							disabled={isUpdatingRoute}
 							onClick={onUpdateRoute}

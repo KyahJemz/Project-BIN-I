@@ -2,12 +2,12 @@
 
 import React from "react";
 import Image from 'next/image';
-import PreviewRenderer from "../EditorJsRenderer/PreviewRenderer";
 import { useRouter } from "next/navigation";
 import { INewsDocument } from "@/models/news";
+import PreviewRenderer from "@/components/EditorJsRenderer/PreviewRenderer";
 
-export default function IdNewsSection({ news }: { news: INewsDocument }) {
-    const { title, author, content = null, description, image, createdAt } = news;
+export default function NewsPreview({ news }: { news: INewsDocument }) {
+    const { title, author, description, image, createdAt } = news;
     const router = useRouter();
 
     if (!news) {
@@ -15,7 +15,7 @@ export default function IdNewsSection({ news }: { news: INewsDocument }) {
     }
 
     return (
-        <div className="max-w-4xl h-auto mx-auto p-4 rounded-lg shadow-lg">
+        <>
             <h1 className="text-4xl font-bold mt-4 mb-2">{title}</h1>
             <p className="text-sm text-gray-500 mb-2">By {author}</p>
             <p className="text-sm text-gray-500 mb-4">Published on {new Date(createdAt).toLocaleDateString()}</p>
@@ -34,14 +34,7 @@ export default function IdNewsSection({ news }: { news: INewsDocument }) {
                 </div>
             )}
 
-            <PreviewRenderer data={content ? JSON.parse(content).blocks : null} />
-
-            <button
-                onClick={() => router.back()}
-                className="bg-sun-yellow text-white px-4 py-2 rounded-md mt-4"
-            >
-                Go Back
-            </button>
-        </div>
+            <PreviewRenderer data={null} />
+            </>
     );
 };
