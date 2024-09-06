@@ -122,7 +122,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 	}
 		
 	return (
-		<>
+		<main>
 			{isGettingEventById && !getEventByIdResponse ? (
 				<p className="text-center text-gray-500">Loading...</p>
 			) : (
@@ -232,7 +232,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 					</div>
 				</div>
 			)}
-		</>
+		</main>
 	);
 	
 };

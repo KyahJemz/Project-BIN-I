@@ -3,7 +3,9 @@ import React from 'react';
 
 const ScheduleManagement = () => {
 	return (
-		<ManageSchedulesPage />
+		<main>
+			<ManageSchedulesPage />
+		</main>
 	)
 }	
 

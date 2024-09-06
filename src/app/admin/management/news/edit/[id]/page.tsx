@@ -114,7 +114,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 	}
 		
 	return (
-		<>
+		<main>
 			{isGettingNewsById && !getNewsByIdResponse ? (
 				<p className="text-center text-gray-500">Loading...</p>
 			) : (
@@ -224,7 +224,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 					</div>
 				</div>
 			)}
-		</>
+		</main>
 	);
 	
 };

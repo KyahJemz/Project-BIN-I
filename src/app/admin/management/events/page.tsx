@@ -2,7 +2,11 @@ import ManageEventsPage from '@/pages/ManageEventsPage';
 import React from 'react';
 
 const EventsManagement = () => {
-	return	<ManageEventsPage />
+	return (
+		<main>
+			<ManageEventsPage />
+		</main>
+	)
 }
 
 export default EventsManagement;

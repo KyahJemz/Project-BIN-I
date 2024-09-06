@@ -2,7 +2,11 @@ import LogsPage from '@/pages/LogsPage';
 import React from 'react';
 
 const LogsManagement = () => {
-	return <LogsPage />;
+	return (
+		<main>
+			<LogsPage />
+		</main>
+	)
 }
 
 export default LogsManagement;

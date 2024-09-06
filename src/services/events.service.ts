@@ -27,6 +27,9 @@ export class EventService {
 	async createEvent(request: ICreateEventRequest) {
 		try {
 			await MongoDbConnect();
+			if(request.content === "null") {
+				request.content = "[]"
+			}
 			const event = await this.eventModel.create(request);
 			if (!event) {
 				throw new Error('Event creation failed');
@@ -86,7 +89,11 @@ export class EventService {
 				event.author = request.author;
 			}
 			if (request.content !== undefined) {
-				event.content = request.content;
+				if (request.content === "null") {
+					event.content = "[]";
+				} else {
+					event.content = request.content;
+				}
 			}
 			if (request.image !== undefined) {
 				event.image = request.image;

@@ -93,7 +93,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 	}
 		
 	return (
-		<>
+		<main>
 				<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
 					<h1 className="text-xl font-semibold text-gray-800 mb-4">Create Event</h1>
 					<div className="space-y-4">
@@ -199,7 +199,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 						</div>
 					</div>
 				</div>
-		</>
+		</main>
 	);
 	
 };

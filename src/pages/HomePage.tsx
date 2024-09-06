@@ -17,7 +17,6 @@ import AnnouncementsSection from '@/components/AnnouncementsSection/Announcement
 import HeroSection from '@/components/HeroSection/HeroSection';
 import SchedulesSection from '@/components/SchedulesSection/SchedulesSection';
 import { LatLngExpression } from 'leaflet';
-import Routes from '@/app/routes/page';
 import Link from 'next/link';
 
 export interface HomePageProps {

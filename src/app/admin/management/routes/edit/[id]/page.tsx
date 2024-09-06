@@ -139,7 +139,7 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 	}
 
 	return (
-		<>
+		<main>
 			{isGettingRouteById && !getRouteByIdResponse ? (
 				<p>Loading...</p>
 			) : (
@@ -265,7 +265,7 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 					</div>
 				</div>
 			)}
-		</>
+		</main>
 	);
 	
 

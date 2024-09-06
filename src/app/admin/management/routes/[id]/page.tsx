@@ -73,7 +73,7 @@ const IdViewRoute = ({ params }: { params: { id: string } }) => {
 	}, [getRouteByIdResponse]);
 
 	return (
-		<>
+		<main>
 			{isGettingRouteById && !getRouteByIdResponse ? (
 				<p>Loading...</p>
 			) : (
@@ -119,7 +119,7 @@ const IdViewRoute = ({ params }: { params: { id: string } }) => {
 					</div>
 				</div>
 			)}
-		</>
+		</main>
 	);
 	
 	

@@ -2,7 +2,11 @@ import ManageContactDetailsPage from '@/pages/ManageContactDetailsPage';
 import React from 'react';
 
 const ContactDetailsManagement = () => {
-	return	<ManageContactDetailsPage />
+	return (
+		<main>
+			<ManageContactDetailsPage />
+		</main>
+	)	
 }
 
 export default ContactDetailsManagement;

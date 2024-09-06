@@ -3,22 +3,28 @@ import getConfig from 'next/config';
 
 interface ServerRuntimeConfig {
     MongoDbConnectionString: string;
+    MongoDbDatabase: string;
 }
 
 const MongoDbConnect = async (): Promise<void> => {
     const { serverRuntimeConfig } = getConfig();
     const config = serverRuntimeConfig as ServerRuntimeConfig;
 
-    if (!config.MongoDbConnectionString) {
-        throw new Error('MongoDB connection string is not defined.');
+    if (!config.MongoDbConnectionString || !config.MongoDbDatabase) {
+        throw new Error('MongoDB connection string or database name is not defined.');
     }
 
     try {
-        // Check if already connected or connecting
         if (mongoose.connection.readyState === 0) {
             await mongoose.connect(config.MongoDbConnectionString, {
-                serverSelectionTimeoutMS: 30000, // 30 seconds timeout
-                socketTimeoutMS: 45000, // 45 seconds socket timeout
+                dbName: config.MongoDbDatabase,
+                serverSelectionTimeoutMS: 30000,
+                socketTimeoutMS: 45000, 
+                serverApi: {
+                    version: '1',
+                    strict: true,
+                    deprecationErrors: true,
+                },
             });
             console.log('MongoDB connected successfully.');
         }
@@ -35,7 +41,6 @@ const closeConnection = async () => {
     }
 };
 
-// Handling graceful shutdown
 process.on('SIGINT', async () => {
     await closeConnection();
     process.exit(0);

@@ -25,6 +25,9 @@ export class NewsService {
 	async createNews(request: ICreateNewsRequest) {
 		try {
 			await MongoDbConnect();
+			if(request.content === "null") {
+				request.content = "[]"
+			}
 			const news = await this.newsModel.create(request);
 			if (!news) {
 				throw new Error('News creation failed');
@@ -82,7 +85,11 @@ export class NewsService {
 				news.author = request.author;
 			}
 			if (request.content !== undefined) {
-				news.content = request.content;
+				if (request.content === "null") {
+					news.content = "[]";
+				} else {
+					news.content = request.content;
+				}
 			}
 			if (request.image !== undefined) {
 				news.image = request.image;

@@ -27,6 +27,9 @@ export class AnnouncementService {
 	async createAnnouncement(request: ICreateAnnouncementRequest) {
 		try {
 			await MongoDbConnect();
+			if(request.content === "null") {
+				request.content = "[]"
+			}
 			const announcement = await this.announcementModel.create(request);
 			if (!announcement) {
 				throw new Error('announcement creation failed');
@@ -86,7 +89,11 @@ export class AnnouncementService {
 				announcement.author = request.author;
 			}
 			if (request.content !== undefined) {
-				announcement.content = request.content;
+				if (request.content === "null") {
+					announcement.content = "[]";
+				} else {
+					announcement.content = request.content;
+				}
 			}
 			if (request.image !== undefined) {
 				announcement.image = request.image;

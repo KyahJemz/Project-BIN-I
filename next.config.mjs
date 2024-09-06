@@ -7,7 +7,8 @@ const nextConfig = {
 		Environment: env.ENVIRONMENT,
 		ApiBaseUrl: env.API_BASE_URL,
 		BaseUrl: env.BASE_URL,
-		MongoDbConnectionString: `${env.MONGODB_URL}/${env.MONGODB_DATABASE}`,
+		MongoDbConnectionString: env.MONGODB_URL,
+		MongoDbDatabase: env.MONGODB_DATABASE,
 		MongoDbSecret: env.MONGODB_SECRET,
 	},
 	publicRuntimeConfig: {

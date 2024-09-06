@@ -119,7 +119,7 @@ const IdEditSchedule = ({ params }: { params: { id: string } }) => {
 	};
 
 	return (
-		<>
+		<main>
 			{isGettingScheduleById && !getScheduleByIdResponse ? (
 				<p>Loading...</p>
 			) : (
@@ -327,7 +327,7 @@ const IdEditSchedule = ({ params }: { params: { id: string } }) => {
 					</div>
 				</div>
 			)}
-		</>
+		</main>
 	);
 };
 

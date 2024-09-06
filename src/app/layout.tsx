@@ -20,9 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <div className="max-h-screen pt-20 bg-gray-100">
+        <div className="max-h-screen pt-12 bg-gray-100" id="root">
           <Header headerTitle={headerTitle} headerItems={headerItems} headerButton={headerButton}/>
-          {children}
+            {children}
           <Footer />
         </div>
       </body>

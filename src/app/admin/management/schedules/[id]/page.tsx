@@ -60,7 +60,7 @@ const IdViewSchedule = ({ params }: { params: { id: string } }) => {
 	};
 
 	return (
-		<>
+		<main>
 			{isGettingScheduleById && !getScheduleByIdResponse ? (
 				<p>Loading...</p>
 			) : (
@@ -90,7 +90,7 @@ const IdViewSchedule = ({ params }: { params: { id: string } }) => {
 					</div>
 				</div>
 			)}
-		</>
+		</main>
 	);
 	
 	
