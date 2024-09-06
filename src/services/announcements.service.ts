@@ -36,6 +36,8 @@ export class AnnouncementService {
 				actionCollection: CollectionsEnum.Announcements,
 				action: ActionsEnum.Create,
 				action_id: (announcement._id || "").toString(),
+				oldDocument: null,
+				newDocument: JSON.stringify(announcement)
 			})
 			return announcement;
 		} catch (error) {
@@ -95,6 +97,8 @@ export class AnnouncementService {
 				actionCollection: CollectionsEnum.Announcements,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(announcement),
+				newDocument: JSON.stringify(updatedAnnouncement)
 			})
 			return updatedAnnouncement.toObject();
 		} catch (error) {
@@ -110,6 +114,8 @@ export class AnnouncementService {
 				actionCollection: CollectionsEnum.Announcements,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(announcement),
+				newDocument: null
 			})
 			return announcement;
 		} catch (error) {

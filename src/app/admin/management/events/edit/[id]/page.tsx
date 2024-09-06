@@ -1,8 +1,9 @@
 "use client";
 
 import {
-	useCreateNewsHook
-} from '@/hooks/news.hooks';
+	useGetEventByIdHook,
+	useUpdateEventHook,
+} from '@/hooks/events.hooks';
 import {
 	useUploadFileHook,
 } from '@/hooks/files.hooks';
@@ -11,30 +12,41 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-import NewsPreview from '@/components/NewsPreview/page';
+import EventPreview from '@/components/EventPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
 });
 
-const IdEditNews = ({ params }: { params: { id: string } }) => {
+const IdEditEvent = ({ params }: { params: { id: string } }) => {
 	const router = useRouter();
 	const [isPreview, setIsPreview] = useState<boolean>(false);
 
 	const { editorData, setEditorData } = useEditorStore();
 	const [title, setTitle] = useState<string>('');
-	const [createdAt, setCreatedAt] = useState<string>('');
 	const [author, setAuthor] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<string>('');
+	const [eventTime, setEventTime] = useState<string>('');
+	const [eventDate, setEventDate] = useState<string>('');
+	const [status, setStatus] = useState<string>('upcoming');
+	const [content, setContent] = useState(null);
+	const [createdAt, setCreatedAt] = useState<string>('');
 	const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
 	const {
-		createNews,
-		isLoading: isCreatingNews,
-		error: createNewsError,
-		response: createNewsResponse,
-	} = useCreateNewsHook();
+		getEventById,
+		isLoading: isGettingEventById,
+		error: getEventByIdError,
+		response: getEventByIdResponse,
+	} = useGetEventByIdHook();
+
+	const {
+		updateEvent,
+		isLoading: isUpdatingEvent,
+		error: updateEventError,
+		response: updateEventResponse,
+	} = useUpdateEventHook();
 
 	const {
 		uploadFile,
@@ -42,6 +54,28 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 		error: uploadFileError,
 		response: uploadFileResponse,
 	} = useUploadFileHook();
+
+	useEffect(() => {
+		const fetch = async () => {
+			await getEventById(params.id);
+		};
+		fetch();
+	}, [params.id]);
+
+	useEffect(() => {
+		if (getEventByIdResponse) {
+			setTitle(getEventByIdResponse?.title || '');
+			setAuthor(getEventByIdResponse?.author || '');
+			setDescription(getEventByIdResponse?.description || undefined);
+			setImage(getEventByIdResponse?.image || undefined);
+			setCreatedAt(getEventByIdResponse?.createdAt || '');
+			setEventTime(getEventByIdResponse?.eventTime || '');
+			setEventDate(getEventByIdResponse?.eventDate || '');
+			setStatus(getEventByIdResponse?.createdAt || '');
+			setContent(JSON.parse(getEventByIdResponse?.content ?? []) || '');
+			setEditorData(JSON.parse(getEventByIdResponse?.content ?? []) || '');
+		}
+	}, [getEventByIdResponse]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files?.[0]) {
@@ -56,43 +90,48 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 	};
 
 	useEffect(() => {
-		if (createNewsResponse) {
-			router.back();
-		}
-	}, [createNewsResponse]);
-
-	useEffect(() => {
 		if (uploadFileResponse) {
-			onCreateNews(uploadFileResponse.fileName);
+			onUpdateEvent(uploadFileResponse.fileName)
 		}
 	}, [uploadFileResponse]);
 
-	function onCreateNewsClicked() {
+	useEffect(() => {
+		if (updateEventResponse) {
+			router.back();
+		}
+	}, [updateEventResponse]);
+
+	function onUpdateEventClicked() {
 		if (uploadedImage) {
-			uploadFile(uploadedImage as File, params.id, 'news');
+			uploadFile(uploadedImage as File, params.id, 'events');
 		} else {
-			onCreateNews();
+			onUpdateEvent();
 		}
 	}
 
-	function onCreateNews(name: string | null = null) {
-		createNews({
+	function onUpdateEvent(name: string | undefined = undefined) {
+		updateEvent(params.id, {
 			title,
 			author,
-			description,
-			image: name ?? '' ?? undefined,
+			content,
+			eventDate,
+			eventTime,
+			image: name ?? undefined,
 			content: JSON.stringify(editorData),
 		});
 	}
 		
 	return (
 		<>
+			{isGettingEventById && !getEventByIdResponse ? (
+				<p className="text-center text-gray-500">Loading...</p>
+			) : (
 				<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
-					<h1 className="text-xl font-semibold text-gray-800 mb-4">Create News</h1>
+					<h1 className="text-xl font-semibold text-gray-800 mb-4">Edit Event</h1>
 					<div className="space-y-4">
 	
 					{isPreview ? (
-					<NewsPreview news={{title, author, description, image, createdAt}}/>
+						<EventPreview news={{title, author, description, image, createdAt}}/>
 					) : (
 						<>
 						<div>
@@ -168,7 +207,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 						<div className="mb-4">
 							<h2 className="text-sm font-semibold text-gray-800 mb-2">Content</h2>
 							<div className="border border-gray-300 rounded-md p-2">
-								<Editor holder="editorjs-container" content={editorData} />
+								{content ? <Editor holder="editorjs-container" content={content}/> : 'No content provided.'}
 							</div>
 						</div>
 	
@@ -183,18 +222,19 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 								{isPreview ? 'Edit' : 'Preview'}
 							</button>
 							<button
-								onClick={onCreateNewsClicked}
+								onClick={onUpdateEventClicked}
 								className="px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
-								disabled={isCreatingNews || isUploadingFile}
+								disabled={isUpdatingEvent || isUploadingFile}
 							>
-								{(isCreatingNews || isUploadingFile) ? 'Creating...' : 'Creating News'}
+								{(isUpdatingEvent || isUploadingFile) ? 'Updating...' : 'Update Event'}
 							</button>
 						</div>
 					</div>
 				</div>
+			)}
 		</>
 	);
 	
 };
 
-export default IdEditNews;
+export default IdEditEvent;

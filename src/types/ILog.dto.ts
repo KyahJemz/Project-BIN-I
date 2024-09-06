@@ -7,4 +7,6 @@ export interface ILog {
 	actionCollection: CollectionsEnum;
 	action: ActionsEnum;
 	action_id: Schema.Types.ObjectId;
+	newDocument: string,
+	oldDocument: string | null,
 }

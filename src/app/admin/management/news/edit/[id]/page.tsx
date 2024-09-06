@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-import IdNewsSection from '@/components/IdNewsSection/IdNewsSection';
 import NewsPreview from '@/components/NewsPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
@@ -29,6 +28,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 	const [author, setAuthor] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<string>('');
+	const [content, setContent] = useState(null);
 	const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
 	const {
@@ -65,8 +65,9 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 			setAuthor(getNewsByIdResponse?.author || '');
 			setDescription(getNewsByIdResponse?.description || undefined);
 			setImage(getNewsByIdResponse?.image || undefined);
-			setEditorData(JSON.parse(getNewsByIdResponse?.content ?? []) || '');
 			setCreatedAt(getNewsByIdResponse?.createdAt || '');
+			setContent(JSON.parse(getNewsByIdResponse?.content ?? []) || '');
+			setEditorData(JSON.parse(getNewsByIdResponse?.content ?? []) || '');
 		}
 	}, [getNewsByIdResponse]);
 
@@ -122,7 +123,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 					<div className="space-y-4">
 	
 					{isPreview ? (
-					<NewsPreview news={{title, author, description, image, createdAt}}/>
+						<NewsPreview news={{title, author, description, image, createdAt}}/>
 					) : (
 						<>
 						<div>
@@ -198,7 +199,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 						<div className="mb-4">
 							<h2 className="text-sm font-semibold text-gray-800 mb-2">Content</h2>
 							<div className="border border-gray-300 rounded-md p-2">
-								<Editor holder="editorjs-container" />
+								{content ? <Editor holder="editorjs-container" content={content}/> : 'No content provided.'}
 							</div>
 						</div>
 	

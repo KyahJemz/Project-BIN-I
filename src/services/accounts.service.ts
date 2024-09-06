@@ -39,6 +39,8 @@ export class AccountService {
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Create,
 				action_id: (account._id || "").toString(),
+				oldDocument: null,
+				newDocument: JSON.stringify(account)
 			})
 			return account;
 		} catch (error) {
@@ -107,6 +109,8 @@ export class AccountService {
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(account),
+				newDocument: JSON.stringify(updatedAccount)
 			})
 			return updatedAccount.toObject();
 		} catch (error) {
@@ -160,6 +164,8 @@ export class AccountService {
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(account),
+				newDocument: JSON.stringify(updatedAccount)
 			})
 			return updatedAccount.toObject();
 		} catch (error) {
@@ -175,6 +181,8 @@ export class AccountService {
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(account),
+				newDocument: null
 			})
 			return account;
 		} catch (error) {

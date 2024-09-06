@@ -1,100 +1,86 @@
 "use client";
 
 import {
-	useCreateNewsHook
-} from '@/hooks/news.hooks';
-import {
-	useUploadFileHook,
-} from '@/hooks/files.hooks';
+	useGetContactDetailsByIdHook,
+	useUpdateContactDetailsHook,
+} from '@/hooks/contactDetails.hooks';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-import NewsPreview from '@/components/NewsPreview/page';
+import ContactDetailsPreview from '@/components/ContactDetailsPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
 });
 
-const IdEditNews = ({ params }: { params: { id: string } }) => {
+const IdEditContactDetails = ({ params }: { params: { id: string } }) => {
 	const router = useRouter();
-	const [isPreview, setIsPreview] = useState<boolean>(false);
 
-	const { editorData, setEditorData } = useEditorStore();
-	const [title, setTitle] = useState<string>('');
-	const [createdAt, setCreatedAt] = useState<string>('');
-	const [author, setAuthor] = useState<string>('');
+	const [name, setName] = useState<string>('');
+	const [contactDetails, setContactDetails] = useState<string>('');
+	const [type, setType] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
-	const [image, setImage] = useState<string>('');
-	const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+	const [priorityIndex, setPriorityIndex] = useState<string>('');
+	const [createdAt, setCreatedAt] = useState<string>('');
 
 	const {
-		createNews,
-		isLoading: isCreatingNews,
-		error: createNewsError,
-		response: createNewsResponse,
-	} = useCreateNewsHook();
+		getContactDetailsById,
+		isLoading: isGettingContactDetailsById,
+		error: getContactDetailsByIdError,
+		response: getContactDetailsByIdResponse,
+	} = useGetContactDetailsByIdHook();
 
 	const {
-		uploadFile,
-		isLoading: isUploadingFile,
-		error: uploadFileError,
-		response: uploadFileResponse,
-	} = useUploadFileHook();
-
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		if (e.target.files?.[0]) {
-			const file = e.target.files[0];
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setUploadedImage(file);
-				setImage(reader.result as string);
-			};
-			reader.readAsDataURL(file);
-		}
-	};
+		updateContactDetails,
+		isLoading: isUpdatingContactDetails,
+		error: updateContactDetailsError,
+		response: updateContactDetailsResponse,
+	} = useUpdateContactDetailsHook();
 
 	useEffect(() => {
-		if (createNewsResponse) {
+		const fetch = async () => {
+			await getContactDetailsById(params.id);
+		};
+		fetch();
+	}, [params.id]);
+
+	useEffect(() => {
+		if (getContactDetailsByIdResponse) {
+			setName(getContactDetailsByIdResponse?.name || '');
+			setContactDetails(getContactDetailsByIdResponse?.contactDeails || '');
+			setType(getContactDetailsByIdResponse?.type || '');
+			setDescription(getContactDetailsByIdResponse?.description || '');
+			setPriorityIndex(getContactDetailsByIdResponse?.priorityIndex || '');
+			setCreatedAt(getContactDetailsByIdResponse.createdAt || '');
+		}
+	}, [getContactDetailsByIdResponse]);
+
+	useEffect(() => {
+		if (updateContactDetailsResponse) {
 			router.back();
 		}
-	}, [createNewsResponse]);
+	}, [updateContactDetailsResponse]);
 
-	useEffect(() => {
-		if (uploadFileResponse) {
-			onCreateNews(uploadFileResponse.fileName);
-		}
-	}, [uploadFileResponse]);
-
-	function onCreateNewsClicked() {
-		if (uploadedImage) {
-			uploadFile(uploadedImage as File, params.id, 'news');
-		} else {
-			onCreateNews();
-		}
-	}
-
-	function onCreateNews(name: string | null = null) {
-		createNews({
-			title,
-			author,
+	function onUpdateContactDetailsClicked() {
+		updateContactDetails(params.id, {
+			name,
+			contactDetails,
+			type,
 			description,
-			image: name ?? '' ?? undefined,
-			content: JSON.stringify(editorData),
+			priorityIndex,
 		});
 	}
 		
 	return (
 		<>
+			{isGettingContactDetailsById && !getContactDetailsByIdResponse ? (
+				<p className="text-center text-gray-500">Loading...</p>
+			) : (
 				<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
-					<h1 className="text-xl font-semibold text-gray-800 mb-4">Create News</h1>
+					<h1 className="text-xl font-semibold text-gray-800 mb-4">Edit ContactDetails</h1>
 					<div className="space-y-4">
 	
-					{isPreview ? (
-					<NewsPreview news={{title, author, description, image, createdAt}}/>
-					) : (
-						<>
 						<div>
 							<label htmlFor="title" className="block text-gray-700 font-medium mb-1 text-sm">Title</label>
 							<input
@@ -168,12 +154,10 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 						<div className="mb-4">
 							<h2 className="text-sm font-semibold text-gray-800 mb-2">Content</h2>
 							<div className="border border-gray-300 rounded-md p-2">
-								<Editor holder="editorjs-container" content={editorData} />
+								{content ? <Editor holder="editorjs-container" content={content}/> : 'No content provided.'}
 							</div>
 						</div>
 	
-						</>
-					)}
 	
 						<div className="text-right space-x-2">
 							<button
@@ -183,18 +167,19 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 								{isPreview ? 'Edit' : 'Preview'}
 							</button>
 							<button
-								onClick={onCreateNewsClicked}
+								onClick={onUpdateContactDetailsClicked}
 								className="px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
-								disabled={isCreatingNews || isUploadingFile}
+								disabled={isUpdatingContactDetails || isUploadingFile}
 							>
-								{(isCreatingNews || isUploadingFile) ? 'Creating...' : 'Creating News'}
+								{(isUpdatingContactDetails || isUploadingFile) ? 'Updating...' : 'Update ContactDetails'}
 							</button>
 						</div>
 					</div>
 				</div>
+			)}
 		</>
 	);
 	
 };
 
-export default IdEditNews;
+export default IdEditContactDetails;

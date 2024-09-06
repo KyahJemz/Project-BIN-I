@@ -30,7 +30,7 @@ export const POST = async (request: NextRequest) => {
       const categoryDir = path.join(uploadDir, category);
       await fs.promises.mkdir(categoryDir, { recursive: true });
       console.log("2")
-      const fileName = `${id}${path.extname(file.name)}`;
+      const fileName = `${new Date().toISOString().replaceAll(":", "-")}_${path.extname(file.name)}`;
       const filePath = path.join(categoryDir, fileName);
       console.log("3")
       if (fs.existsSync(filePath)) {
@@ -41,7 +41,7 @@ export const POST = async (request: NextRequest) => {
       await writeFile(filePath, buffer);
       console.log("5")
 
-      return NextResponse.json({ message: 'File uploaded successfully', fileName, success: 1 , file: { url: env.NEXT_PUBLIC_BASE_URL + "/images/" + category + "/" + fileName }}, { status: 200 });
+      return NextResponse.json({ message: 'File uploaded successfully', fileName: fileName, success: 1 , file: { url: env.NEXT_PUBLIC_BASE_URL + "/images/" + category + "/" + fileName }}, { status: 200 });
     } else {
       return NextResponse.json({ message: 'File processing error' }, { status: 400 });
     }

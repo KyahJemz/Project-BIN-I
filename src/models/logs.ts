@@ -25,6 +25,14 @@ const logsSchema: Schema<ILogDocument> = new Schema(
 			type: Schema.Types.ObjectId,
 			required: true,
 		},
+		newDocument: {
+			type: String,
+			required: false,
+		},
+		oldDocument: {
+			type: String,
+			required: false,
+		},
 	},
 	{
 		timestamps: true,

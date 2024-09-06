@@ -5,9 +5,11 @@ import { useEditorStore } from '@/stores/useEditorStore';
 
 type EditorProps = {
   holder: string;
+  content?: any;
+  refreshTrigger?: any;
 };
 
-export default function Editor({ holder }: EditorProps) {
+export default function Editor({ holder, content, refreshTrigger }: EditorProps) {
   const ref = useRef<EditorJS | null>(null);
   const { editorData, setEditorData } = useEditorStore();
 
@@ -17,7 +19,7 @@ export default function Editor({ holder }: EditorProps) {
       const editor = new EditorJS({
         holder: holder,
         tools: EDITOR_TOOLS,
-        data: editorData,
+        data: content ?? editorData,
         async onChange(api) {
           const data = await api.saver.save();
           setEditorData(data);
@@ -32,7 +34,7 @@ export default function Editor({ holder }: EditorProps) {
         ref.current = null;
       }
     };
-  }, []);
+  }, [refreshTrigger]);
 
   return <div id={holder} className="prose max-w-full" />;
 }

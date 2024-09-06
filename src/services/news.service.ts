@@ -34,6 +34,8 @@ export class NewsService {
 				actionCollection: CollectionsEnum.News,
 				action: ActionsEnum.Create,
 				action_id: (news._id || "").toString(),
+				oldDocument: null,
+				newDocument: JSON.stringify(news),
 			})
 			return news;
 		} catch (error) {
@@ -91,6 +93,8 @@ export class NewsService {
 				actionCollection: CollectionsEnum.News,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(news),
+				newDocument: JSON.stringify(updatedNews)
 			})
 			return updatedNews.toObject();
 		} catch (error) {
@@ -106,6 +110,8 @@ export class NewsService {
 				actionCollection: CollectionsEnum.News,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(news),
+				newDocument: null
 			})
 			return news;
 		} catch (error) {

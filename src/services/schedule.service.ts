@@ -40,6 +40,8 @@ export class ScheduleService {
 				actionCollection: CollectionsEnum.Schedules,
 				action: ActionsEnum.Create,
 				action_id: (schedule._id || "").toString(),
+				oldDocument: null,
+				newDocument: JSON.stringify(schedule),
 			})
 			return schedule;
 		} catch (error) {
@@ -103,6 +105,8 @@ export class ScheduleService {
 				actionCollection: CollectionsEnum.Schedules,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(schedule),
+				newDocument: JSON.stringify(updatedSchedule),
 			})
 			return updatedSchedule.toObject();
 		} catch (error) {
@@ -118,6 +122,8 @@ export class ScheduleService {
 				actionCollection: CollectionsEnum.Schedules,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(schedule),
+				newDocument: null,
 			})
 			return schedule;
 		} catch (error) {

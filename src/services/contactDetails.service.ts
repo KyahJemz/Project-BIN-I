@@ -37,6 +37,8 @@ export class ContactDetailsService {
 				actionCollection: CollectionsEnum.ContactDetails,
 				action: ActionsEnum.Create,
 				action_id: (contactDetails._id || "").toString(),
+				oldDocument: null,
+				newDocument: JSON.stringify(contactDetails)
 			})
 			return contactDetails;
 		} catch (error) {
@@ -102,6 +104,8 @@ export class ContactDetailsService {
 				actionCollection: CollectionsEnum.ContactDetails,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(contactDetails),
+				newDocument: JSON.stringify(updatedContactDetails)
 			})
 			return updatedContactDetails.toObject();
 		} catch (error) {
@@ -117,6 +121,8 @@ export class ContactDetailsService {
 				actionCollection: CollectionsEnum.ContactDetails,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(contactDetails),
+				newDocument: null
 			})
 			return contactDetails;
 		} catch (error) {

@@ -35,6 +35,8 @@ export class RoutesService {
 				actionCollection: CollectionsEnum.Routes,
 				action: ActionsEnum.Create,
 				action_id: (routes._id || "").toString(),
+				oldDocument: null,
+				newDocument: JSON.stringify(routes),
 			})
 			return routes;
 		} catch (error) {
@@ -126,6 +128,8 @@ export class RoutesService {
 				actionCollection: CollectionsEnum.Routes,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(routes),
+				newDocument: JSON.stringify(updatedRoutes),
 			})
 			return updatedRoutes.toObject();
 		} catch (error) {
@@ -141,6 +145,8 @@ export class RoutesService {
 				actionCollection: CollectionsEnum.Routes,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(routes),
+				newDocument: null,
 			})
 			return routes;
 		} catch (error) {

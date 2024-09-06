@@ -9,6 +9,8 @@ export const CreateLogsRequestSchema = z.object({
 	actionCollection: z.string().min(1).trim(),
 	action: z.string().min(1).trim(),
 	action_id: z.string().min(1).trim(),
+	oldDocument: z.string().optional().nullable(),
+	newDocument: z.string().optional().nullable(),
 });
 
 export type IUpdateLogsRequest = z.infer<typeof UpdateLogsRequestSchema>
@@ -17,4 +19,6 @@ export const UpdateLogsRequestSchema = z.object({
 	actionCollection: z.string().optional(),
 	action: z.string().optional(),
 	action_id: z.string().optional(),
+	oldDocument: z.string().optional().nullable(),
+	newDocument: z.string().optional().nullable(),
 });

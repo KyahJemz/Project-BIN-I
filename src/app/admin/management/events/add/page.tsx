@@ -1,8 +1,8 @@
 "use client";
 
 import {
-	useCreateNewsHook
-} from '@/hooks/news.hooks';
+	useCreateEventHook
+} from '@/hooks/events.hooks';
 import {
 	useUploadFileHook,
 } from '@/hooks/files.hooks';
@@ -11,13 +11,13 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-import NewsPreview from '@/components/NewsPreview/page';
+import EventPreview from '@/components/EventPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
 });
 
-const IdEditNews = ({ params }: { params: { id: string } }) => {
+const IdEditEvent = ({ params }: { params: { id: string } }) => {
 	const router = useRouter();
 	const [isPreview, setIsPreview] = useState<boolean>(false);
 
@@ -28,13 +28,17 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<string>('');
 	const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+	const [eventTime, setEventTime] = useState<string>('');
+	const [eventDate, setEventDate] = useState<string>('');
+	const [status, setStatus] = useState<string>('upcoming');
+	const [content, setContent] = useState(null);
 
 	const {
-		createNews,
-		isLoading: isCreatingNews,
-		error: createNewsError,
-		response: createNewsResponse,
-	} = useCreateNewsHook();
+		createEvent,
+		isLoading: isCreatingEvent,
+		error: createEventError,
+		response: createEventResponse,
+	} = useCreateEventHook();
 
 	const {
 		uploadFile,
@@ -56,31 +60,34 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 	};
 
 	useEffect(() => {
-		if (createNewsResponse) {
+		if (createEventResponse) {
 			router.back();
 		}
-	}, [createNewsResponse]);
+	}, [createEventResponse]);
 
 	useEffect(() => {
 		if (uploadFileResponse) {
-			onCreateNews(uploadFileResponse.fileName);
+			onCreateEvent(uploadFileResponse.fileName);
 		}
 	}, [uploadFileResponse]);
 
-	function onCreateNewsClicked() {
+	function onCreateEventClicked() {
 		if (uploadedImage) {
 			uploadFile(uploadedImage as File, params.id, 'news');
 		} else {
-			onCreateNews();
+			onCreateEvent();
 		}
 	}
 
-	function onCreateNews(name: string | null = null) {
-		createNews({
+	function onCreateEvent(name: string | null = null) {
+		createEvent({
 			title,
 			author,
-			description,
-			image: name ?? '' ?? undefined,
+			content,
+			eventDate,
+			eventTime,
+			status,
+			image: name ?? undefined,
 			content: JSON.stringify(editorData),
 		});
 	}
@@ -88,11 +95,11 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 	return (
 		<>
 				<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
-					<h1 className="text-xl font-semibold text-gray-800 mb-4">Create News</h1>
+					<h1 className="text-xl font-semibold text-gray-800 mb-4">Create Event</h1>
 					<div className="space-y-4">
 	
 					{isPreview ? (
-					<NewsPreview news={{title, author, description, image, createdAt}}/>
+					<EventPreview news={{title, author, description, image, createdAt}}/>
 					) : (
 						<>
 						<div>
@@ -183,11 +190,11 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 								{isPreview ? 'Edit' : 'Preview'}
 							</button>
 							<button
-								onClick={onCreateNewsClicked}
+								onClick={onCreateEventClicked}
 								className="px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
-								disabled={isCreatingNews || isUploadingFile}
+								disabled={isCreatingEvent || isUploadingFile}
 							>
-								{(isCreatingNews || isUploadingFile) ? 'Creating...' : 'Creating News'}
+								{(isCreatingEvent || isUploadingFile) ? 'Creating...' : 'Creating Event'}
 							</button>
 						</div>
 					</div>
@@ -197,4 +204,4 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 	
 };
 
-export default IdEditNews;
+export default IdEditEvent;

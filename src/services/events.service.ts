@@ -36,6 +36,8 @@ export class EventService {
 				actionCollection: CollectionsEnum.Events,
 				action: ActionsEnum.Create,
 				action_id: (event._id || "").toString(),
+				oldDocument: null,
+				newDocument: JSON.stringify(event)
 			})
 			return event;
 		} catch (error) {
@@ -104,6 +106,8 @@ export class EventService {
 				actionCollection: CollectionsEnum.Events,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(event),
+				newDocument: JSON.stringify(updatedEvent)
 			})
 			return updatedEvent.toObject();
 		} catch (error) {
@@ -119,6 +123,8 @@ export class EventService {
 				actionCollection: CollectionsEnum.Events,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(event),
+				newDocument: null
 			})
 			return event;
 		} catch (error) {
