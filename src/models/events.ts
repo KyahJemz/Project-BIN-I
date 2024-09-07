@@ -34,6 +34,10 @@ const eventsSchema: Schema<IEventDocument> = new Schema(
 			type: String,
 			required: true,
 		},
+		eventLocation: {
+			type: String,
+			required: true,
+		},
 		status: {
 			type: String,
 			enum: Object.values(EventStatusEnum),

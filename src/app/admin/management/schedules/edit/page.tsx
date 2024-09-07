@@ -1,9 +1,9 @@
 
 import { redirect } from 'next/navigation';
 
-const EditSchedule = () => {
+const Edit = () => {
 	redirect('/admin/management/schedules');
 	return <></>;
 }
 
-export default EditSchedule;
+export default Edit;

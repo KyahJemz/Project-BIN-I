@@ -1,9 +1,9 @@
 
 import { redirect } from 'next/navigation';
 
-const EditEvents = () => {
+const Edit = () => {
 	redirect('/admin/management/events');
 	return <></>;
 }
 
-export default EditEvents;
+export default Edit;

@@ -104,6 +104,9 @@ export class EventService {
 			if (request.eventTime !== undefined) {
 				event.eventTime = request.eventTime;
 			}
+			if (request.eventLocation !== undefined) {
+				event.eventLocation = request.eventLocation;
+			}
 			if (request.status !== undefined) {
 				event.status = request.status as EventStatusEnum;
 			}

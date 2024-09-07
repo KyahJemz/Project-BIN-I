@@ -80,118 +80,130 @@ const IdAddAnnouncement = ({ params }: { params: { id: string } }) => {
 			content: JSON.stringify(editorData),
 		});
 	};
-		
+
 	return (
 		<main>
-		<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
-			<h1 className="text-xl font-semibold text-gray-800 mb-4">Create Announcement</h1>
-			<div className="space-y-4">
-				{isPreview ? (
-					// Placeholder for preview component
-					<div className="border border-gray-300 rounded-md p-4">
-						<h2 className="text-lg font-semibold mb-2">{title}</h2>
-						<p className="text-sm text-gray-700">Author: {author}</p>
-						<p className="text-sm text-gray-700">Description: {description}</p>
-						{image && (
-							<Image
-								width={400}
-								height={400}
-								src={uploadedImage ? image : `/images/announcements/${image}`}
-								alt="Preview"
-								className="w-24 h-24 object-cover rounded-md border border-gray-300 mt-2"
-							/>
-						)}
-						<div className="mt-4">
-							<h3 className="text-sm font-semibold text-gray-800 mb-2">Content Preview:</h3>
-							<Editor holder="editorjs-container" content={editorData} />
-						</div>
-					</div>
-				) : (
-					<>
-						<div>
-							<label htmlFor="title" className="block text-gray-700 font-medium mb-1 text-sm">Title</label>
-							<input
-								id="title"
-								type="text"
-								value={title}
-								onChange={(e) => setTitle(e.target.value)}
-								className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-							/>
-						</div>
-
-						<div>
-							<label htmlFor="author" className="block text-gray-700 font-medium mb-1 text-sm">Author</label>
-							<input
-								id="author"
-								type="text"
-								value={author}
-								onChange={(e) => setAuthor(e.target.value)}
-								className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-							/>
-						</div>
-
-						<div>
-							<label htmlFor="description" className="block text-gray-700 font-medium mb-1 text-sm">Description</label>
-							<input
-								id="description"
-								type="text"
-								value={description}
-								onChange={(e) => setDescription(e.target.value)}
-								className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
-							/>
-						</div>
-
-						<div>
-							<label htmlFor="image" className="block text-gray-700 font-medium mb-1 text-sm">Image</label>
-
-							{image && (
-								<div className="mb-4">
-									<Image
-										width={400}
-										height={400}
-										src={uploadedImage ? image : `/images/news/${image}`}
-										alt="Preview"
-										className="w-24 h-24 object-cover rounded-md border border-gray-300"
-									/>
-								</div>
-							)}
-
-							<label htmlFor="file-upload" className="block text-gray-700 font-medium mb-1 text-sm">Upload New Image</label>
-							<input
-								id="file-upload"
-								type="file"
-								accept="image/*"
-								onChange={handleFileChange}
-								className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md cursor-pointer text-sm"
-							/>
-						</div>
-
-						<div className="mb-4">
-							<h2 className="text-sm font-semibold text-gray-800 mb-2">Content</h2>
-							<div className="border border-gray-300 rounded-md p-2">
-								<Editor holder="editorjs-container" content={editorData} />
+			<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
+				<h1 className="text-xl font-semibold text-gray-800 mb-4">Create Announcement</h1>
+				<div className="space-y-4 border-t">
+					{isPreview ? (
+						// Placeholder for preview component
+						// <div className="border border-gray-300 rounded-md p-4">
+						// 	<h2 className="text-lg font-semibold mb-2">{title}</h2>
+						// 	<p className="text-sm text-gray-700">Author: {author}</p>
+						// 	<p className="text-sm text-gray-700">Description: {description}</p>
+						// 	{image && (
+						// 		<Image
+						// 			width={400}
+						// 			height={400}
+						// 			src={uploadedImage ? image : `/images/announcements/${image}`}
+						// 			alt="Preview"
+						// 			className="w-24 h-24 object-cover rounded-md border border-gray-300 mt-2"
+						// 		/>
+						// 	)}
+						// 	<div className="mt-4">
+						// 		<h3 className="text-sm font-semibold text-gray-800 mb-2">Content Preview:</h3>
+						// 		<Editor holder="editorjs-container" content={editorData} />
+						// 	</div>
+						// </div>
+						<></>
+					) : (
+						<>
+							<div>
+								<label htmlFor="title" className="block text-gray-700 font-medium mb-1 text-sm mt-4">Title<a className="text-red-500"> *</a></label>
+								<input
+									id="title"
+									type="text"
+									value={title}
+									onChange={(e) => setTitle(e.target.value)}
+									className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+								/>
 							</div>
-						</div>
-					</>
-				)}
 
-				<div className="text-right space-x-2">
-					<button
-						onClick={() => setIsPreview((prev) => !prev)}
-						className="px-4 py-2 text-sm text-white bg-gray-600 hover:bg-gray-700 rounded-md"
-					>
-						{isPreview ? 'Edit' : 'Preview'}
-					</button>
-					<button
-						onClick={onCreateAnnouncementClicked}
-						className="px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
-						disabled={isCreatingAnnouncement || isUploadingFile}
-					>
-						{isCreatingAnnouncement || isUploadingFile ? 'Creating...' : 'Create Announcement'}
-					</button>
+							<div>
+								<label htmlFor="author" className="block text-gray-700 font-medium mb-1 text-sm">Author<a className="text-red-500"> *</a></label>
+								<input
+									id="author"
+									type="text"
+									value={author}
+									onChange={(e) => setAuthor(e.target.value)}
+									className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+								/>
+							</div>
+
+							<div>
+								<label htmlFor="description" className="block text-gray-700 font-medium mb-1 text-sm">Description<a className="text-red-500"> *</a></label>
+								<input
+									id="description"
+									type="text"
+									value={description}
+									onChange={(e) => setDescription(e.target.value)}
+									className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm"
+								/>
+							</div>
+
+							<div>
+								<label htmlFor="image" className="block text-gray-700 font-medium mb-1 text-sm">Image</label>
+
+								{image && (
+									<div className="mb-4">
+										<Image
+											width={400}
+											height={400}
+											src={uploadedImage ? image : `/images/news/${image}`}
+											alt="Preview"
+											className="w-24 h-24 object-cover rounded-md border border-gray-300"
+										/>
+									</div>
+								)}
+
+								<label htmlFor="file-upload" className="block text-gray-700 font-medium mb-1 text-sm">Upload New Image</label>
+								<input
+									id="file-upload"
+									type="file"
+									accept="image/*"
+									onChange={handleFileChange}
+									className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md cursor-pointer text-sm"
+								/>
+							</div>
+
+							<div className="mb-4">
+								<h2 className="text-sm font-semibold text-gray-800 mb-2">Content</h2>
+								<div className="border border-gray-300 rounded-md p-2">
+									<Editor holder="editorjs-container" content={editorData ?? []} />
+								</div>
+							</div>
+						</>
+					)}
+
+					<div className="flex justify-end gap-4">
+						{isPreview ? null : (
+							<button
+								onClick={() => router.back()}
+								className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
+								disabled={isCreatingAnnouncement || isUploadingFile}
+							>
+								Go Back
+							</button>
+						)}
+						<button
+							onClick={() => setIsPreview((prev) => !prev)}
+							className="font-semibold bg-gray-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
+						>
+							{isPreview ? 'Edit' : 'Preview'}
+						</button>
+						{isPreview ? null : (
+							<button
+								onClick={onCreateAnnouncementClicked}
+								className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
+								disabled={isCreatingAnnouncement || isUploadingFile}
+							>
+								{isCreatingAnnouncement || isUploadingFile ? 'Creating...' : 'Create Announcement'}
+							</button>
+						)}
+					</div>
 				</div>
 			</div>
-		</div>
 		</main>
 	);
 };

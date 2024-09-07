@@ -4,10 +4,11 @@ export type ICreateEventRequest = z.infer<typeof CreateEventRequestSchema>
 export const CreateEventRequestSchema = z.object({
 	title: z.string().min(1).trim(),
 	author: z.string().min(1).trim(),
-	content: z.string().min(1).trim(),
-	image: z.string().min(1).trim(),
+	content: z.string().optional(),
+	image: z.string().optional(),
 	eventDate: z.string().min(1).trim(),
 	eventTime: z.string().min(1).trim(),
+	eventLocation: z.string().min(1).trim(),
 	status: z.string().min(1).trim(),
 });
 
@@ -19,5 +20,6 @@ export const UpdateEventRequestSchema = z.object({
 	image: z.string().optional(),
 	eventDate: z.string().optional(),
 	eventTime: z.string().optional(),
+	eventLocation: z.string().optional(),
 	status: z.string().optional(),
 });

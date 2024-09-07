@@ -1,7 +1,6 @@
 import RoutesModel from '@/models/routes';
 import { RoutesService } from '@/services/routes.service';
 import { ErrorResponses } from '@/utils/errorResponses';
-import { MongoDbConnect } from '@/utils/mongodb';
 import {
 	CreateRoutesRequestSchema,
 	UpdateRoutesRequestSchema,
@@ -14,8 +13,8 @@ export async function POST(req: NextRequest) {
 	try {
 		
 		const parsedRequest = CreateRoutesRequestSchema.parse(await req.json());
-		const news = await routesService.createRoute(parsedRequest);
-		return NextResponse.json(news, { status: 201 });
+		const routes = await routesService.createRoute(parsedRequest);
+		return NextResponse.json(routes, { status: 201 });
 	} catch (error: any) {
 		const { statusCode, message } = ErrorResponses.UNHANDLED_ERROR(error);
 		return NextResponse.json({ message }, { status: statusCode });
@@ -26,15 +25,20 @@ export async function POST(req: NextRequest) {
 export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
+	const action = url.searchParams.get('action');
 	try {
 		
 		const routesService = new RoutesService(RoutesModel);
+		if (action && action.includes('by-schedule') && id) {
+			const routes = await routesService.getRouteByScheduleId(id);
+			return NextResponse.json(routes);
+		}
 		if (id) {
-			const news = await routesService.getRouteById(id);
-			return NextResponse.json(news);
+			const routes = await routesService.getRouteById(id);
+			return NextResponse.json(routes);
 		} else {
-			const news = await routesService.getAllRoutes();
-			return NextResponse.json(news);
+			const routes = await routesService.getAllRoutes();
+			return NextResponse.json(routes);
 		}
 	} catch (error: any) {
 		const { statusCode, message } = ErrorResponses.UNHANDLED_ERROR(error);

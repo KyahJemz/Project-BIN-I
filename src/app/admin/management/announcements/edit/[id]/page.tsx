@@ -124,124 +124,142 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 
 	return (
 		<main>
-			{isGettingAnnouncementById ? (
-				<p className="text-center text-gray-500">Loading...</p>
-			) : (
-				<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
-					<h1 className="text-xl font-semibold text-gray-800 mb-4">Edit Announcement</h1>
-					<div className="space-y-4">
-						{isPreview ? (
-							// <AnnouncementPreview
-							// 	news={{
-							// 		title,
-							// 		author,
-							// 		description,
-							// 		image,
-							// 		createdAt,
-							// 	}}
-							// />
-							<></>
-						) : (
-							<>
-								<div>
-									<label htmlFor="title" className="block text-gray-700 font-medium text-sm mb-1">
-										Title
-									</label>
-									<input
-										id="title"
-										type="text"
-										value={title}
-										onChange={(e) => setTitle(e.target.value)}
-										className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
-									/>
-								</div>
-
-								<div>
-									<label htmlFor="author" className="block text-gray-700 font-medium text-sm mb-1">
-										Author
-									</label>
-									<input
-										id="author"
-										type="text"
-										value={author}
-										onChange={(e) => setAuthor(e.target.value)}
-										className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
-									/>
-								</div>
-
-								<div>
-									<label htmlFor="description" className="block text-gray-700 font-medium text-sm mb-1">
-										Description
-									</label>
-									<textarea
-										id="description"
-										value={description}
-										onChange={(e) => setDescription(e.target.value)}
-										className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
-									/>
-								</div>
-
-								<div>
-									<label htmlFor="image" className="block text-gray-700 font-medium text-sm mb-1">
-										Image
-									</label>
-									{image && !uploadedImage && (
-										<Image
-											width={200}
-											height={200}
-											src={`/images/announcements/${image}`}
-											alt="Preview"
-											className="w-24 h-24 object-cover rounded-md border border-gray-300"
+			<div className="max-w-3xl mx-auto p-4 bg-white rounded-lg shadow-md">
+				<h1 className="text-xl font-semibold text-gray-800 mb-4">Edit Announcement</h1>
+				<div className="space-y-4 border-t">
+					{isPreview ? (
+						// <AnnouncementPreview
+						// 	news={{
+						// 		title,
+						// 		author,
+						// 		description,
+						// 		image,
+						// 		createdAt,
+						// 	}}
+						// />
+						<></>
+					) : (
+						<>
+							<div>
+								<label htmlFor="title" className="block text-gray-700 font-medium text-sm mb-1 mt-4">
+									Title<a className="text-red-500"> *</a>
+								</label>
+								{isGettingAnnouncementById ?
+									'Loading...'
+									: (
+										<input
+											id="title"
+											type="text"
+											value={title}
+											onChange={(e) => setTitle(e.target.value)}
+											className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
 										/>
-									)}
-									{image && uploadedImage && (
-										<Image
-											width={200}
-											height={200}
-											src={image}
-											alt="New Preview"
-											className="w-24 h-24 object-cover rounded-md border border-gray-300"
+									)
+								}
+							</div>
+
+							<div>
+								<label htmlFor="author" className="block text-gray-700 font-medium text-sm mb-1">
+									Author<a className="text-red-500"> *</a>
+								</label>
+								{isGettingAnnouncementById ?
+									'Loading...'
+									: (
+										<input
+											id="author"
+											type="text"
+											value={author}
+											onChange={(e) => setAuthor(e.target.value)}
+											className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
 										/>
-									)}
-									<input
-										type="file"
-										accept="image/*"
-										onChange={handleFileChange}
-										className="block w-full mt-2 p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
+									)
+								}
+							</div>
+
+							<div>
+								<label htmlFor="description" className="block text-gray-700 font-medium text-sm mb-1">
+									Description<a className="text-red-500"> *</a>
+								</label>
+								{isGettingAnnouncementById ?
+									'Loading...'
+									: (
+										<textarea
+											id="description"
+											value={description}
+											onChange={(e) => setDescription(e.target.value)}
+											className="block w-full p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
+										/>
+									)
+								}
+							</div>
+
+							<div>
+								<label htmlFor="image" className="block text-gray-700 font-medium text-sm mb-1">
+									Image
+								</label>
+								{image && !uploadedImage && (
+									<Image
+										width={200}
+										height={200}
+										src={`/images/announcements/${image}`}
+										alt="Preview"
+										className="w-24 h-24 object-cover rounded-md border border-gray-300"
 									/>
-								</div>
+								)}
+								{isGettingAnnouncementById ?
+									'Loading...'
+									: (
+										<input
+											type="file"
+											accept="image/*"
+											onChange={handleFileChange}
+											className="block w-full mt-2 p-2 bg-gray-100 border border-gray-300 rounded-md text-sm"
+										/>
+									)
+								}
+							</div>
 
-								<div className="mb-4">
-									<h2 className="text-sm font-semibold text-gray-800 mb-2">Content</h2>
-									<div className="border border-gray-300 rounded-md p-2">
-										{content ? (
-											<Editor holder="editorjs-container" content={content} />
-										) : (
-											<p>No content provided.</p>
-										)}
-									</div>
+							<div className="mb-4">
+								<h2 className="text-sm font-semibold text-gray-800 mb-2">Content</h2>
+								<div className="border border-gray-300 rounded-md p-2">
+									{content ? (
+										<Editor holder="editorjs-container" content={content} />
+									) : (
+										<p>No content provided.</p>
+									)}
 								</div>
-							</>
-						)}
+							</div>
+						</>
+					)}
 
-						<div className="text-right space-x-2">
+					<div className="flex justify-end gap-4">
+						{isPreview ? null : (
 							<button
-								onClick={() => setIsPreview(!isPreview)}
-								className="px-4 py-2 text-sm text-white bg-gray-600 hover:bg-gray-700 rounded-md"
+								onClick={() => router.back()}
+								className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
+								disabled={isUpdatingAnnouncement || isUploadingFile}
 							>
-								{isPreview ? 'Edit' : 'Preview'}
+								Go Back
 							</button>
+						)}
+						<button
+							onClick={() => setIsPreview(!isPreview)}
+							className="font-semibold bg-gray-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
+						>
+							{isPreview ? 'Edit' : 'Preview'}
+						</button>
+						{isPreview ? null : (
 							<button
 								onClick={handleSubmit}
-								className="px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+								className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
 								disabled={isUpdatingAnnouncement || isUploadingFile}
 							>
 								{isUpdatingAnnouncement || isUploadingFile ? 'Updating...' : 'Update Announcement'}
 							</button>
-						</div>
+						)}
 					</div>
 				</div>
-			)}
+			</div>
 		</main>
 	);
 };

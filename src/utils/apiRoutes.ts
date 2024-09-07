@@ -33,7 +33,7 @@ const apiRoutes = {
 
 	// Logs
 	getLogById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/logs?id=${id}`, // GET
-	getAllLogs: () => `${env.NEXT_PUBLIC_API_BASE_URL}/logs`, // GET
+	getAllLogs: (page: number, pageSize: number) => `${env.NEXT_PUBLIC_API_BASE_URL}/logs?page=${page}&page-size=${pageSize}`, // GET
 
 	// News
 	createNews: () => `${env.NEXT_PUBLIC_API_BASE_URL}/news`, // POST

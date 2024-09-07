@@ -37,14 +37,20 @@ export class LogsService {
 			throw error;
 		}
 	}
-	async getAllLogs() {
+	async getAllLogs(page: number, pageSize: number) {
 		try {
 			await MongoDbConnect();
-			const logs = await this.logsModel.find().lean();
+			const count = await this.logsModel.countDocuments().lean();
+			const logs = await this.logsModel.find().sort({ "createdAt": -1}).skip(page).limit(pageSize).lean();
 			if (!logs) {
 				throw new Error('No logs found');
 			}
-			return logs;
+			return {
+				logs,
+				metadata: {
+					totalItems: count,
+				},
+			};
 		} catch (error) {
 			throw error;
 		}

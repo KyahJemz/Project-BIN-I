@@ -40,11 +40,11 @@ export const useGetAllLogsHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
-	const getAllLogs = async () => {
+	const getAllLogs = async (page: number, pageSize: number) => {
 		setIsLoading(true);
 		setError(null);
 		try {
-			const res = await fetch(`${apiRoutes.getAllLogs()}`, {
+			const res = await fetch(`${apiRoutes.getAllLogs(page, pageSize)}`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',

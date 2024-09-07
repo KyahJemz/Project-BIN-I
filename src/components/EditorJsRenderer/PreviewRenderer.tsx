@@ -5,7 +5,7 @@ interface PreviewRendererProps {
 }
 export default function PreviewRenderer(data: PreviewRendererProps | null = null) {
 	const { convertDataToHtml } = EditorParser();
-	const { editorData } = useEditorStore();
+	const { editorData, setEditorData} = useEditorStore();
 
 	let htmlContent;
 	try {

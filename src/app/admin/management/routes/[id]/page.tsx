@@ -63,7 +63,7 @@ const IdViewRoute = ({ params }: { params: { id: string } }) => {
 
 	useEffect(() => {
 		if (getRouteByIdResponse) {
-			setScheduleId(getRouteByIdResponse?.schedule_id);
+			setScheduleId(getRouteByIdResponse?.schedule_id?.scheduleLocation);
 			setRouteName(getRouteByIdResponse?.routeName);
 			setDescription(getRouteByIdResponse?.description);
 			setStatus(getRouteByIdResponse?.status);
@@ -74,55 +74,56 @@ const IdViewRoute = ({ params }: { params: { id: string } }) => {
 
 	return (
 		<main>
-			{isGettingRouteById && !getRouteByIdResponse ? (
-				<p>Loading...</p>
-			) : (
-				<div className="max-w-4xl mx-auto p-6 bg-gray-50 rounded-lg shadow-md mb-6">
-					<h2 className="text-2xl font-semibold text-gray-800 mb-6">Route Details</h2>
-					<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-						
-						<div className="mb-4">
-							<p className="text-sm font-bold text-gray-700">Route Location</p>
-							<p className="text-gray-800">{scheduleId?.scheduleLocation || '-'}</p>
-						</div>
-	
-						<div className="mb-4">
-							<p className="text-sm font-bold text-gray-700">Route Name</p>
-							<p className="text-gray-800">{routeName || '-'}</p>
-						</div>
-	
-						<div className="mb-4">
-							<p className="text-sm font-bold text-gray-700">Description</p>
-							<p className="text-gray-800">{description || '-'}</p>
-						</div>
-	
-						<div className="mb-4">
-							<p className="text-sm font-bold text-gray-700">Status</p>
-							<p className="text-gray-800">{status === 'active' ? 'Active' : 'Inactive'}</p>
-						</div>
-	
-						<div className="mb-4 col-span-full">
-							<p className="text-sm font-bold text-gray-700">Notes</p>
-							<p className="text-gray-800">{notes || '-'}</p>
-						</div>
+			<div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md my-6">
+				<h2 className="text-xl font-semibold text-gray-800 mb-4">Route Details</h2>
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+					<div className="mb-4">
+						<p className="text-sm font-bold text-gray-700">Route Location</p>
+						<p className="text-gray-800">{isGettingRouteById ? 'Loading...' : scheduleId}</p>
 					</div>
-	
-					<div className="mb-6">
-						<p className="text-sm font-bold text-gray-700">Route Map</p>
-						<div className="bg-gray-100 p-4 rounded-md shadow-sm h-96">
-							<Map
-								routeCoordinates={[pickupPoints]}
-								cameraPosition={getCenterPoint(pickupPoints)}
-								className="w-full h-full rounded-md"
-							/>
-						</div>
+
+					<div className="mb-4">
+						<p className="text-sm font-bold text-gray-700">Route Name</p>
+						<p className="text-gray-800">{isGettingRouteById ? 'Loading...' : routeName}</p>
+					</div>
+
+					<div className="mb-4">
+						<p className="text-sm font-bold text-gray-700">Description</p>
+						<p className="text-gray-800">{isGettingRouteById ? 'Loading...' : description}</p>
+					</div>
+
+					<div className="mb-4">
+						<p className="text-sm font-bold text-gray-700">Status</p>
+						<p className="text-gray-800">{isGettingRouteById ? 'Loading...' : (status === 'active' ? 'Active' : 'Inactive')}</p>
+					</div>
+
+					<div className="mb-4 col-span-full">
+						<p className="text-sm font-bold text-gray-700">Notes</p>
+						<p className="text-gray-800">{isGettingRouteById ? 'Loading...' : notes}</p>
 					</div>
 				</div>
-			)}
+
+				<div className="w-full mt-4">
+					<p className="text-sm font-bold text-gray-700">Route Map</p>
+					<div className="bg-gray-100 h-96 p-2 rounded-lg shadow-lg mt-2">
+						<Map
+							routeCoordinates={[pickupPoints]}
+							cameraPosition={getCenterPoint(pickupPoints)}
+						/>
+					</div>
+				</div>
+
+				<div className="w-full mt-6 flex justify-end">
+					<button onClick={() => router.back()} className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded">
+						Go Back
+					</button>
+				</div>
+			</div>
 		</main>
 	);
-	
-	
+
+
 
 };
 

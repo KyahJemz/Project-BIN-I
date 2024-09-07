@@ -1,4 +1,5 @@
 import { LatLngExpression } from "leaflet"
+import { CalendarCheck2Icon, CalendarCheckIcon, ContactIcon, LayoutDashboardIcon, LogsIcon, MegaphoneIcon, NewspaperIcon, UsersIcon, WaypointsIcon } from "lucide-react"
 
 
 // Menu Items
@@ -12,11 +13,11 @@ export const headerMoreItems = [
     { name: 'Contact', description: 'Get in touch for inquiries and support.', href: '/about', icon: '' },
 ]
 export const headerItems = [
-    { name: 'Home', href: '/', items: null},
+    { name: 'Home', href: '/', items: null },
     { name: 'About', href: '/about', items: null },
     { name: 'News', href: '/news', items: null },
     { name: 'Announcements', href: '/announcements', items: null },
-    { name: 'More',  href: null, items: headerMoreItems  },
+    { name: 'More', href: null, items: headerMoreItems },
 ]
 export const headerButton = {
     name: 'Login',
@@ -41,6 +42,22 @@ export const routeColors = [
     'orange',
     'yellow',
     'pink',
-    'black',  
+    'black',
 ]
 export const routeColorsWeight = 5;
+
+
+
+// Admin Sidebar Constants
+
+export const sidebarItems = [
+    { name: 'Dashboard', href: '/admin/management', icon: LayoutDashboardIcon },
+    { name: 'Accounts', href: '/admin/management/accounts', icon: UsersIcon },
+    { name: 'Logs', href: '/admin/management/logs', icon: LogsIcon },
+    { name: 'Contact Details', href: '/admin/management/contact-details', icon: ContactIcon },
+    { name: 'Announcements', href: '/admin/management/announcements', icon: MegaphoneIcon },
+    { name: 'News', href: '/admin/management/news', icon: NewspaperIcon },
+    { name: 'Events', href: '/admin/management/events', icon: CalendarCheckIcon },
+    { name: 'Schedules', href: '/admin/management/schedules', icon: CalendarCheck2Icon },
+    { name: 'Routes', href: '/admin/management/routes', icon: WaypointsIcon },
+];

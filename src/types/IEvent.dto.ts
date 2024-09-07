@@ -8,6 +8,7 @@ export interface IEvent {
 	image: string;
 	eventDate: Date;
 	eventTime: string;
+	eventLocation: string;
 	status: EventStatusEnum;
 	deletedAt?: Date | null;
 }

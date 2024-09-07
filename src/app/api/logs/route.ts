@@ -7,7 +7,9 @@ import { NextResponse, NextRequest } from 'next/server';
 // GET method: Fetch logs details or all logs details
 export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
-	const id = url.searchParams.get('id');
+	const id = url.searchParams.get('id') as string;
+	const page = url.searchParams.get('page') as string;
+	const pageSize = url.searchParams.get('page-size') as string;
 	try {
 		
 		const logsService = new LogsService(LogsModel);
@@ -15,7 +17,7 @@ export async function GET(req: NextRequest) {
 			const logs = await logsService.getLogsById(id);
 			return NextResponse.json(logs);
 		} else {
-			const logs = await logsService.getAllLogs();
+			const logs = await logsService.getAllLogs(+page, +pageSize);
 			return NextResponse.json(logs);
 		}
 	} catch (error: any) {

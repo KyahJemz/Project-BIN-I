@@ -1,9 +1,9 @@
 
 import { redirect } from 'next/navigation';
 
-const EditRoute = () => {
+const Edit = () => {
 	redirect('/admin/management/routes');
 	return <></>;
 }
 
-export default EditRoute;
+export default Edit;
