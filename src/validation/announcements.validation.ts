@@ -4,9 +4,9 @@ export type ICreateAnnouncementRequest = z.infer<typeof CreateAnnouncementReques
 export const CreateAnnouncementRequestSchema = z.object({
 	title: z.string().min(1).trim(),
 	author: z.string().min(1).trim(),
-	content: z.string().min(1).trim(),
+	content: z.string().optional().nullable().default(null),
 	description: z.string().min(1).trim(),
-	image: z.string().min(1).trim(),
+	image: z.string().optional().nullable().default(null),
 });
 
 export type IUpdateAnnouncementRequest = z.infer<typeof UpdateAnnouncementRequestSchema>

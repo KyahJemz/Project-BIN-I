@@ -81,7 +81,7 @@ const BiniCard: React.FC<BiniCardProps> = ({ type, details }) => {
                     <p className="text-sm font-semibold text-gray-500">{details.author}</p>
                     <img src={"/images/posts/" + details.image} alt={details.title} className="w-full h-48 object-cover mt-4" />
                     <p className="mt-4">{details.description}</p>
-                    <p className="text-xs text-gray-400 mt-2">Created: {details.createdAt}</p>
+                    <p className="text-xs text-gray-400 mt-2">Created: {formatFullDate(details.createdAt)}</p>
                 </div>
             );
         default:

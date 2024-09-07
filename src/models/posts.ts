@@ -1,9 +1,9 @@
-import { IAnnouncement } from '@/types/IAnnouncement.dto';
+import { IPost } from '@/types/IPost.dto';
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IAnnouncementDocument extends IAnnouncement, Document {}
+export interface IPostDocument extends IPost, Document {}
 
-const announcementsSchema: Schema<IAnnouncementDocument> = new Schema(
+const postSchema: Schema<IPostDocument> = new Schema(
 	{
 		title: {
 			type: String,
@@ -36,8 +36,8 @@ const announcementsSchema: Schema<IAnnouncementDocument> = new Schema(
 	},
 );
 
-const AnnouncementsModel =
-	mongoose.models.Announcement ||
-	mongoose.model<IAnnouncementDocument>('Announcement', announcementsSchema);
+const PostsModel =
+	mongoose.models.Post ||
+	mongoose.model<IPostDocument>('Post', postSchema);
 
-export default AnnouncementsModel;
+export default PostsModel;

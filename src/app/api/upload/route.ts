@@ -17,7 +17,7 @@ export const POST = async (request: NextRequest) => {
     return NextResponse.json({ message: 'Missing parameters' }, { status: 400 });
   }
 
-  const validCategories: string[] = ['news', 'announcements', 'events', 'profiles', 'editorjs'];
+  const validCategories: string[] = ['news', 'announcements', 'events', 'profiles', 'editorjs', 'posts'];
   if (!validCategories.includes(category)) {
     return NextResponse.json({ message: 'Invalid category' }, { status: 400 });
   }

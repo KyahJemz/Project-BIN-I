@@ -13,7 +13,7 @@ export class LogsService {
 			await MongoDbConnect();
 			const parsedRequest = {
 				...request,
-				account_id: '66cedc33c4dcd2eafbe55f6e',
+				account_id: '66db1eba7ae01d46018e2878',
 				action_id: request.action_id,
 			}
 			const logs = await this.logsModel.create(parsedRequest);

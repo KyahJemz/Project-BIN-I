@@ -2,6 +2,7 @@ import { ActionsEnum } from '@/enums/actions.enum';
 import { CollectionsEnum } from '@/enums/collections.enum';
 import { ILog } from '@/types/ILog.dto';
 import mongoose, { Schema } from 'mongoose';
+import AccountModel from './accounts';
 
 export interface ILogDocument extends ILog, Document {}
 
@@ -9,6 +10,7 @@ const logsSchema: Schema<ILogDocument> = new Schema(
 	{
 		account_id: {
 			type: Schema.Types.ObjectId,
+			ref: AccountModel,
 			required: true,
 		},
 		actionCollection: {

@@ -119,7 +119,7 @@ export class AnnouncementService {
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",
 				actionCollection: CollectionsEnum.Announcements,
-				action: ActionsEnum.Update,
+				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),
 				oldDocument: JSON.stringify(announcement),
 				newDocument: null

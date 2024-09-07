@@ -62,7 +62,6 @@ const IdViewSchedule = ({ params }: { params: { id: string } }) => {
 	const [rows, setRows] = useState<{}[]>([]);
 	const [link, setLink] = useState<string>('');
 
-
 	const {
 		getScheduleById,
 		isLoading: isGettingScheduleById,
@@ -83,7 +82,7 @@ const IdViewSchedule = ({ params }: { params: { id: string } }) => {
 			await getRouteByScheduleId(params.id);
 		};
 		fetch();
-	}, [params.id]);
+	}, []);
 
 	useEffect(() => {
 		if (getScheduleByIdResponse) {
@@ -137,7 +136,7 @@ const IdViewSchedule = ({ params }: { params: { id: string } }) => {
 					Notes: route.notes
 				}
 				}) : [];
-			const link= '/admin/management/routes';
+			const link= '/routes/';
 
 			setCenter(centerOfMarks as LatLngLiteral);
 			setAllPoints(allPoints);

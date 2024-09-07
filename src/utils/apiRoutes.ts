@@ -17,6 +17,13 @@ const apiRoutes = {
 	updateAnnouncement: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/announcements?id=${id}`, // PUT
 	deleteAnnouncement: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/announcements?id=${id}`, // DELETE
 
+	// Posts
+	createPost: () => `${env.NEXT_PUBLIC_API_BASE_URL}/posts`, // POST
+	getPostById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/posts?id=${id}`, // GET
+	getAllPosts: () => `${env.NEXT_PUBLIC_API_BASE_URL}/posts`, // GET
+	updatePost: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/posts?id=${id}`, // PUT
+	deletePost: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/posts?id=${id}`, // DELETE
+
 	// Contact Details
 	createContactDetails: () => `${env.NEXT_PUBLIC_API_BASE_URL}/contact-details`, // POST
 	getContactDetailsById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/contact-details?id=${id}`, // GET

@@ -20,11 +20,11 @@ const eventsSchema: Schema<IEventDocument> = new Schema(
 		},
 		content: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		image: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		eventDate: {
 			type: Date,

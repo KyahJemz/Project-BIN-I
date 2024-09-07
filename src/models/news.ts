@@ -19,11 +19,11 @@ const newsSchema: Schema<INewsDocument> = new Schema(
 		},
 		content: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		image: {
 			type: String,
-			required: true,
+			required: false,
 		},
 		deletedAt: {
 			type: Date,
