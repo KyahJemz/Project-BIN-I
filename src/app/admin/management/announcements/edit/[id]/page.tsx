@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-// import AnnouncementPreview from '@/components/AnnouncementPreview/page';
+import AnnouncementPreview from '@/components/AnnouncementPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
@@ -34,7 +34,7 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<string>('');
 	const [content, setContent] = useState(null);
-	const [createdAt, setCreatedAt] = useState<string>('');
+	const [createdAt, setCreatedAt] = useState<string>(new Date().toISOString().toString());
 	const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
 	const {
@@ -55,12 +55,10 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 		response: uploadFileResponse,
 	} = useUploadFileHook();
 
-	// Fetch announcement details
 	useEffect(() => {
 		getAnnouncementById(params.id);
 	}, [params.id]);
 
-	// Populate fields with fetched announcement data
 	useEffect(() => {
 		if (getAnnouncementByIdResponse) {
 			setTitle(getAnnouncementByIdResponse?.title || '');
@@ -74,7 +72,6 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 		}
 	}, [getAnnouncementByIdResponse]);
 
-	// Handle file input changes
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files?.[0]) {
 			const file = e.target.files[0];
@@ -87,21 +84,18 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 		}
 	};
 
-	// Upload file response handling
 	useEffect(() => {
 		if (uploadFileResponse) {
 			handleUpdateAnnouncement(uploadFileResponse.fileName);
 		}
 	}, [uploadFileResponse]);
 
-	// Redirect after successful update
 	useEffect(() => {
 		if (updateAnnouncementResponse) {
 			router.back();
 		}
 	}, [updateAnnouncementResponse]);
 
-	// Function to handle updating the announcement
 	const handleUpdateAnnouncement = (fileName?: string) => {
 		const updatedAnnouncement = {
 			title,
@@ -113,7 +107,6 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 		updateAnnouncement(params.id, updatedAnnouncement);
 	};
 
-	// Handle form submission
 	const handleSubmit = () => {
 		if (uploadedImage) {
 			uploadFile(uploadedImage, params.id, 'announcements');
@@ -128,16 +121,15 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 				<h1 className="text-xl font-semibold text-gray-800 mb-4">Edit Announcement</h1>
 				<div className="space-y-4 border-t">
 					{isPreview ? (
-						// <AnnouncementPreview
-						// 	news={{
-						// 		title,
-						// 		author,
-						// 		description,
-						// 		image,
-						// 		createdAt,
-						// 	}}
-						// />
-						<></>
+						<AnnouncementPreview
+							announcement={{
+								title,
+								author,
+								description,
+								image,
+								createdAt,
+							}}
+						/>
 					) : (
 						<>
 							<div>

@@ -11,7 +11,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-// import EventPreview from '@/components/EventPreview/page';
+import EventPreview from '@/components/EventPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
@@ -23,7 +23,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 
 	const { editorData, setEditorData } = useEditorStore();
 	const [title, setTitle] = useState<string>('');
-	const [createdAt, setCreatedAt] = useState<string>('');
+	const [createdAt, setCreatedAt] = useState<string>(new Date().toISOString().toString());
 	const [author, setAuthor] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<string>('');
@@ -103,8 +103,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 				<div className="space-y-4 border-t">
 
 					{isPreview ? (
-						// <EventPreview news={{title, author, description, image, createdAt}}/>
-						<></>
+						<EventPreview event={{ title, author, description, image, createdAt }} />
 					) : (
 						<>
 							<div>

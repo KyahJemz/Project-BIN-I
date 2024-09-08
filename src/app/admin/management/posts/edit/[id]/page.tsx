@@ -12,7 +12,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-// import PostPreview from '@/components/PostPreview/page';
+import PostPreview from '@/components/PostPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
@@ -34,7 +34,7 @@ const IdEditPost = ({ params }: EditPostProps) => {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<string>('');
 	const [content, setContent] = useState(null);
-	const [createdAt, setCreatedAt] = useState<string>('');
+	const [createdAt, setCreatedAt] = useState<string>(new Date().toISOString().toString());
 	const [uploadedImage, setUploadedImage] = useState<File | null>(null);
 
 	const {
@@ -55,12 +55,10 @@ const IdEditPost = ({ params }: EditPostProps) => {
 		response: uploadFileResponse,
 	} = useUploadFileHook();
 
-	// Fetch post details
 	useEffect(() => {
 		getPostById(params.id);
-	}, [params.id]);
+	}, []);
 
-	// Populate fields with fetched post data
 	useEffect(() => {
 		if (getPostByIdResponse) {
 			setTitle(getPostByIdResponse?.title || '');
@@ -74,7 +72,6 @@ const IdEditPost = ({ params }: EditPostProps) => {
 		}
 	}, [getPostByIdResponse]);
 
-	// Handle file input changes
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		if (e.target.files?.[0]) {
 			const file = e.target.files[0];
@@ -87,21 +84,18 @@ const IdEditPost = ({ params }: EditPostProps) => {
 		}
 	};
 
-	// Upload file response handling
 	useEffect(() => {
 		if (uploadFileResponse) {
 			handleUpdatePost(uploadFileResponse.fileName);
 		}
 	}, [uploadFileResponse]);
 
-	// Redirect after successful update
 	useEffect(() => {
 		if (updatePostResponse) {
 			router.back();
 		}
 	}, [updatePostResponse]);
 
-	// Function to handle updating the post
 	const handleUpdatePost = (fileName?: string) => {
 		const updatedPost = {
 			title,
@@ -113,7 +107,6 @@ const IdEditPost = ({ params }: EditPostProps) => {
 		updatePost(params.id, updatedPost);
 	};
 
-	// Handle form submission
 	const handleSubmit = () => {
 		if (uploadedImage) {
 			uploadFile(uploadedImage, params.id, 'posts');
@@ -128,16 +121,15 @@ const IdEditPost = ({ params }: EditPostProps) => {
 				<h1 className="text-xl font-semibold text-gray-800 mb-4">Edit Post</h1>
 				<div className="space-y-4 border-t">
 					{isPreview ? (
-						// <PostPreview
-						// 	news={{
-						// 		title,
-						// 		author,
-						// 		description,
-						// 		image,
-						// 		createdAt,
-						// 	}}
-						// />
-						<></>
+						<PostPreview
+							post={{
+								title,
+								author,
+								description,
+								image,
+								createdAt,
+							}}
+						/>
 					) : (
 						<>
 							<div>

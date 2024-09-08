@@ -56,8 +56,8 @@ export function MobileHeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoP
                     alt={headerTitle.name}
                     src={headerTitle.image}
                     className="h-8 w-auto"
-                    width={80} // Set appropriate width
-                    height={10} // Set appropriate height
+                    width={80} 
+                    height={10}
                 />
             </Link>
             <button

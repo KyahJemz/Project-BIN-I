@@ -37,7 +37,7 @@ const IdAddAccount = () => {
 
 	React.useEffect(() => {
 		if (createAccountResponse) {
-			router.push('/accounts'); // Navigate to the accounts page or another page upon successful creation
+			router.push('/accounts');
 		}
 	}, [createAccountResponse]);
 

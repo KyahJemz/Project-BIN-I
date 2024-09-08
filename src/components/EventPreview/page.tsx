@@ -2,12 +2,12 @@
 
 import React from "react";
 import Image from 'next/image';
-import { INewsDocument } from "@/models/news";
 import PreviewRenderer from "@/components/EditorJsRenderer/PreviewRenderer";
 import { formatFullDate } from "@/utils/utilities";
+import { IEventDocument } from "@/models/events";
 
-export default function NewsPreview({ news }: { news: INewsDocument }) {
-    const { title, author, description, uploadedImage, image, createdAt } = news;
+export default function EventPreview({ event }: { event: IEventDocument }) {
+    const { title, author, description, uploadedImage, image, createdAt } = event;
 
     return (
         <>

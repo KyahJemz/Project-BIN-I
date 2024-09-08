@@ -35,7 +35,7 @@ export const formatTime = (timestamp) => {
 };
 
 export function capitalizeFirstLetter(word) {
-    if (!word) return ''; // Handle empty strings or undefined values
+    if (!word) return ''; 
     return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 }
 

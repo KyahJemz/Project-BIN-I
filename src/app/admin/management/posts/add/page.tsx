@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
+import PostPreview from '@/components/PostPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
@@ -26,6 +27,7 @@ const IdAddPost = ({ params }: { params: { id: string } }) => {
 	const [description, setDescription] = useState<string>('');
 	const [image, setImage] = useState<string>('');
 	const [uploadedImage, setUploadedImage] = useState<File | null>(null);
+	const [createdAt, setCreatedAt] = useState<string>(new Date().toISOString().toString());
 
 	const {
 		createPost,
@@ -87,26 +89,15 @@ const IdAddPost = ({ params }: { params: { id: string } }) => {
 				<h1 className="text-xl font-semibold text-gray-800 mb-4">Create Post</h1>
 				<div className="space-y-4 border-t">
 					{isPreview ? (
-						// Placeholder for preview component
-						// <div className="border border-gray-300 rounded-md p-4">
-						// 	<h2 className="text-lg font-semibold mb-2">{title}</h2>
-						// 	<p className="text-sm text-gray-700">Author: {author}</p>
-						// 	<p className="text-sm text-gray-700">Description: {description}</p>
-						// 	{image && (
-						// 		<Image
-						// 			width={400}
-						// 			height={400}
-						// 			src={uploadedImage ? image : `/images/posts/${image}`}
-						// 			alt="Preview"
-						// 			className="w-24 h-24 object-cover rounded-md border border-gray-300 mt-2"
-						// 		/>
-						// 	)}
-						// 	<div className="mt-4">
-						// 		<h3 className="text-sm font-semibold text-gray-800 mb-2">Content Preview:</h3>
-						// 		<Editor holder="editorjs-container" content={editorData} />
-						// 	</div>
-						// </div>
-						<></>
+						<PostPreview
+							post={{
+								title,
+								author,
+								description,
+								image,
+								createdAt,
+							}}
+						/>
 					) : (
 						<>
 							<div>

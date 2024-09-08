@@ -2,7 +2,7 @@ import HomePage, {getHomePageProps} from "@/pages/HomePage";
 import React from "react";
 import Image from 'next/image'
 import Link from "next/link";
-import GridNewsDisplay from "@/components/GridNewsDisplay/GridNewsDisplay";
+import NewsDisplayGrid from "@/components/NewsDisplayGrid/NewsDisplayGrid";
 
 const HeroSection = () => {
 	return (
@@ -49,7 +49,7 @@ export default async function Home() {
 				<section className="bg-white text-dark-gray py-4 px-4">
 					<h2 className="text-3xl font-bold mb-2 text-dark-gray border-l-4 pl-2 border-forest-green">Stay in the Know: Latest News</h2>
                 	<p className="text-lg mb-4 text-dark-gray">Your source for the latest headlines and breaking stories.</p>
-					<GridNewsDisplay data={structuredClone(props?.allNews.slice(0, 7))}/>
+					<NewsDisplayGrid data={structuredClone(props?.allNews.slice(0, 7))}/>
 				</section>
 
 				<section className="bg-white text-dark-gray py-4 px-4 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 grid-cols-4">
