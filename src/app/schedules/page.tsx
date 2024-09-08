@@ -1,14 +1,3 @@
-// import SchedulePage, { getSchedulesPageProps } from "@/pages/SchedulesPage";
-
-// export default async function Schedules() {
-// 	return (
-// 		<main>
-// 			<SchedulePage allSchedules={props.allSchedules}/>
-// 		</main>
-// 	);
-// }
-
-
 "use client";
 
 import BiniTable from '@/components/BiniTable/BiniTable';
@@ -73,10 +62,12 @@ const Schedules = () => {
 
 	return (
 		<main>
-			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white'>
+			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white max-w-7xl'>
+                <h2 className="text-3xl font-bold mb-2 text-dark-gray border-l-4 pl-2 border-forest-green">Collection Dates: Garbage collection Schedules</h2>
+                <p className="text-lg mb-4 text-dark-gray border-b-2 pb-4">Find out when garbage will be collected in your area.</p>
 				{isGettingAllSchedules 
 					? <p>Loading...</p> 
-					: <BiniTable header='All Waste Collection Schedules' columns={columns} data={rows} link={link}/>
+					: <BiniTable header='All Waste Collection Schedules' columns={columns} data={rows} link={link} client={true} />
 				}
 			</div>
 		</main>

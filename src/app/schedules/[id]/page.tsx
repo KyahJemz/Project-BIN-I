@@ -188,7 +188,7 @@ const IdViewSchedule = ({ params }: { params: { id: string } }) => {
 							</div>
 
 							<div className="bg-white h-auto p-2 mb-4">
-								<BiniTable columns={columns} data={rows} link={link} /> 
+								<BiniTable columns={columns} data={rows} link={link} client={true} /> 
 							</div>
 						</>
 					)

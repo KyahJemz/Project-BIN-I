@@ -23,7 +23,9 @@ const Posts = () => {
 
     return (
         <main>
-			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white'>
+			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white  max-w-7xl'>
+                <h2 className="text-3xl font-bold mb-2 text-dark-gray border-l-4 pl-2 border-forest-green">Fresh Insights: Latest Posts</h2>
+                <p className="text-lg mb-4 text-dark-gray border-b-2 pb-4">Explore fresh perspectives, opinions, and in-depth articles.</p>
 				<BiniGrid data={getAllsPostResponse ?? []} header='Bin-I Posts Page' type='post' link={'/posts/'}/>
 			</div>
 		</main>

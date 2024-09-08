@@ -12,7 +12,6 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { useEditorStore } from '@/stores/useEditorStore';
 import Image from 'next/image';
-import NewsPreview from '@/components/NewsPreview/page';
 
 const Editor = dynamic(() => import('@/components/EditorJs/Editor'), {
 	ssr: false,
@@ -119,7 +118,8 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 				<div className="space-y-4 border-t">
 
 					{isPreview ? (
-						<NewsPreview news={{ title, author, description, uploadedImage, image, createdAt }} />
+						// <NewsPreview news={{ title, author, description, uploadedImage, image, createdAt }} />
+						<></>
 					) : (
 						<>
 							<div>

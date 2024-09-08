@@ -100,7 +100,7 @@ export default function HomePage({
     const allRoutesGathered = getAllRoutes(allRoutes);
 
 	return (
-		<div className="min-h-screen bg-gray-100">
+		<div className="min-h-screen bg-gray-100 max-w-7xl mx-auto">
 
             {/* Hero Section */}
             <HeroSection />

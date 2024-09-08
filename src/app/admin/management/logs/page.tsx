@@ -97,7 +97,7 @@ const LogsManagement = () => {
 
     return (
         <main>
-            <div className="container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white">
+            <div className="container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white max-w-7xl">
                 <h2 className="text-2xl font-bold mb-2 text-dark-gray">All Admin Logs</h2>
 				<Pagination 
 					page={page}

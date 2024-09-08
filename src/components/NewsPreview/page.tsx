@@ -1,33 +1,50 @@
 "use client";
 
-import React from "react";
-import Image from 'next/image';
-import { INewsDocument } from "@/models/news";
-import PreviewRenderer from "@/components/EditorJsRenderer/PreviewRenderer";
-import { formatFullDate } from "@/utils/utilities";
+import React from 'react';
 
-export default function NewsPreview({ news }: { news: INewsDocument }) {
-    const { title, author, description, uploadedImage, image, createdAt } = news;
-
+const Card= ({
+    title,
+    description,
+    image,
+    time,
+    category,
+    isMainCard = false
+}) => {
     return (
-        <>
-            <h1 className="text-4xl font-bold mt-4 mb-2">{title}</h1>
-            <p className="text-sm text-gray-500 mb-2">By {author}</p>
-            <p className="text-sm text-gray-500 mb-4">Published on {formatFullDate(new Date(createdAt))}</p>
-            <p className="text-lg mb-4">{description}</p>
-            {image && (
-                <div className="mb-4">
-                    <Image
-                        key={"image"}
-                        width={400}
-                        height={400}
-                        src={uploadedImage ? image : `/images/news/${image}`}
-                        alt="Current preview"
-                        className="w-full object-cover rounded-md border border-gray-300"
-                    />
+        <div className={`overflow-hidden rounded-md bg-white border border-gray-200 ${isMainCard ? 'col-span-2 row-span-2 h-full flex flex-col' : ''}`}>
+            <div className={`${isMainCard ? 'h-40' : 'h-32'} flex-1 w-full`}>
+                <img src={image} alt={title} className="w-full h-full object-cover" />
+            </div>
+            
+            {/* Content section */}
+            <div className="p-4 flex flex-col">
+                <div>
+                    <p className="text-red-600 text-xs font-bold mb-2">{category}</p>
+                    <h3 className="font-semibold text-lg mb-2">{title}</h3>
+                    {description && <p className="text-sm text-gray-600 mb-2">{description}</p>}
                 </div>
-            )}
-            <PreviewRenderer data={null} />
-        </>
+                <p className="text-xs text-gray-400 mt-4">{time.toString()}</p>
+            </div>
+        </div>
     );
 };
+
+const GridNewsDisplay = ({data = []}) => {
+    return (
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            {data?.map((item, index) => (
+                <Card
+                    key={index}
+                    title={item.title}
+                    description={index === 0 ? item.description : undefined}
+                    image={"/images/news/"+item.image}
+                    time={item?.createdAt?.toString()??""}
+                    category={item.author}
+                    isMainCard={index === 0}
+                />
+            ))}
+        </div>
+    );
+};
+
+export default GridNewsDisplay;

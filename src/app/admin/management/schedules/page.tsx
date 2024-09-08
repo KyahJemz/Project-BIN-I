@@ -92,7 +92,7 @@ const ScheduleManagement = () => {
 
 	return (
 		<main>
-			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white'>
+			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white max-w-7xl'>
 				{isGettingAllSchedules 
 					? <p>Loading...</p> 
 					: <BiniTable header='Schedules Overview' columns={columns} data={rows} link={link} onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />

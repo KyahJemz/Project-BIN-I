@@ -102,7 +102,7 @@ export default function RoutesPage({
             <section className="py-10 px-4 bg-white">
                 <div className="container mx-auto">
                     <h2 className="text-3xl font-bold mb-2 text-dark-gray">Garbage Collection Routes</h2>
-                    <p className="text-lg mb-3 text-dark-gray">Check the garbage collection routes in cavite city.</p>
+                    <p className="text-lg mb-4 text-dark-gray border-b-2 pb-4">Check the garbage collection routes in cavite city.</p>
                     <RoutesSection data={allRoutesGathered.reverse() as unknown as LatLngExpression[][]} />
                     <RoutesTable routes={allRoutes} />
                 </div>

@@ -125,7 +125,7 @@ const RoutesManagement = () => {
 
 	return (
 		<main>
-			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white'>
+			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white max-w-7xl'>
 				<h2 className="text-lg font-bold mb-4 mx-1">Routes Overview</h2>
 				<div className="space-y-6 container mx-auto">
 					<div className="bg-white h-96 p-2 rounded-lg shadow-lg">

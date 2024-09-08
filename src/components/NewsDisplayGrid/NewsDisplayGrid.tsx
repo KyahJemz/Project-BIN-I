@@ -1,16 +1,8 @@
+"use client";
+
 import React from 'react';
-import Link from 'next/link';
 
-interface INewsCardProps {
-    title: string;
-    description?: string;
-    image: string;
-    time: string;
-    category: string;
-    isMainCard?: boolean;
-}
-
-const NewsCard: React.FC<INewsCardProps> = ({
+const Card= ({
     title,
     description,
     image,
@@ -20,8 +12,7 @@ const NewsCard: React.FC<INewsCardProps> = ({
 }) => {
     return (
         <div className={`overflow-hidden rounded-md bg-white border border-gray-200 ${isMainCard ? 'col-span-2 row-span-2 h-full flex flex-col' : ''}`}>
-            {/* Image section */}
-            <div className={`${isMainCard ? 'h-64' : 'h-48'} flex-1 w-full`}>
+            <div className={`${isMainCard ? 'h-40' : 'h-32'} flex-1 w-full`}>
                 <img src={image} alt={title} className="w-full h-full object-cover" />
             </div>
             
@@ -32,28 +23,24 @@ const NewsCard: React.FC<INewsCardProps> = ({
                     <h3 className="font-semibold text-lg mb-2">{title}</h3>
                     {description && <p className="text-sm text-gray-600 mb-2">{description}</p>}
                 </div>
-                <p className="text-xs text-gray-400 mt-4">{time}</p>
+                <p className="text-xs text-gray-400 mt-4">{time.toString()}</p>
             </div>
         </div>
     );
 };
 
-interface NewsDisplayGridProps {
-    newsItems: INewsCardProps[];
-}
-
-const NewsDisplayGrid: React.FC<NewsDisplayGridProps> = ({ newsItems }) => {
+const NewsDisplayGrid = ({data = []}) => {
     return (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {newsItems.map((newsItem, index) => (
-                <NewsCard
+            {data?.map((item, index) => (
+                <Card
                     key={index}
-                    title={newsItem.title}
-                    description={index === 0 ? newsItem.description : undefined} // Only display description on the main card
-                    image={"/images/news/"+newsItem.image}
-                    time={newsItem.createdAt}
-                    category={newsItem.author}
-                    isMainCard={index === 0} // The first card will be the main large one
+                    title={item.title}
+                    description={index === 0 ? item.description : undefined}
+                    image={"/images/news/"+item.image}
+                    time={item?.createdAt?.toString()??""}
+                    category={item.author}
+                    isMainCard={index === 0}
                 />
             ))}
         </div>

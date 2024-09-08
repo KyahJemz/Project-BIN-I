@@ -55,7 +55,7 @@ const PostsManagement = () => {
 
     return (
         <main>
-			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white'>
+			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white max-w-7xl'>
 				<BiniGrid data={getAllsPostResponse ?? []} header='Posts Overview' type='post' link={'/posts/'} onAdd={onAddPost} onDelete={onDeletePost} onEdit={onEditPost}/>
 			</div>
 		</main>

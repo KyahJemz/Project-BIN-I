@@ -122,16 +122,17 @@ const BiniGrid = <T extends { id: string }>({
                         key={index}
                         className="bg-white flex flex-col justify-between shadow-md rounded-lg overflow-hidden border border-gray-200 relative"
                     >
+                        <Link href={link && (`${link}/${item?._id?.toString()}`)} className="block w-full h-full hover:opacity-60">
+                            <BiniCard type={type} details={item} />
+                        </Link>
 
-                        <BiniCard type={type} details={item} />
-
-                        {(onEdit || onDelete || link) && (
+                        {(onEdit || onDelete) && (
                             <div className="flex justify-end space-x-1 p-4 absolute bottom-0 right-0">
-                                {link && (
-                                    <Link href={`${link}/${item._id}`} className="text-indigo-600 hover:text-indigo-900">
+                                 {/* {link && (
+                                    <Link href={${link}/${item._id}} className="text-indigo-600 hover:text-indigo-900">
                                         <ViewIcon />
                                     </Link>
-                                )}
+                                )} */}
                                 {onEdit && (
                                     <button
                                         onClick={() => onEdit(item._id.toString())}
@@ -150,7 +151,6 @@ const BiniGrid = <T extends { id: string }>({
                                 )}
                             </div>
                         )}
-
                     </div>
                 ))}
             </div>

@@ -3,6 +3,7 @@ import DeleteIcon from '@/svgs/delete.svg';
 import EditIcon from '@/svgs/edit.svg';
 import ViewIcon from '@/svgs/view.svg';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 
 interface ITableProps<T> {
@@ -10,20 +11,28 @@ interface ITableProps<T> {
     columns: string[];
     data: T[];
     link: string;
+    client?: boolean;
     onEdit?: (id: string) => void;
     onDelete?: (id: string) => void;
     onAdd?: () => void;
 }
-
 const BiniTable = <T extends { id: string }>({
     header,
     columns,
     data,
     link,
+    client = false,
     onEdit,
     onDelete,
     onAdd,
 }: ITableProps<T>) => {
+    const router = useRouter();
+
+    function onLinkClick (link: string) {
+        if(link === '') return;
+        router.push(link);
+    }
+    
     return (
         <>
             {(header || onAdd) && (
@@ -66,7 +75,7 @@ const BiniTable = <T extends { id: string }>({
                     </thead>
                     <tbody className="divide-y divide-gray-200">
                         {data.map((item, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={client ? () => onLinkClick(item?._id ? `${link}/${item._id}` : '') : undefined} className='cursor-pointer hover:bg-gray-200 z-0'>
                                 {columns.map((column, colIndex) => (
                                     <td
                                         key={colIndex}
@@ -77,7 +86,7 @@ const BiniTable = <T extends { id: string }>({
                                 ))}
                                 {(onEdit || onDelete || link) && (
 
-                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex justify-left">
+                                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex justify-left  z-10">
                                         {link && (
                                             <Link href={`${link}/${item._id}`} className="text-indigo-600 hover:text-indigo-900">
                                                 <ViewIcon />

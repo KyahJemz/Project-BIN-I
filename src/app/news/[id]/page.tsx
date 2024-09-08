@@ -1,26 +1,24 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Image from 'next/image';
 import PreviewRenderer from "@/components/EditorJsRenderer/PreviewRenderer";
 import { useRouter } from "next/navigation";
 import { useEditorStore } from "@/stores/useEditorStore";
 import { useGetNewsByIdHook } from "@/hooks/news.hooks";
-import { formatDate, formatFullDate } from "@/utils/utilities";
+import { formatFullDate } from "@/utils/utilities";
 
 export default function NewsId({ params }: { params: { id: string } }) {
 	const router = useRouter();
 
 	const { editorData, setEditorData } = useEditorStore();
-	const [title, setTitle] = React.useState<string>("N/A");
-	const [author, setAuthor] = React.useState<string>("N/A");
-	const [description, setDescription] = React.useState<string>("N/A");
-	const [createdAt, setCreatedAt] = React.useState<string>(new Date().toISOString().toString());
-	const [image, setImage] = React.useState<string>("");
-	const [content, setContent] = React.useState<[]>([]);
-	const [eventLocation, setEventLocation] = React.useState<string>("N/A");
-	const [eventDate, setEventDate] = React.useState<string>(new Date().toISOString().toString());
-	const [eventTime, setEventTime] = React.useState<string>("N/A");
+	const [title, setTitle] = useState<string>("N/A");
+	const [author, setAuthor] = useState<string>("N/A");
+	const [description, setDescription] = useState<string>("N/A");
+	const [createdAt, setCreatedAt] = useState<string>(new Date().toISOString().toString());
+	const [updatedAt, setUpdatedAt] = useState<string>(new Date().toISOString().toString());
+	const [image, setImage] = useState<string>("");
+	const [content, setContent] = useState<[]>([]);
 
 	const {
 		getNewsById,
@@ -43,11 +41,9 @@ export default function NewsId({ params }: { params: { id: string } }) {
 			setAuthor(getNewsByIdResponse?.author ?? author);
 			setDescription(getNewsByIdResponse?.description ?? description);
 			setCreatedAt(getNewsByIdResponse?.createdAt ?? createdAt);
+			setUpdatedAt(getNewsByIdResponse?.updatedAt ?? updatedAt);
 			setImage(getNewsByIdResponse?.image ?? image);
 			setContent(JSON.parse(getNewsByIdResponse?.content ?? "[]")?.blocks ?? content);
-			setEventLocation(getNewsByIdResponse?.eventLocation ?? eventLocation);
-			setEventDate(getNewsByIdResponse?.eventDate ?? eventDate);
-			setEventTime(getNewsByIdResponse?.eventTime ?? eventTime);
 		}
 	}, [getNewsByIdResponse]);
 
@@ -56,32 +52,17 @@ export default function NewsId({ params }: { params: { id: string } }) {
 			<div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md my-6">
 				<h1 className="text-4xl font-bold text-gray-800 mb-4">{isGettingNewsById ? 'Loading...' : title}</h1>
 				<p className="text-sm text-gray-500 mb-2">{isGettingNewsById ? 'Loading...' : `By ${author}`}</p>
-				<p className="text-sm text-gray-500 mb-4">
+				<p className="text-sm text-gray-500 mb-4 border-b border-gray-500 pb-4">
 					{isGettingNewsById
 						? 'Loading...'
-						: `Published on ${formatFullDate(createdAt)}`}
+						: `Published ${formatFullDate(createdAt)} | Updated ${formatFullDate(updatedAt)}`}
 				</p>
 
 				<p className="text-lg text-gray-900 mb-4">{isGettingNewsById ? 'Loading...' : description}</p>
 
-				<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-					<div>
-						<h3 className="text-gray-700 font-semibold font-medium">Event Location:</h3>
-						<p className="text-gray-900">{isGettingNewsById ? 'Loading...' : eventLocation}</p>
-					</div>
-					<div>
-						<h3 className="text-gray-700 font-semibold font-medium">Event Date:</h3>
-						<p className="text-gray-900">
-							{isGettingNewsById ? 'Loading...' : formatDate(eventDate)}
-						</p>
-					</div>
-					<div>
-						<h3 className="text-gray-700 font-semibold font-medium">Event Time:</h3>
-						<p className="text-gray-900">{isGettingNewsById ? 'Loading...' : eventTime}</p>
-					</div>
-				</div>
-
-				{!isGettingNewsById ? (
+				{isGettingNewsById ? (
+					<p className="text-gray-500">Loading image...</p>
+				) : image && (
 					<div className="mb-4">
 						<Image
 							src={`/images/news/${image}`}
@@ -91,8 +72,6 @@ export default function NewsId({ params }: { params: { id: string } }) {
 							className="w-full h-auto rounded-lg object-cover"
 						/>
 					</div>
-				) : (
-					<p className="text-gray-500">Loading image...</p>
 				)}
 
 				<div className="bg-white h-auto p-2 mb-4">
