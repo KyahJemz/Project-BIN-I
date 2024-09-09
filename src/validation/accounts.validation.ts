@@ -15,10 +15,11 @@ export type IUpdateAccountRequest = z.infer<typeof UpdateAccountRequestSchema>
 export const UpdateAccountRequestSchema = z.object({
 	firstName: z.string().optional(),
 	lastName: z.string().optional(),
-	position: z.string().optional().nullable().default(null),
-	department: z.string().optional().nullable().default(null),
+	position: z.string().optional().nullable(),
+	department: z.string().optional().nullable(),
 	email: z.string().email().optional(),
 	type: z.string().optional(),
+	token: z.string().optional(),
 	password: z.string().min(8).optional(),
 });
 

@@ -1,5 +1,6 @@
 'use client';
 
+
 import apiRoutes from '@/utils/apiRoutes';
 import { ICreateRoutesRequest, IUpdateRoutesRequest } from '@/validation/routes.validation';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ export const useCreateRouteHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const createRoute = async (request: ICreateRoutesRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -17,6 +19,7 @@ export const useCreateRouteHook = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -138,6 +141,7 @@ export const useUpdateRouteHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const updateRoute = async (id: string, request: IUpdateRoutesRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -146,6 +150,7 @@ export const useUpdateRouteHook = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -171,6 +176,7 @@ export const useDeleteRouteHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const deleteRoute = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -179,6 +185,7 @@ export const useDeleteRouteHook = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

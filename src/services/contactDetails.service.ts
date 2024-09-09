@@ -64,6 +64,7 @@ export class ContactDetailsService {
 			await MongoDbConnect();
 			const contactDetails = await this.contactDetailsModel
 				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
 				.lean();
 			if (!contactDetails) {
 				throw new Error('No Contact Details found');

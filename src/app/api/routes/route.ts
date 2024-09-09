@@ -1,6 +1,7 @@
 import RoutesModel from '@/models/routes';
 import { RoutesService } from '@/services/routes.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { validateRequest } from '@/utils/jwt';
 import {
 	CreateRoutesRequestSchema,
 	UpdateRoutesRequestSchema,
@@ -9,6 +10,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new routes
 export async function POST(req: NextRequest) {
+	await validateRequest(req);
 	const routesService = new RoutesService(RoutesModel);
 	try {
 		
@@ -48,6 +50,7 @@ export async function GET(req: NextRequest) {
 
 // PUT method: Update an route
 export async function PUT(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
@@ -75,6 +78,7 @@ export async function PUT(req: NextRequest) {
 
 // DELETE method: Delete an route
 export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {

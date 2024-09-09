@@ -1,7 +1,6 @@
 import AddIcon from '@/svgs/add.svg';
 import DeleteIcon from '@/svgs/delete.svg';
 import EditIcon from '@/svgs/edit.svg';
-import ViewIcon from '@/svgs/view.svg';
 import { formatDate, formatFullDate, formatTime } from '@/utils/utilities';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -18,7 +17,7 @@ interface IGridProps<T> {
     onAdd?: () => void;
 }
 
-const BiniCard: React.FC<BiniCardProps> = ({ type, details }) => {
+const BiniCard = ({ type, details }) => {
     switch (type) {
         case 'announcement':
             return (
@@ -99,6 +98,7 @@ const BiniGrid = <T extends { id: string }>({
     onDelete,
     onAdd,
 }: IGridProps<T>) => {
+    console.log("else ",data)
     return (
         <>
             {(header || onAdd) && (
@@ -121,8 +121,8 @@ const BiniGrid = <T extends { id: string }>({
                     <div
                         key={index}
                         className="bg-white flex flex-col justify-between shadow-md rounded-lg overflow-hidden border border-gray-200 relative"
-                    >
-                        <Link href={link && (`${link}/${item?._id?.toString()}`)} className="block w-full h-full hover:opacity-60">
+                    >   
+                        <Link href={link && (`${link}/${item?._id?.toString()??""}`)} className="block w-full h-full hover:opacity-60">
                             <BiniCard type={type} details={item} />
                         </Link>
 

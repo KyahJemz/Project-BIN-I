@@ -34,7 +34,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 			await getAccountById(params.id);
 		};
 		fetch();
-	}, [params.id]);
+	}, []);
 
 	useEffect(() => {
 		if (getAccountByIdResponse) {
@@ -43,7 +43,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 			setPosition(getAccountByIdResponse?.position || '');
 			setDepartment(getAccountByIdResponse?.department || '');
 			setEmail(getAccountByIdResponse?.email || '');
-			setPassword(getAccountByIdResponse?.password || '');
+			setPassword('');
 		}
 	}, [getAccountByIdResponse]);
 
@@ -60,7 +60,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 			position,
 			department,
 			email,
-			password,
+			password: password === '' ? undefined : password,
 		});
 	};
 
@@ -73,7 +73,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 					<h1 className="text-xl font-semibold text-gray-800 mb-4">Edit Account</h1>
 					<div className="space-y-4">
 						<div>
-							<label htmlFor="firstName" className="block text-gray-700 font-medium mb-1 text-sm">First Name</label>
+							<label htmlFor="firstName" className="block text-gray-700 font-medium mb-1 text-sm">First Name<a className="text-red-500"> *</a></label>
 							<input
 								id="firstName"
 								type="text"
@@ -84,7 +84,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 						</div>
 
 						<div>
-							<label htmlFor="lastName" className="block text-gray-700 font-medium mb-1 text-sm">Last Name</label>
+							<label htmlFor="lastName" className="block text-gray-700 font-medium mb-1 text-sm">Last Name<a className="text-red-500"> *</a></label>
 							<input
 								id="lastName"
 								type="text"
@@ -117,7 +117,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 						</div>
 
 						<div>
-							<label htmlFor="email" className="block text-gray-700 font-medium mb-1 text-sm">Email</label>
+							<label htmlFor="email" className="block text-gray-700 font-medium mb-1 text-sm">Email<a className="text-red-500"> *</a></label>
 							<input
 								id="email"
 								type="email"
@@ -138,10 +138,17 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 							/>
 						</div>
 
-						<div className="text-right space-x-2">
+						<div className="flex justify-end gap-4">
+							<button
+								onClick={() => router.back()}
+								className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
+								disabled={isUpdatingAccount}
+							>
+								Go Back
+							</button>
 							<button
 								onClick={onUpdateAccountClicked}
-								className="px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+								className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
 								disabled={isUpdatingAccount}
 							>
 								{isUpdatingAccount ? 'Updating...' : 'Update Account'}

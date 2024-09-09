@@ -30,6 +30,10 @@ export class AccountService {
 	async createAccount(request: ICreateAccountRequest) {
 		try {
 			await MongoDbConnect();
+			const existing = await this.getByEmail(request.email);
+			if (existing) {
+				throw new Error('Email already exists');
+			}
 			const account: IAccountDocument = await this.accountModel.create(request);
 			if (!account) {
 				throw new Error('Account creation failed');
@@ -66,6 +70,7 @@ export class AccountService {
 			await MongoDbConnect();
 			const account = await this.accountModel
 				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
 				.lean();
 			if (!account) {
 				throw new Error('No accounts found');
@@ -95,15 +100,25 @@ export class AccountService {
 				account.department = request.department;
 			}
 			if (request.email !== undefined) {
+				const existing = await this.getByEmail(request.email);
+				if (existing) {
+					throw new Error('Email already exists');
+				}
 				account.email = request.email;
 			}
 			if (request.type !== undefined) {
 				account.type = request.type as AccountTypeEnum;
 			}
+			if (request.token !== undefined) {
+				account.token = request.token;
+			}
 			if (request.password !== undefined) {
 				account.password = request.password;
 			}
 			const updatedAccount = await account.save();
+			if (request.token !== undefined){
+				return updatedAccount.toObject();
+			}
 			await this.createLogs({
 				account_id: "ADMIN_ACCOUNT",
 				actionCollection: CollectionsEnum.Accounts,
@@ -135,7 +150,6 @@ export class AccountService {
 			throw error;
 		}
 	}
-
 	async getByEmail(string: string) {
 		try {
 			await MongoDbConnect();

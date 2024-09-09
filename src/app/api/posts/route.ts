@@ -1,6 +1,7 @@
 import PostsModel from '@/models/posts';
 import { PostService } from '@/services/posts.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { validateRequest } from '@/utils/jwt';
 import {
 	CreatePostRequestSchema,
 	UpdatePostRequestSchema,
@@ -9,6 +10,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new Post
 export async function POST(req: NextRequest) {
+	await validateRequest(req);
 	try {
 		
 		const postService = new PostService(PostsModel);
@@ -48,6 +50,7 @@ export async function GET(req: NextRequest) {
 
 // PUT method: Update an Post
 export async function PUT(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
@@ -75,6 +78,7 @@ export async function PUT(req: NextRequest) {
 
 // DELETE method: Delete an Post
 export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {

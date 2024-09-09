@@ -1,5 +1,6 @@
 'use client';
 
+
 import apiRoutes from '@/utils/apiRoutes';
 import { ICreateEventRequest, IUpdateEventRequest } from '@/validation/events.validation';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ export const useCreateEventHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const createEvent = async (request: ICreateEventRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -17,6 +19,7 @@ export const useCreateEventHook = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -106,6 +109,7 @@ export const useUpdateEventHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const updateEvent = async (id: string, request: IUpdateEventRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -114,6 +118,7 @@ export const useUpdateEventHook = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -139,6 +144,7 @@ export const useDeleteEventHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const deleteEvent = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -147,6 +153,7 @@ export const useDeleteEventHook = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

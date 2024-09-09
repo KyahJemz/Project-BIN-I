@@ -1,5 +1,6 @@
 'use client';
 
+import { useAuthorizationStore } from '@/stores/useAuthorizationStore';
 import apiRoutes from '@/utils/apiRoutes';
 import {
 	IChangeAccountPasswordRequest,
@@ -14,6 +15,7 @@ export const useCreateAccountHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const createAccount = async (request: ICreateAccountRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -22,6 +24,7 @@ export const useCreateAccountHook = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -46,6 +49,7 @@ export const useValidateAccountHook = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
+	const { authorization ,setAuthorization } = useAuthorizationStore();
 
 	const validateAccount = async (request: ILoginRequest) => {
 		setIsLoading(true);
@@ -65,6 +69,9 @@ export const useValidateAccountHook = () => {
 				);
 			}
 			const data = await res.json();
+			setAuthorization(data.token);
+			console.log(authorization);
+			localStorage.setItem("authorization", data.token);
 			setResponse(data);
 		} catch (err: any) {
 			setError(err.message || 'An error occurred');
@@ -80,6 +87,7 @@ export const useGetAccountByIdHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const getAccountById = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -88,6 +96,7 @@ export const useGetAccountByIdHook = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {
@@ -110,6 +119,7 @@ export const useGetAllAccountsHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const getAllAccounts = async () => {
 		setIsLoading(true);
 		setError(null);
@@ -118,6 +128,7 @@ export const useGetAllAccountsHook = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {
@@ -140,6 +151,7 @@ export const useUpdateAccountHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const updateAccount = async (
 		id: string,
 		request: IUpdateAccountRequest,
@@ -151,6 +163,7 @@ export const useUpdateAccountHook = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -176,6 +189,7 @@ export const useChangeAccountPasswordHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const changeAccountPassword = async (
 		id: string,
 		request: IChangeAccountPasswordRequest,
@@ -187,6 +201,7 @@ export const useChangeAccountPasswordHook = () => {
 				method: 'PATCH',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -212,6 +227,7 @@ export const useDeleteAccountHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const deleteAccount = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -220,6 +236,7 @@ export const useDeleteAccountHook = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

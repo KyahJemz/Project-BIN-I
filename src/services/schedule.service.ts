@@ -68,6 +68,7 @@ export class ScheduleService {
 			await MongoDbConnect();
 			const schedule = await this.scheduleModel
 				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
 				.lean();
 			if (!schedule) {
 				throw new Error('No schedules found');

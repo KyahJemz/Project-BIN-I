@@ -1,5 +1,6 @@
 'use client';
 
+
 import apiRoutes from '@/utils/apiRoutes';
 import { ICreateNewsRequest, IUpdateNewsRequest } from '@/validation/news.validation';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ export const useCreateNewsHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const createNews = async (request: ICreateNewsRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -17,6 +19,7 @@ export const useCreateNewsHook = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -106,6 +109,7 @@ export const useUpdateNewsHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const updateNews = async (id: string, request: IUpdateNewsRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -114,6 +118,7 @@ export const useUpdateNewsHook = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -139,6 +144,7 @@ export const useDeleteNewsHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const deleteNews = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -147,6 +153,7 @@ export const useDeleteNewsHook = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

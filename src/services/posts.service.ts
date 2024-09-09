@@ -66,6 +66,7 @@ export class PostService {
 			await MongoDbConnect();
 			const post = await this.postModel
 				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
 				.lean();
 			if (!post) {
 				throw new Error('No post found');

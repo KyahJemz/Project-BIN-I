@@ -1,6 +1,7 @@
 import EventsModel from '@/models/events';
 import { EventService } from '@/services/events.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { validateRequest } from '@/utils/jwt';
 import { MongoDbConnect } from '@/utils/mongodb';
 import {
 	CreateEventRequestSchema,
@@ -10,6 +11,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new event
 export async function POST(req: NextRequest) {
+	await validateRequest(req);
 	const eventService = new EventService(EventsModel);
 	try {
 		
@@ -44,6 +46,7 @@ export async function GET(req: NextRequest) {
 
 // PUT method: Update an event
 export async function PUT(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
@@ -71,6 +74,7 @@ export async function PUT(req: NextRequest) {
 
 // DELETE method: Delete an event
 export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {

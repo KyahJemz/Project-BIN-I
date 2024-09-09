@@ -63,6 +63,7 @@ export class RoutesService {
 			await MongoDbConnect();
 			const routes = await this.routesModel
 				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
 				.lean();
 			if (!routes) {
 				throw new Error('No routes found');

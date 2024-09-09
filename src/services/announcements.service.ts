@@ -66,6 +66,7 @@ export class AnnouncementService {
 			await MongoDbConnect();
 			const announcement = await this.announcementModel
 				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
 				.lean();
 			if (!announcement) {
 				throw new Error('No announcement found');

@@ -1,5 +1,6 @@
 'use client';
 
+
 import apiRoutes from '@/utils/apiRoutes';
 import { ICreateScheduleRequest, IUpdateScheduleRequest } from '@/validation/schedule.validation';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ export const useCreateScheduleHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const createSchedule = async (request: ICreateScheduleRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -17,6 +19,7 @@ export const useCreateScheduleHook = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -106,6 +109,7 @@ export const useUpdateScheduleHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const updateSchedule = async (id: string, request: IUpdateScheduleRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -114,6 +118,7 @@ export const useUpdateScheduleHook = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -139,6 +144,7 @@ export const useDeleteScheduleHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const deleteSchedule = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -147,6 +153,7 @@ export const useDeleteScheduleHook = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

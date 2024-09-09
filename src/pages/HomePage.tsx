@@ -18,6 +18,8 @@ import HeroSection from '@/components/HeroSection/HeroSection';
 import SchedulesSection from '@/components/SchedulesSection/SchedulesSection';
 import { LatLngExpression } from 'leaflet';
 import Link from 'next/link';
+import PostsModel, { IPostDocument } from '@/models/posts';
+import { PostService } from '@/services/posts.service';
 
 export interface HomePageProps {
     allAnnouncements: IAnnouncementDocument[]; 
@@ -26,6 +28,7 @@ export interface HomePageProps {
     allContactDetails: IContactDetailsDocument[]; 
 	allSchedules: IScheduleDocument[];
 	allRoutes: IRoutesDocument[];
+    allPosts: IPostDocument[];
 }
 
 export const getHomePageProps = async () => {
@@ -35,15 +38,17 @@ export const getHomePageProps = async () => {
     const contactDetailsService = new ContactDetailsService(ContactDetailsModel);
 	const schedulesService = new ScheduleService(SchedulesModel);
 	const routesService = new RoutesService(RoutesModel);
+    const postsService = new PostService(PostsModel);
 
     try {
-        const [allAnnouncements, allNews, allEvents, allContactDetails, allSchedules, allRoutes] = await Promise.all([
+        const [allAnnouncements, allNews, allEvents, allContactDetails, allSchedules, allRoutes, allPosts] = await Promise.all([
             announcementService.getAllAnnouncements(),
             newsService.getAllNews(),
             eventsService.getAllEvent(),
             contactDetailsService.getAllContactDetails(),
 			schedulesService.getAllSchedules(),
 			routesService.getAllRoutes(),
+            postsService.getAllPosts(),
         ]);
 
         return {
@@ -53,7 +58,8 @@ export const getHomePageProps = async () => {
                 allEvents,
                 allContactDetails,
 				allSchedules,
-				allRoutes
+				allRoutes,
+                allPosts
             },
         };
     } catch (error) {
@@ -65,7 +71,8 @@ export const getHomePageProps = async () => {
                 allEvents: [],
                 allContactDetails: [],
 				allSchedules: [],
-				allRoutes: []
+				allRoutes: [],
+                allPosts: []
             },
         };
     } 

@@ -1,5 +1,6 @@
 'use client';
 
+
 import apiRoutes from '@/utils/apiRoutes';
 import { ICreatePostRequest, IUpdatePostRequest } from '@/validation/post.validation';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ export const useCreatePostHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const createPost = async (request: ICreatePostRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -17,6 +19,7 @@ export const useCreatePostHook = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -106,6 +109,7 @@ export const useUpdatePostHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const updatePost = async (id: string, request: IUpdatePostRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -114,6 +118,7 @@ export const useUpdatePostHook = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -139,6 +144,7 @@ export const useDeletePostHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const deletePost = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -147,6 +153,7 @@ export const useDeletePostHook = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

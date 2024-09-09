@@ -1,5 +1,6 @@
 'use client';
 
+
 import apiRoutes from '@/utils/apiRoutes';
 import { ICreateAnnouncementRequest, IUpdateAnnouncementRequest } from '@/validation/announcements.validation';
 import { useState } from 'react';
@@ -9,6 +10,7 @@ export const useCreateAnnouncementHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const createAnnouncement = async (request: ICreateAnnouncementRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -17,6 +19,7 @@ export const useCreateAnnouncementHook = () => {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -106,6 +109,7 @@ export const useUpdateAnnouncementHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const updateAnnouncement = async (id: string, request: IUpdateAnnouncementRequest) => {
 		setIsLoading(true);
 		setError(null);
@@ -114,6 +118,7 @@ export const useUpdateAnnouncementHook = () => {
 				method: 'PUT',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 				body: JSON.stringify(request),
 			});
@@ -139,6 +144,7 @@ export const useDeleteAnnouncementHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const deleteAnnouncement = async (id: string) => {
 		setIsLoading(true);
 		setError(null);
@@ -147,6 +153,7 @@ export const useDeleteAnnouncementHook = () => {
 				method: 'DELETE',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

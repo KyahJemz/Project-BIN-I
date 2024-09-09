@@ -1,6 +1,7 @@
 import SchedulesModel from '@/models/schedules';
 import { ScheduleService } from '@/services/schedule.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { validateRequest } from '@/utils/jwt';
 import { MongoDbConnect } from '@/utils/mongodb';
 import {
 	CreateScheduleRequestSchema,
@@ -10,6 +11,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new schedules
 export async function POST(req: NextRequest) {
+	await validateRequest(req);
 	const schedulesService = new ScheduleService(SchedulesModel);
 	try {
 		
@@ -46,11 +48,11 @@ export async function GET(req: NextRequest) {
 
 // PUT method: Update an schedule
 export async function PUT(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
 		if (id) {
-			
 			const parsedRequest = UpdateScheduleRequestSchema.parse(
 				await req.json(),
 			);
@@ -73,6 +75,7 @@ export async function PUT(req: NextRequest) {
 
 // DELETE method: Delete an schedule
 export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {

@@ -13,7 +13,7 @@ export const headerMoreItems = [
     { name: 'Posts', description: 'View random posts and updates here.', href: '/posts', icon: BookTextIcon },
     { name: 'Schedules', description: 'Check the schedule for garbage collection in your area', href: '/schedules', icon: CalendarCheck2Icon },
     { name: 'Routes', description: 'View and track waste collection routes and timings', href: '/routes', icon: WaypointsIcon },
-    { name: 'Contact', description: 'Get in touch for inquiries and support.', href: '/about', icon: ContactIcon },
+    // { name: 'Contact', description: 'Get in touch for inquiries and support.', href: '/about', icon: ContactIcon },
 ]
 export const headerItems = [
     { name: 'Home', href: '/', items: null },
@@ -57,7 +57,7 @@ export const sidebarItems = [
     { name: 'Dashboard', href: '/admin/management', icon: LayoutDashboardIcon },
     { name: 'Accounts', href: '/admin/management/accounts', icon: UsersIcon },
     { name: 'Logs', href: '/admin/management/logs', icon: LogsIcon },
-    { name: 'Contact Details', href: '/admin/management/contact-details', icon: ContactIcon },
+    // { name: 'Contact Details', href: '/admin/management/contact-details', icon: ContactIcon },
     { name: 'Announcements', href: '/admin/management/announcements', icon: MegaphoneIcon },
     { name: 'Posts', href: '/admin/management/posts', icon: BookTextIcon },
     { name: 'News', href: '/admin/management/news', icon: NewspaperIcon },

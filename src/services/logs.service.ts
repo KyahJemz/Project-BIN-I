@@ -41,7 +41,12 @@ export class LogsService {
 		try {
 			await MongoDbConnect();
 			const count = await this.logsModel.countDocuments().lean();
-			const logs = await this.logsModel.find().sort({ "createdAt": -1}).skip(page).limit(pageSize).lean();
+			const logs = await this.logsModel
+				.find()
+				.sort({ "createdAt": -1})
+				.skip(page)
+				.limit(pageSize)
+				.lean();
 			if (!logs) {
 				throw new Error('No logs found');
 			}

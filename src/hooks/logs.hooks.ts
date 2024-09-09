@@ -1,5 +1,6 @@
 'use client';
 
+
 import apiRoutes from '@/utils/apiRoutes';
 import { useState } from 'react';
 
@@ -7,6 +8,7 @@ export const useGetLogByIdHook = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
+
 
 	const getLogById = async (id: string) => {
 		setIsLoading(true);
@@ -16,6 +18,7 @@ export const useGetLogByIdHook = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {
@@ -40,6 +43,7 @@ export const useGetAllLogsHook = () => {
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
 
+
 	const getAllLogs = async (page: number, pageSize: number) => {
 		setIsLoading(true);
 		setError(null);
@@ -48,6 +52,7 @@ export const useGetAllLogsHook = () => {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
 				},
 			});
 			if (!res.ok) {

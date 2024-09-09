@@ -1,11 +1,13 @@
 import LogsModel from '@/models/logs';
 import { LogsService } from '@/services/logs.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { validateRequest } from '@/utils/jwt';
 import { MongoDbConnect } from '@/utils/mongodb';
 import { NextResponse, NextRequest } from 'next/server';
 
 // GET method: Fetch logs details or all logs details
 export async function GET(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id') as string;
 	const page = url.searchParams.get('page') as string;

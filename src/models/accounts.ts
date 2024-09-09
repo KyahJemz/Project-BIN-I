@@ -38,6 +38,11 @@ const accountsSchema: Schema<IAccountDocument> = new Schema(
 			type: String,
 			required: true,
 		},
+		token: {
+			type: String,
+			default: null,
+			required: false,
+		},
 		deletedAt: {
 			type: Date,
 			required: false,

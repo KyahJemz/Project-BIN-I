@@ -4,10 +4,12 @@ import path from 'path';
 import fs from 'fs';
 import { ErrorResponses } from '@/utils/errorResponses';
 import { env } from "@/env.mjs";
+import { validateRequest } from "@/utils/jwt";
 
 const uploadDir = "public/images/";
 
 export const POST = async (request: NextRequest) => {
+  await validateRequest(request);
   const data = await request.formData();
   const file = data.get('file') ?? data.get('image');
   const category: FormDataEntryValue | null  = data.get('category') as string;

@@ -1,6 +1,7 @@
 import AnnouncementsModel from '@/models/announcements';
 import { AnnouncementService } from '@/services/announcements.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { validateRequest } from '@/utils/jwt';
 import { MongoDbConnect } from '@/utils/mongodb';
 import {
 	CreateAnnouncementRequestSchema,
@@ -10,8 +11,8 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new announcement
 export async function POST(req: NextRequest) {
+	await validateRequest(req);
 	try {
-		
 		const announcementService = new AnnouncementService(AnnouncementsModel);
 		const parsedRequest = CreateAnnouncementRequestSchema.parse(
 			await req.json(),
@@ -49,6 +50,7 @@ export async function GET(req: NextRequest) {
 
 // PUT method: Update an announcement
 export async function PUT(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
@@ -76,6 +78,7 @@ export async function PUT(req: NextRequest) {
 
 // DELETE method: Delete an announcement
 export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {

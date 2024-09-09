@@ -37,7 +37,7 @@ const IdAddAccount = () => {
 
 	React.useEffect(() => {
 		if (createAccountResponse) {
-			router.push('/accounts');
+			router.back();
 		}
 	}, [createAccountResponse]);
 
@@ -47,7 +47,7 @@ const IdAddAccount = () => {
 			<h1 className="text-xl font-semibold text-gray-800 mb-4">Add New Account</h1>
 			<div className="space-y-4">
 				<div>
-					<label htmlFor="firstName" className="block text-gray-700 font-medium mb-1 text-sm">First Name</label>
+					<label htmlFor="firstName" className="block text-gray-700 font-medium mb-1 text-sm">First Name<a className="text-red-500"> *</a></label>
 					<input
 						id="firstName"
 						type="text"
@@ -58,7 +58,7 @@ const IdAddAccount = () => {
 				</div>
 
 				<div>
-					<label htmlFor="lastName" className="block text-gray-700 font-medium mb-1 text-sm">Last Name</label>
+					<label htmlFor="lastName" className="block text-gray-700 font-medium mb-1 text-sm">Last Name<a className="text-red-500"> *</a></label>
 					<input
 						id="lastName"
 						type="text"
@@ -91,7 +91,7 @@ const IdAddAccount = () => {
 				</div>
 
 				<div>
-					<label htmlFor="email" className="block text-gray-700 font-medium mb-1 text-sm">Email</label>
+					<label htmlFor="email" className="block text-gray-700 font-medium mb-1 text-sm">Email<a className="text-red-500"> *</a></label>
 					<input
 						id="email"
 						type="email"
@@ -102,7 +102,7 @@ const IdAddAccount = () => {
 				</div>
 
 				<div>
-					<label htmlFor="password" className="block text-gray-700 font-medium mb-1 text-sm">Password</label>
+					<label htmlFor="password" className="block text-gray-700 font-medium mb-1 text-sm">Password<a className="text-red-500"> *</a></label>
 					<input
 						id="password"
 						type="password"
@@ -112,10 +112,17 @@ const IdAddAccount = () => {
 					/>
 				</div>
 
-				<div className="text-right space-x-2">
+				<div className="flex justify-end gap-4">
+					<button
+						onClick={() => router.back()}
+						className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
+						disabled={isCreatingAccount}
+					>
+						Go Back
+					</button>
 					<button
 						onClick={onCreateAccountClicked}
-						className="px-4 py-2 text-sm text-white bg-indigo-600 hover:bg-indigo-700 rounded-md"
+						className="font-semibold bg-blue-500 hover:bg-blue-700 text-white py-2 px-5 rounded"
 						disabled={isCreatingAccount}
 					>
 						{isCreatingAccount ? 'Creating...' : 'Create Account'}

@@ -66,6 +66,7 @@ export class EventService {
 			await MongoDbConnect();
 			const event = await this.eventModel
 				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
 				.lean();
 			if (!event) {
 				throw new Error('No events found');

@@ -2,6 +2,7 @@ import AccountModel from '@/models/accounts';
 import { AccountService } from '@/services/accounts.service';
 import { LogsService } from '@/services/logs.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { signJwt, validateRequest } from '@/utils/jwt';
 import { MongoDbConnect } from '@/utils/mongodb';
 import {
 	ChangeAccountPasswordRequestSchema,
@@ -20,11 +21,14 @@ export async function POST(req: NextRequest) {
 		if (action && action.includes('verify')) {
 			const parsedRequest = LoginRequestSchema.parse(await req.json());
 			const account = await accountService.validateAccount(parsedRequest);
-			return NextResponse.json(account, { status: 200 });
+			const token = signJwt({...account, password: null});
+			await accountService.updateAccount(account._id as string, { token: token });
+			return NextResponse.json({...account, token}, { status: 200 });
 		} else {
 			const parsedRequest = CreateAccountRequestSchema.parse(
 				await req.json(),
 			);
+			await validateRequest(req);
 			const account = await accountService.createAccount(parsedRequest);
 			return NextResponse.json(account, { status: 201 });
 		}
@@ -36,10 +40,10 @@ export async function POST(req: NextRequest) {
 
 // GET method: Fetch account details or all accounts
 export async function GET(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		
 		const accountService = new AccountService(AccountModel);
 		if (id) {
 			const account = await accountService.getAccountById(id);
@@ -56,10 +60,10 @@ export async function GET(req: NextRequest) {
 
 // PUT method: Update an account
 export async function PUT(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		
 		const parsedRequest = UpdateAccountRequestSchema.parse(
 			await req.json(),
 		);
@@ -83,13 +87,13 @@ export async function PUT(req: NextRequest) {
 
 // PATCH method: Change account password
 export async function PATCH(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	const action = url.searchParams.get('action');
 
 	if (action && action.includes('change-password')) {
 		try {
-			
 			const accountService = new AccountService(AccountModel);
 			const parsedRequest = ChangeAccountPasswordRequestSchema.parse(
 				await req.json(),
@@ -119,10 +123,10 @@ export async function PATCH(req: NextRequest) {
 
 // DELETE method: Delete an account
 export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		
 		const accountService = new AccountService(AccountModel);
 		if (id) {
 			await accountService.deleteAccount(id);

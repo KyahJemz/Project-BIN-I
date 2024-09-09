@@ -62,7 +62,10 @@ export class NewsService {
 	async getAllNews() {
 		try {
 			await MongoDbConnect();
-			const news = await this.newsModel.find({ deletedAt: null }).lean();
+			const news = await this.newsModel
+				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
+				.lean();
 			if (!news) {
 				throw new Error('No news found');
 			}

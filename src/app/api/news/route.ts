@@ -1,6 +1,7 @@
 import NewsModel from '@/models/news';
 import { NewsService } from '@/services/news.service';
 import { ErrorResponses } from '@/utils/errorResponses';
+import { validateRequest } from '@/utils/jwt';
 import { MongoDbConnect } from '@/utils/mongodb';
 import {
 	CreateNewsRequestSchema,
@@ -10,6 +11,7 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Create a new news
 export async function POST(req: NextRequest) {
+	await validateRequest(req);
 	const newsService = new NewsService(NewsModel);
 	try {
 		
@@ -44,6 +46,7 @@ export async function GET(req: NextRequest) {
 
 // PUT method: Update an news
 export async function PUT(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
@@ -71,6 +74,7 @@ export async function PUT(req: NextRequest) {
 
 // DELETE method: Delete an news
 export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {

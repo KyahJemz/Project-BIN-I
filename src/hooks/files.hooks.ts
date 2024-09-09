@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import apiRoutes from '@/utils/apiRoutes';
 
+
 export const useUploadFileHook = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
+
 
 	const uploadFile = async (file: File, id: string, category: string) => {
 		const formData = new FormData();
@@ -18,6 +20,9 @@ export const useUploadFileHook = () => {
 			const res = await fetch(`${apiRoutes.uploadFile()}`, {
 				method: 'POST',
 				body: formData,
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+				}
 			});
 			if (!res.ok) {
 				const errorData = await res.json();

@@ -21,6 +21,7 @@ import CheckList from '@editorjs/checklist';
 import Table from '@editorjs/table';
 import TextVariantTune from '@editorjs/text-variant-tune';
 import { env } from '@/env.mjs';
+import { useAuthorizationStore } from '@/stores/useAuthorizationStore';
 
 const codeConfig = {
 	class: Code,
@@ -65,26 +66,26 @@ const embedConfig = {
 	},
 };
 
-const imageConfig = {
-	class: Image,
-	config: {
-		endpoints: {
-		  byFile: env.NEXT_PUBLIC_API_BASE_URL + '/upload', // Endpoint for image file uploads
-		},
-		captionPlaceholder: 'Add a caption...', // Placeholder text for the image caption
-		buttonContent: 'Select an image', // Text displayed on the file selection button
-		// additionalRequestHeaders: {             // Optional additional headers for the upload request
-		//   Authorization: 'Bearer token',        // Example of an additional header
-		// },
-		additionalRequestData: {
-		  category: 'editorjs',
-		  id: new Date().toISOString().replace(/[:.]/g, '_'), 
-		},
-		field: 'image', // Field name for the image file in the request
-		types: 'image/*', // Accepted file types (e.g., images only)
-	},
-};
 
+const imageConfig = {
+  class: Image,
+  config: {
+    endpoints: {
+      byFile: env.NEXT_PUBLIC_API_BASE_URL + '/upload', 
+    },
+    captionPlaceholder: 'Add a caption...',
+    buttonContent: 'Select an image', 
+    additionalRequestHeaders: {         
+      Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+    },
+    additionalRequestData: {
+      category: 'editorjs',
+      id: new Date().toISOString().replace(/[:.]/g, '_'),
+    },
+    field: 'image', 
+    types: 'image/*',
+  },
+};
 const inlineCodeConfig = {
 	class: InlineCode,
 	config: {

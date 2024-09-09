@@ -8,5 +8,6 @@ export interface IAccount {
 	email: string;
 	type: AccountTypeEnum;
 	password: string;
+	token?: string;
 	deletedAt?: string | null;
 }
