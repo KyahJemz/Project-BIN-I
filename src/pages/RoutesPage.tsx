@@ -9,7 +9,7 @@ export interface RoutesPageProps {
 }
 
 export const getRoutesPageProps = async () => {
-	const routesService = new RoutesService(RoutesModel);
+	const routesService = new RoutesService(RoutesModel, null);
 
     try {
         const [allRoutes] = await Promise.all([
@@ -83,31 +83,10 @@ const RoutesTable = ({ routes }:{routes: IRoutesDocument[]}) => {
     );
   };
 
-export default function RoutesPage({
-	allRoutes
-}: RoutesPageProps) {
+export default function RoutesPage() {
 
-    function getAllRoutes(array: IRoutesDocument[] = []) {
-        const routes: LatLngExpression[] = [];
-        array.forEach((route) => {
-            routes.push(route.pickupPoints as unknown as LatLngExpression);
-        })
-        return routes;
-    }
-
-    const allRoutesGathered = getAllRoutes(allRoutes);
-
+  
 	return (
-		<div className="min-h-screen bg-gray-100">
-            <section className="py-10 px-4 bg-white">
-                <div className="container mx-auto">
-                    <h2 className="text-3xl font-bold mb-2 text-dark-gray">Garbage Collection Routes</h2>
-                    <p className="text-lg mb-4 text-dark-gray border-b-2 pb-4">Check the garbage collection routes in cavite city.</p>
-                    <RoutesSection data={allRoutesGathered.reverse() as unknown as LatLngExpression[][]} />
-                    <RoutesTable routes={allRoutes} />
-                </div>
-            </section>
-
-        </div>
+	<></>
 	);
 }

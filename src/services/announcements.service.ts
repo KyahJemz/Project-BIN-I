@@ -13,10 +13,13 @@ import { MongoDbConnect } from '@/utils/mongodb';
 
 export class AnnouncementService {
 	private readonly logsService: LogsService;
+	private readonly rqst: any;
 	constructor(
 		private readonly announcementModel: Model<IAnnouncementDocument>,
+		private readonly rqst: any,
 		logsService: LogsService = new LogsService(LogsModel)
 	) {
+		this.rqst = rqst;
 		this.logsService = logsService;
 	}
 
@@ -35,7 +38,7 @@ export class AnnouncementService {
 				throw new Error('announcement creation failed');
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Announcements,
 				action: ActionsEnum.Create,
 				action_id: (announcement._id || "").toString(),
@@ -101,7 +104,7 @@ export class AnnouncementService {
 			}
 			const updatedAnnouncement = await announcement.save();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Announcements,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -118,7 +121,7 @@ export class AnnouncementService {
 			await MongoDbConnect();
 			const announcement = await this.announcementModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Announcements,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),

@@ -12,7 +12,7 @@ import { NextResponse, NextRequest } from 'next/server';
 // POST method: Create a new event
 export async function POST(req: NextRequest) {
 	await validateRequest(req);
-	const eventService = new EventService(EventsModel);
+	const eventService = new EventService(EventsModel, req.headers);
 	try {
 		
 		const parsedRequest = CreateEventRequestSchema.parse(await req.json());
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		
-		const eventService = new EventService(EventsModel);
+		const eventService = new EventService(EventsModel, req.headers);
 		if (id) {
 			const event = await eventService.getEventById(id);
 			return NextResponse.json(event);
@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest) {
 			const parsedRequest = UpdateEventRequestSchema.parse(
 				await req.json(),
 			);
-			const eventService = new EventService(EventsModel);
+			const eventService = new EventService(EventsModel, req.headers);
 			const updatedEvent = await eventService.updateEvent(
 				id,
 				parsedRequest,
@@ -80,7 +80,7 @@ export async function DELETE(req: NextRequest) {
 	try {
 		if (id) {
 			
-			const eventService = new EventService(EventsModel);
+			const eventService = new EventService(EventsModel, req.headers);
 			await eventService.deleteEvent(id);
 			return NextResponse.json({
 				message: `Event with ID: ${id} deleted successfully`,

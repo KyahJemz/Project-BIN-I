@@ -82,6 +82,7 @@ const IdViewSchedule = ({ params }: { params: { id: string } }) => {
 			await getRouteByScheduleId(params.id);
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {

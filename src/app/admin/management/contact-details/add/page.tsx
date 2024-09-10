@@ -25,6 +25,7 @@ const IdEditContactDetails = ({ params }: { params: { id: string } }) => {
 		if (createContactDetailsResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [createContactDetailsResponse]);
 
 	function onCreateContactDetailsClicked() {

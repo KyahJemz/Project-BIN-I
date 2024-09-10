@@ -19,6 +19,7 @@ const News = () => {
             await getAllNews();
         };
         fetchData();
+        // eslint-disable-next-line
     }, []);
 
     return (

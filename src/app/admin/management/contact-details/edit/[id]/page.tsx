@@ -36,6 +36,7 @@ const IdEditContactDetails = ({ params }: { params: { id: string } }) => {
 			await getContactDetailsById(params.id);
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, [params.id]);
 
 	useEffect(() => {
@@ -52,6 +53,7 @@ const IdEditContactDetails = ({ params }: { params: { id: string } }) => {
 		if (updateContactDetailsResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [updateContactDetailsResponse]);
 
 	function onUpdateContactDetailsClicked() {

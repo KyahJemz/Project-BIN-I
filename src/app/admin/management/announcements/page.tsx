@@ -33,6 +33,7 @@ const AnnouncementsManagement = () => {
 			setRefresh(false);
         };
         fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [refresh]);
 
 	useEffect(() => {

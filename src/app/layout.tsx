@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Header from '@/components/Header/Header';
 import Footer from '@/components/Footer/Footer';
-import { headerButton, headerItems, headerTitle } from './constants';
+import { headerItems, headerTitle } from './constants';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -21,9 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="max-h-screen pt-12 bg-gray-100" id="root">
-          <Header headerTitle={headerTitle} headerItems={headerItems} headerButton={headerButton}/>
-            {children}
-          <Footer />
+          <Header headerTitle={headerTitle} headerItems={headerItems} />
+                {children}
+            <Footer />
         </div>
       </body>
     </html>

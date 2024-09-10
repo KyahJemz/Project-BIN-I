@@ -1,11 +1,13 @@
+"use client";
+
 import {create} from 'zustand';
 
 type AccountState = {
   accountData: any;
-  setEditorData: (data: any) => void;
+  setAccountData: (data: any) => void;
 };
 
-export const useEditorStore = create<AccountState>((set) => ({
+export const useAccountStore = create<AccountState>((set) => ({
   accountData: null,
-  setEditorData: (data) => set({ accountData: data }),
+  setAccountData: (data) => set({ accountData: data }),
 }));

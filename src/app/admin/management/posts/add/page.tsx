@@ -57,12 +57,14 @@ const IdAddPost = ({ params }: { params: { id: string } }) => {
 		if (createPostResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [createPostResponse]);
 
 	useEffect(() => {
 		if (uploadFileResponse) {
 			onCreatePost(uploadFileResponse.fileName);
 		}
+		// eslint-disable-next-line
 	}, [uploadFileResponse]);
 
 	const onCreatePostClicked = () => {

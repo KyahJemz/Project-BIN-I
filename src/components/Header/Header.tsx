@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
     Dialog,
     DialogPanel,
@@ -8,8 +8,9 @@ import {
 } from '@headlessui/react';
 import { FlyoutMenu, FlyoutMenuProps, MobileFlyoutMenu } from '../FlyoutMenu/FlyoutMenu'
 import { HeaderMenu, HeaderMenuProps, MobileHeaderMenu } from '../HeaderMenu/HeaderMenu'
-import { HeaderLogo, MobileHeaderLogo, HeaderLogoProps, HeaderTitleProps } from '../HeaderLogo/HeaderLogo'
-import Link from 'next/link'
+import { HeaderLogo, MobileHeaderLogo, HeaderTitleProps } from '../HeaderLogo/HeaderLogo'
+import Link from 'next/link';
+import { useAccountStore } from '@/stores/useAccountStore';
 
 export interface headerButtonProps {
     name: string;
@@ -20,10 +21,11 @@ export interface HeaderProps {
     headerItems: [FlyoutMenuProps & HeaderMenuProps];
     headerTitle: HeaderTitleProps;
     headerButton: headerButtonProps;
+    isLoggedin?: boolean;
 }
 
-export default function Header({ headerItems, headerTitle, headerButton }: HeaderProps) {
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+export default function Header({ headerItems, headerTitle, headerButton}: HeaderProps) {
+    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
     return (
             <header className="fixed top-0 left-0 right-0 bg-forest-green text-white z-50">
@@ -45,14 +47,6 @@ export default function Header({ headerItems, headerTitle, headerButton }: Heade
                                 )
                             ))}
                         </PopoverGroup>
-                    ) : null}
-                    
-                    {headerButton ? (
-                        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-                            <Link href={headerButton.href} prefetch className="text-l font-semibold leading-6 text-gray-900">
-                                {headerButton.name} <span aria-hidden="true">&rarr;</span>
-                            </Link>
-                        </div>
                     ) : null}
 
                 </nav>
@@ -78,14 +72,6 @@ export default function Header({ headerItems, headerTitle, headerButton }: Heade
                                                 <MobileFlyoutMenu key={headerItem.name} name={headerItem.name} items={headerItem.items} />
                                             )
                                         ))}
-                                    </div>
-                                ) : null}
-
-                                {headerButton ? (
-                                    <div className="py-6">
-                                        <Link href={headerButton.href} prefetch className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                                            {headerButton.name}
-                                        </Link>
                                     </div>
                                 ) : null}
 

@@ -13,10 +13,13 @@ import { MongoDbConnect } from '@/utils/mongodb';
 
 export class PostService {
 	private readonly logsService: LogsService;
+	private readonly rqst: any;
 	constructor(
 		private readonly postModel: Model<IPostDocument>,
+		private readonly rqst: any,
 		logsService: LogsService = new LogsService(LogsModel)
 	) {
+		this.rqst = rqst;
 		this.logsService = logsService;
 	}
 
@@ -35,7 +38,7 @@ export class PostService {
 				throw new Error('post creation failed');
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Posts,
 				action: ActionsEnum.Create,
 				action_id: (post._id || "").toString(),
@@ -104,7 +107,7 @@ export class PostService {
 			}
 			const updatedPost = await post.save();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Posts,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -121,7 +124,7 @@ export class PostService {
 			await MongoDbConnect();
 			const post = await this.postModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Posts,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),

@@ -12,9 +12,12 @@ import { ActionsEnum } from '@/enums/actions.enum';
 import { MongoDbConnect } from '@/utils/mongodb';
 export class NewsService {
 	private readonly logsService: LogsService;
-	constructor(private readonly newsModel: Model<INewsDocument>,		
+	private readonly rqst: any;
+	constructor(private readonly newsModel: Model<INewsDocument>,
+		private readonly rqst: any,		
 		logsService: LogsService = new LogsService(LogsModel)
 	) {
+		this.rqst = rqst;
 		this.logsService = logsService;
 	}
 
@@ -33,7 +36,7 @@ export class NewsService {
 				throw new Error('News creation failed');
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.News,
 				action: ActionsEnum.Create,
 				action_id: (news._id || "").toString(),
@@ -99,7 +102,7 @@ export class NewsService {
 			}
 			const updatedNews = await news.save();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.News,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -116,7 +119,7 @@ export class NewsService {
 			await MongoDbConnect();
 			const news = await this.newsModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.News,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),

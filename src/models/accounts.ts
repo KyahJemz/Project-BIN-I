@@ -1,9 +1,11 @@
 import { AccountTypeEnum } from '@/enums/accountType.enum';
 import { IAccount } from '@/types/IAccount.dto';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import mongoose, { Schema, Document } from 'mongoose';
 
-export interface IAccountDocument extends IAccount, Document {}
+export interface IAccountDocument extends IAccount, Document {
+	[x: string]: any;
+}
 
 const accountsSchema: Schema<IAccountDocument> = new Schema(
 	{

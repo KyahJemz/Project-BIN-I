@@ -7,7 +7,7 @@ export interface AnnouncementsPageProps {
 }
 
 export const getIdAnnouncementPageProps = async (id: string) => {
-    const announcementService = new AnnouncementService(AnnouncementsModel);
+    const announcementService = new AnnouncementService(AnnouncementsModel, null);
     try {
         const idAnnouncements = await announcementService.getAnnouncementById(id)
         return { props: { idAnnouncements }};
@@ -16,16 +16,9 @@ export const getIdAnnouncementPageProps = async (id: string) => {
         return { props: { idAnnouncements: null }}} 
 };
 
-export default function IdAnnouncementsPage({
-	idAnnouncements,
-}: AnnouncementsPageProps) {
+export default function IdAnnouncementsPage() {
 
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* Announcements Section */}
-            <IdAnnouncementsSection announcement={idAnnouncements}/>
-
-        </div>
+		<></>
 	);
 }

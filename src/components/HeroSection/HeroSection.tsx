@@ -25,8 +25,8 @@ export default function HeroSection() {
                     <h2 className="text-3xl md:text-5xl font-bold mb-4">BIN-I: Keep Cavite City Clean and Green</h2>
                     <p className="text-base md:text-lg mb-6">Stay informed, participate, and make a difference in our community.</p>
                     <div className="flex flex-col sm:flex-row justify-center md:justify-start items-center">
-                        <Link href={'/news'} className="bg-sun-yellow shadow-md text-dark-gray px-6 py-2 rounded mb-4 sm:mb-0 sm:mr-4">Read News</Link>
-                        <Link href={'/events'} className="bg-sun-yellow shadow-md text-dark-gray px-6 py-2 rounded">See Events</Link>
+                        <Link href={'/news'}  className="bg-sun-yellow shadow-md text-dark-gray px-6 py-2 rounded mb-4 sm:mb-0 sm:mr-4">Read News</Link>
+                        <Link href={'/events'}  className="bg-sun-yellow shadow-md text-dark-gray px-6 py-2 rounded">See Events</Link>
                     </div>
                 </div>
                 

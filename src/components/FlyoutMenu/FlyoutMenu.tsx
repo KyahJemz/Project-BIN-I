@@ -38,7 +38,7 @@ export function FlyoutMenu({ name, items }: FlyoutMenuProps) {
                         {validItems.map((item) => (
                             <div key={item.name} className="group relative flex gap-x-6 rounded-lg p-4 hover:bg-gray-100">
                                 <div>
-                                    <Link href={item.href} prefetch className="font-semibold text-gray-900">
+                                    <Link href={item.href}  className="font-semibold text-gray-900">
                                         {item.name}
                                         <span className="absolute inset-0" />
                                     </Link>
@@ -65,7 +65,7 @@ export function MobileFlyoutMenu({ name, items }: FlyoutMenuProps) {
                 </DisclosureButton>
                 <DisclosurePanel className="mt-2 space-y-2 bg-inherit">
                     {validItems.map((item) => (
-                        <Link key={item.name} href={item.href} prefetch className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                        <Link key={item.name} href={item.href}  className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                             <DisclosureButton as="a">
                                 {item.name}
                             </DisclosureButton>

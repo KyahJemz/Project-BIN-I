@@ -75,7 +75,7 @@ const SchedulesTable = ({ schedules }: { schedules: IScheduleDocument[] }) => {
                                 {schedule.notes || 'N/A'}
                             </td>
                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                                <Link href={`/routes/${schedule._id.toString()}`} className="text-indigo-600 hover:text-indigo-900">
+                                <Link href={`/routes/${schedule._id.toString()}`}  className="text-indigo-600 hover:text-indigo-900">
                                     View Routes
                                 </Link>
                             </td>

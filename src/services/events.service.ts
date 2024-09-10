@@ -14,9 +14,12 @@ import { MongoDbConnect } from '@/utils/mongodb';
 
 export class EventService {
 	private readonly logsService: LogsService;
+	private readonly rqst: any;
 	constructor(private readonly eventModel: Model<IEventDocument>,
+		private readonly rqst: any,
 		logsService: LogsService = new LogsService(LogsModel)
 	) {
+		this.rqst = rqst;
 		this.logsService = logsService;
 	}
 
@@ -35,7 +38,7 @@ export class EventService {
 				throw new Error('Event creation failed');
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Events,
 				action: ActionsEnum.Create,
 				action_id: (event._id || "").toString(),
@@ -113,7 +116,7 @@ export class EventService {
 			}
 			const updatedEvent = await event.save();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Events,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -130,7 +133,7 @@ export class EventService {
 			await MongoDbConnect();
 			const event = await this.eventModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Events,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),

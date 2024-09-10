@@ -12,7 +12,7 @@ import { NextResponse, NextRequest } from 'next/server';
 // POST method: Create a new schedules
 export async function POST(req: NextRequest) {
 	await validateRequest(req);
-	const schedulesService = new ScheduleService(SchedulesModel);
+	const schedulesService = new ScheduleService(SchedulesModel, req.headers);
 	try {
 		
 		const parsedRequest = CreateScheduleRequestSchema.parse(
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		
-		const schedulesService = new ScheduleService(SchedulesModel);
+		const schedulesService = new ScheduleService(SchedulesModel, req.headers);
 		if (id) {
 			const news = await schedulesService.getScheduleById(id);
 			return NextResponse.json(news);
@@ -56,7 +56,7 @@ export async function PUT(req: NextRequest) {
 			const parsedRequest = UpdateScheduleRequestSchema.parse(
 				await req.json(),
 			);
-			const schedulesService = new ScheduleService(SchedulesModel);
+			const schedulesService = new ScheduleService(SchedulesModel, req.headers);
 			const updatedEvent = await schedulesService.updateSchedule(
 				id,
 				parsedRequest,
@@ -81,7 +81,7 @@ export async function DELETE(req: NextRequest) {
 	try {
 		if (id) {
 			
-			const schedulesService = new ScheduleService(SchedulesModel);
+			const schedulesService = new ScheduleService(SchedulesModel, req.headers);
 			await schedulesService.deleteSchedule(id);
 			return NextResponse.json({
 				message: `Schedules with ID: ${id} deleted successfully`,

@@ -6,7 +6,7 @@ import {
 	IUpdateAccountRequest,
 } from '@/validation/accounts.validation';
 import { Model } from 'mongoose';
-import * as bcrypt from 'bcrypt';
+import * as bcrypt from 'bcryptjs';
 import { LogsService } from './logs.service';
 import LogsModel from '@/models/logs';
 import { ICreateLogsRequest } from '@/validation/logs.validation';
@@ -16,10 +16,13 @@ import { MongoDbConnect } from '@/utils/mongodb';
 
 export class AccountService {
 	private readonly logsService: LogsService;
+	private readonly rqst: any;
 	constructor(
 		private readonly accountModel: Model<IAccountDocument>,
+		private readonly rqst: any,
 		logsService: LogsService = new LogsService(LogsModel)
 	) {
+		this.rqst = rqst;
 		this.logsService = logsService;
 	}
 
@@ -39,7 +42,7 @@ export class AccountService {
 				throw new Error('Account creation failed');
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Create,
 				action_id: (account._id || "").toString(),
@@ -99,7 +102,7 @@ export class AccountService {
 			if (request.department !== undefined) {
 				account.department = request.department;
 			}
-			if (request.email !== undefined) {
+			if (request.email !== undefined && request.email !== account.email) {
 				const existing = await this.getByEmail(request.email);
 				if (existing) {
 					throw new Error('Email already exists');
@@ -120,7 +123,7 @@ export class AccountService {
 				return updatedAccount.toObject();
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -174,7 +177,7 @@ export class AccountService {
 			account.password = password;
 			const updatedAccount = await account.save();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -191,7 +194,7 @@ export class AccountService {
 			await MongoDbConnect();
 			const account = await this.accountModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Accounts,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),

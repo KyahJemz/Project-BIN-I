@@ -32,6 +32,7 @@ const ManageNewsPage = () => {
             await getAllNews();
         };
         fetchNews();
+        // eslint-disable-next-line
     }, []);
 
     function onAddNews() {

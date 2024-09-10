@@ -17,7 +17,7 @@ const EventCard = ({details}: {details: IEventDocument}) => {
             </div>
             <h3 className="text-xl font-bold mb-2">{details.title}</h3>
             <p>{details.description}</p>
-            <Link href={`/events/${details._id}`}><button className="mt-4 bg-sun-yellow text-dark-gray px-4 py-2 shadow-md rounded">Details</button></Link>
+            <Link href={`/events/${details._id}`} ><button className="mt-4 bg-sun-yellow text-dark-gray px-4 py-2 shadow-md rounded">Details</button></Link>
         </div>
     )
 }

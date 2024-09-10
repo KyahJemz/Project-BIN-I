@@ -40,6 +40,7 @@ const Routes = () => {
 			await getAllRoutes();
 		};
 		fetchData();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {

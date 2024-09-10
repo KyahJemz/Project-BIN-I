@@ -7,7 +7,7 @@ export interface SchedulesPageProps {
 }
 
 export const getIdSchedulesPageProps = async (id: string) => {
-    const schedulesService = new ScheduleService(SchedulesModel);
+    const schedulesService = new ScheduleService(SchedulesModel, null);
     try {
         const idSchedules = await schedulesService.getScheduleById(id)
         return { props: { idSchedules }};
@@ -16,16 +16,9 @@ export const getIdSchedulesPageProps = async (id: string) => {
         return { props: { idSchedules: null }}} 
 };
 
-export default function IdSchedulesPage({
-	idSchedules,
-}: SchedulesPageProps) {
+export default function IdSchedulesPage() {
 
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* Schedules Section */}
-            <IdSchedulesSection schedules={idSchedules}/>
-
-        </div>
+		<></>
 	);
 }

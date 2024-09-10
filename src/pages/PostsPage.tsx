@@ -6,7 +6,7 @@ export interface PostsPageProps {
 }
 
 export const getPostPageProps = async () => {
-    const postService = new PostService(PostsModel);
+    const postService = new PostService(PostsModel, null);
 
     try {
         const [allPosts] = await Promise.all([
@@ -28,16 +28,9 @@ export const getPostPageProps = async () => {
     } 
 };
 
-export default function PostsPage({
-	allPosts,
-}: PostsPageProps) {
+export default function PostsPage() {
 
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* Posts Section */}
-            <PostsSection data={allPosts.reverse()}/>
-
-        </div>
+		<></>
 	);
 }

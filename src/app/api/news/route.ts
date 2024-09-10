@@ -12,7 +12,7 @@ import { NextResponse, NextRequest } from 'next/server';
 // POST method: Create a new news
 export async function POST(req: NextRequest) {
 	await validateRequest(req);
-	const newsService = new NewsService(NewsModel);
+	const newsService = new NewsService(NewsModel, req.headers);
 	try {
 		
 		const parsedRequest = CreateNewsRequestSchema.parse(await req.json());
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		
-		const newsService = new NewsService(NewsModel);
+		const newsService = new NewsService(NewsModel, req.headers);
 		if (id) {
 			const news = await newsService.getNewsById(id);
 			return NextResponse.json(news);
@@ -55,7 +55,7 @@ export async function PUT(req: NextRequest) {
 			const parsedRequest = UpdateNewsRequestSchema.parse(
 				await req.json(),
 			);
-			const newsService = new NewsService(NewsModel);
+			const newsService = new NewsService(NewsModel, req.headers);
 			const updatedEvent = await newsService.updateNews(
 				id,
 				parsedRequest,
@@ -80,7 +80,7 @@ export async function DELETE(req: NextRequest) {
 	try {
 		if (id) {
 			
-			const newsService = new NewsService(NewsModel);
+			const newsService = new NewsService(NewsModel, req.headers);
 			await newsService.deleteNews(id);
 			return NextResponse.json({
 				message: `News with ID: ${id} deleted successfully`,

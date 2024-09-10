@@ -34,6 +34,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 			await getAccountById(params.id);
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -51,6 +52,7 @@ const IdEditAccount = ({ params }: { params: { id: string } }) => {
 		if (updateAccountResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [updateAccountResponse]);
 
 	const onUpdateAccountClicked = () => {

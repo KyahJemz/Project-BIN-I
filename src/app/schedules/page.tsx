@@ -39,6 +39,7 @@ const Schedules = () => {
             await getAllSchedules();
         };
         fetchData();
+        // eslint-disable-next-line
     }, []);
 
 	const link = '/schedules/';

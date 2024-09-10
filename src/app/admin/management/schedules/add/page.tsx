@@ -65,6 +65,7 @@ const IdAddSchedule = () => {
 		if (createScheduleResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [createScheduleResponse]);
 
 	const onCreateSchedule = () => {

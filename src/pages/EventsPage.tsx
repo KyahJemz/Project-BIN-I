@@ -7,7 +7,7 @@ export interface EventsPageProps {
 }
 
 export const getEventsPageProps = async () => {
-    const eventsService = new EventService(EventsModel);
+    const eventsService = new EventService(EventsModel, null);
 
     try {
         const [allEvents] = await Promise.all([
@@ -29,15 +29,8 @@ export const getEventsPageProps = async () => {
     } 
 };
 
-export default function EventsPage({
-    allEvents,
-}: EventsPageProps) {
+export default function EventsPage() {
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* Upcoming Events Section */}
-            <EventsSection data={allEvents.reverse()}/>
-
-        </div>
+	<></>
 	);
 }

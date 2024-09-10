@@ -13,9 +13,12 @@ import { ActionsEnum } from '@/enums/actions.enum';
 import { MongoDbConnect } from '@/utils/mongodb';
 export class RoutesService {
 	private readonly logsService: LogsService;
+	private readonly rqst: any;
 	constructor(private readonly routesModel: Model<IRoutesDocument>,
+		private readonly rqst: any,
 		logsService: LogsService = new LogsService(LogsModel)
 	) {
+		this.rqst = rqst;
 		this.logsService = logsService;
 	}
 
@@ -31,7 +34,7 @@ export class RoutesService {
 				throw new Error('Routes creation failed');
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Routes,
 				action: ActionsEnum.Create,
 				action_id: (routes._id || "").toString(),
@@ -125,7 +128,7 @@ export class RoutesService {
 			}
 			const updatedRoutes = await routes.save();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Routes,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -142,7 +145,7 @@ export class RoutesService {
 			await MongoDbConnect();
 			const routes = await this.routesModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Routes,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),

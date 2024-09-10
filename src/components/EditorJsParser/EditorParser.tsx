@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import styles from './EditorParser.module.css';
+import Image from 'next/image';
 
 export default function EditorParser() {
 	const convertDataToHtml = (blocks) => {
@@ -59,7 +60,9 @@ export default function EditorParser() {
 				case 'image':
 					blockElement = (
 						<div className={styles.imageCard} key={block.id}>
-							<img
+							<Image
+								width={500}
+								height={500}
 								className={styles.imgFluid}
 								src={block.data.file.url}
 								alt={block.data.caption}

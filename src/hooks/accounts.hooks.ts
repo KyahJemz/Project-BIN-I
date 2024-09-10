@@ -72,6 +72,7 @@ export const useValidateAccountHook = () => {
 			setAuthorization(data.token);
 			console.log(authorization);
 			localStorage.setItem("authorization", data.token);
+			localStorage.setItem("account", data);
 			setResponse(data);
 		} catch (err: any) {
 			setError(err.message || 'An error occurred');

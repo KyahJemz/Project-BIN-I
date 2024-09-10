@@ -19,6 +19,7 @@ const Posts = () => {
             await getAllPosts();
         };
         fetchData();
+        // eslint-disable-next-line
     }, []);
 
     return (

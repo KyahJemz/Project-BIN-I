@@ -62,6 +62,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 			await getEventById(params.id);
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, [params.id]);
 
 	useEffect(() => {
@@ -80,6 +81,7 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 			setEventDate(getEventByIdResponse?.eventDate || '');
 			setEventLocation(getEventByIdResponse?.eventLocation || '');
 		}
+		// eslint-disable-next-line
 	}, [getEventByIdResponse]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -98,12 +100,14 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 		if (uploadFileResponse) {
 			onUpdateEvent(uploadFileResponse.fileName)
 		}
+		// eslint-disable-next-line
 	}, [uploadFileResponse]);
 
 	useEffect(() => {
 		if (updateEventResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [updateEventResponse]);
 
 	function onUpdateEventClicked() {

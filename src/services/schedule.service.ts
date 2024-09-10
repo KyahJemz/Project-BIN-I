@@ -16,10 +16,13 @@ import RoutesModel from '@/models/routes';
 export class ScheduleService {
 	private readonly logsService: LogsService;
 	private readonly routesService: RoutesService;
+	private readonly rqst: any;
 	constructor(private readonly scheduleModel: Model<IScheduleDocument>,
+		private readonly rqst: any,
 		logsService: LogsService = new LogsService(LogsModel),
-		routesService: RoutesService = new RoutesService(RoutesModel)
+		routesService: RoutesService = new RoutesService(RoutesModel, null)
 	) {
+		this.rqst = rqst;
 		this.logsService = logsService;
 		this.routesService = routesService;
 	}
@@ -36,7 +39,7 @@ export class ScheduleService {
 				throw new Error('Schedule creation failed');
 			}
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Schedules,
 				action: ActionsEnum.Create,
 				action_id: (schedule._id || "").toString(),
@@ -102,7 +105,7 @@ export class ScheduleService {
 			}
 			const updatedSchedule = await schedule.save();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Schedules,
 				action: ActionsEnum.Update,
 				action_id: (id || "").toString(),
@@ -119,7 +122,7 @@ export class ScheduleService {
 			await MongoDbConnect();
 			const schedule = await this.scheduleModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
 			await this.createLogs({
-				account_id: "ADMIN_ACCOUNT",
+				account_id: this.rqst,
 				actionCollection: CollectionsEnum.Schedules,
 				action: ActionsEnum.Delete,
 				action_id: (id || "").toString(),

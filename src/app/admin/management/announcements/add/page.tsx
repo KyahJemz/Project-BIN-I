@@ -56,12 +56,14 @@ const IdAddAnnouncement = ({ params }: { params: { id: string } }) => {
 		if (createAnnouncementResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [createAnnouncementResponse]);
 
 	useEffect(() => {
 		if (uploadFileResponse) {
 			onCreateAnnouncement(uploadFileResponse.fileName);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [uploadFileResponse]);
 
 	const onCreateAnnouncementClicked = () => {

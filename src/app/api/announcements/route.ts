@@ -13,7 +13,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
 	await validateRequest(req);
 	try {
-		const announcementService = new AnnouncementService(AnnouncementsModel);
+		const announcementService = new AnnouncementService(AnnouncementsModel, req.headers);
 		const parsedRequest = CreateAnnouncementRequestSchema.parse(
 			await req.json(),
 		);
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		
-		const announcementService = new AnnouncementService(AnnouncementsModel);
+		const announcementService = new AnnouncementService(AnnouncementsModel, req.headers);
 		if (id) {
 			const announcement =
 				await announcementService.getAnnouncementById(id);
@@ -60,7 +60,7 @@ export async function PUT(req: NextRequest) {
 				await req.json(),
 			);
 			const announcementService = new AnnouncementService(
-				AnnouncementsModel,
+				AnnouncementsModel, req.headers
 			);
 			const updatedAnnouncement =
 				await announcementService.updateAnnouncement(id, parsedRequest);
@@ -85,7 +85,7 @@ export async function DELETE(req: NextRequest) {
 		if (id) {
 			
 			const announcementService = new AnnouncementService(
-				AnnouncementsModel,
+				AnnouncementsModel, req.headers
 			);
 			await announcementService.deleteAnnouncement(id);
 			return NextResponse.json({

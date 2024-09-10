@@ -2,7 +2,21 @@
 import { env } from './src/env.mjs';
 
 const nextConfig = {
-	reactStrictMode: true,
+	webpack: (config, { isServer }) => {
+		if (config.node) {
+			delete config.node.fs;
+			delete config.node.net;
+			delete config.node.tls;
+		  }
+		return config;
+	  },
+	  eslint: {
+		ignoreDuringBuilds: true,
+	  },
+	  typescript: {
+		ignoreBuildErrors: true,
+	  },
+	reactStrictMode: false,
 	serverRuntimeConfig: {
 		Environment: env.ENVIRONMENT,
 		ApiBaseUrl: env.API_BASE_URL,

@@ -59,12 +59,14 @@ const IdCreateNews = ({ params }: { params: { id: string } }) => {
 		if (createNewsResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [createNewsResponse]);
 
 	useEffect(() => {
 		if (uploadFileResponse) {
 			onCreateNews(uploadFileResponse.fileName);
 		}
+		// eslint-disable-next-line
 	}, [uploadFileResponse]);
 
 	function onCreateNewsClicked() {

@@ -66,6 +66,9 @@ const apiRoutes = {
 
 	// Files
 	uploadFile: () => `${env.NEXT_PUBLIC_API_BASE_URL}/upload`, // POST
+
+	// Auth
+	authenticate: () => `${env.NEXT_PUBLIC_API_BASE_URL}/authenticate`, // POST
 };
 
 export default apiRoutes;

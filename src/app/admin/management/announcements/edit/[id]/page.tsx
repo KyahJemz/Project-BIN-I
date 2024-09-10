@@ -57,6 +57,7 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 
 	useEffect(() => {
 		getAnnouncementById(params.id);
+		// eslint-disable-next-line
 	}, [params.id]);
 
 	useEffect(() => {
@@ -70,6 +71,7 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 			setContent(parsedContent);
 			setEditorData(parsedContent);
 		}
+		// eslint-disable-next-line
 	}, [getAnnouncementByIdResponse]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,12 +90,14 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 		if (uploadFileResponse) {
 			handleUpdateAnnouncement(uploadFileResponse.fileName);
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [uploadFileResponse]);
 
 	useEffect(() => {
 		if (updateAnnouncementResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [updateAnnouncementResponse]);
 
 	const handleUpdateAnnouncement = (fileName?: string) => {

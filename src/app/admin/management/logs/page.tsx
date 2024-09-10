@@ -58,6 +58,7 @@ const LogsManagement = () => {
             getAllLogs(page, pageSize);
         };
         fetchData();
+        // eslint-disable-next-line
     }, [page, pageSize]);
 
     useEffect(() => {
@@ -79,6 +80,7 @@ const LogsManagement = () => {
             };
         });
         setRows(rows);
+        // eslint-disable-next-line
     }, [logs]);
 
     const totalPages = Math.ceil(totalCount / pageSize);

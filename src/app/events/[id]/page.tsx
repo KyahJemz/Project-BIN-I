@@ -35,6 +35,7 @@ export default function EventId({ params }: { params: { id: string } }) {
 			await getEventById(params.id);
 		};
 		fetchData();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -51,6 +52,7 @@ export default function EventId({ params }: { params: { id: string } }) {
 			setEventDate(getEventByIdResponse?.eventDate ?? eventDate);
 			setEventTime(getEventByIdResponse?.eventTime ?? eventTime);
 		}
+		// eslint-disable-next-line
 	}, [getEventByIdResponse]);
 
     return (

@@ -32,6 +32,7 @@ export default function NewsId({ params }: { params: { id: string } }) {
 			await getNewsById(params.id);
 		};
 		fetchData();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -45,6 +46,7 @@ export default function NewsId({ params }: { params: { id: string } }) {
 			setImage(getNewsByIdResponse?.image ?? image);
 			setContent(JSON.parse(getNewsByIdResponse?.content ?? "[]")?.blocks ?? content);
 		}
+		// eslint-disable-next-line
 	}, [getNewsByIdResponse]);
 
 	return (

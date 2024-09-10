@@ -56,6 +56,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 			await getNewsById(params.id);
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, [params.id]);
 
 	useEffect(() => {
@@ -68,6 +69,7 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 			setContent(JSON.parse(getNewsByIdResponse?.content ?? []) || '');
 			setEditorData(JSON.parse(getNewsByIdResponse?.content ?? []) || '');
 		}
+		// eslint-disable-next-line
 	}, [getNewsByIdResponse]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,12 +88,14 @@ const IdEditNews = ({ params }: { params: { id: string } }) => {
 		if (uploadFileResponse) {
 			onUpdateNews(uploadFileResponse.fileName)
 		}
+		// eslint-disable-next-line
 	}, [uploadFileResponse]);
 
 	useEffect(() => {
 		if (updateNewsResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [updateNewsResponse]);
 
 	function onUpdateNewsClicked() {

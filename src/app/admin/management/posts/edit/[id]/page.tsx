@@ -57,6 +57,7 @@ const IdEditPost = ({ params }: EditPostProps) => {
 
 	useEffect(() => {
 		getPostById(params.id);
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -70,6 +71,7 @@ const IdEditPost = ({ params }: EditPostProps) => {
 			setContent(parsedContent);
 			setEditorData(parsedContent);
 		}
+		// eslint-disable-next-line
 	}, [getPostByIdResponse]);
 
 	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -88,12 +90,14 @@ const IdEditPost = ({ params }: EditPostProps) => {
 		if (uploadFileResponse) {
 			handleUpdatePost(uploadFileResponse.fileName);
 		}
+		// eslint-disable-next-line
 	}, [uploadFileResponse]);
 
 	useEffect(() => {
 		if (updatePostResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [updatePostResponse]);
 
 	const handleUpdatePost = (fileName?: string) => {

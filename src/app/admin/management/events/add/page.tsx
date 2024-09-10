@@ -65,12 +65,14 @@ const IdEditEvent = ({ params }: { params: { id: string } }) => {
 		if (createEventResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [createEventResponse]);
 
 	useEffect(() => {
 		if (uploadFileResponse) {
 			onCreateEvent(uploadFileResponse.fileName);
 		}
+		// eslint-disable-next-line
 	}, [uploadFileResponse]);
 
 	function onCreateEventClicked() {

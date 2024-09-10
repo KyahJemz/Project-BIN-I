@@ -7,7 +7,7 @@ export interface NewsPageProps {
 }
 
 export const getIdNewsPageProps = async (id: string) => {
-    const newsService = new NewsService(NewsModel);
+    const newsService = new NewsService(NewsModel, null);
     try {
         const idNews = await newsService.getNewsById(id)
         return { props: { idNews }};
@@ -16,16 +16,9 @@ export const getIdNewsPageProps = async (id: string) => {
         return { props: { idNews: null }}} 
 };
 
-export default function IdNewsPage({
-	idNews,
-}: NewsPageProps) {
+export default function IdNewsPage() {
 
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* News Section */}
-            <IdNewsSection news={idNews}/>
-
-        </div>
+		<></>
 	);
 }

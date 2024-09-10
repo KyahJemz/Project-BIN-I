@@ -32,6 +32,7 @@ export default function PostId({ params }: { params: { id: string } }) {
 			await getPostById(params.id);
 		};
 		fetchData();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -45,6 +46,7 @@ export default function PostId({ params }: { params: { id: string } }) {
 			setImage(getPostByIdResponse?.image ?? image);
 			setContent(JSON.parse(getPostByIdResponse?.content ?? "[]")?.blocks ?? content);
 		}
+		// eslint-disable-next-line
 	}, [getPostByIdResponse]);
 
 	return (

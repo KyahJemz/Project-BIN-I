@@ -35,6 +35,7 @@ const AccountsManagement = () => {
 			setRefresh(false);
         };
         fetchData();
+		// eslint-disable-next-line
     }, [refresh]);
 
 	useEffect(() => {
@@ -82,7 +83,7 @@ const AccountsManagement = () => {
 			<div className='container mx-auto justify-between py-6 my-6 rounded-lg shadow-md px-4 bg-white max-w-7xl'>
 				{isGettingAllAccount 
 					? <p>Loading...</p> 
-					: <BiniTable header='Accounts Overview' columns={columns} data={rows} onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} />
+					: <BiniTable header='Accounts Overview' columns={columns} data={rows} onAdd={onAdd} onEdit={onEdit} onDelete={onDelete} link={''} />
 				}
 			</div>
 		</main>

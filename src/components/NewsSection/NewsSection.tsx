@@ -19,7 +19,7 @@ const NewsCard = ({ details, management, onDelete, onEdit }: { details: INewsDoc
             <p className="text-dark-gray mb-4">{details.description}</p>
 
             <div className="flex justify-between items-center">
-                <Link href={`/news/${details._id}`}>
+                <Link href={`/news/${details._id}`} >
                     <button className="bg-sun-yellow text-dark-gray px-4 py-2 rounded shadow-md">Read More</button>
                 </Link>
 

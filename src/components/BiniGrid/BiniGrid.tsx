@@ -78,7 +78,7 @@ const BiniCard = ({ type, details }) => {
                 <div className="bg-white rounded-lg p-4">
                     <h3 className="font-bold text-lg">{details.title}</h3>
                     <p className="text-sm font-semibold text-gray-500">{details.author}</p>
-                    <img src={"/images/posts/" + details.image} alt={details.title} className="w-full h-48 object-cover mt-4" />
+                    <Image height={500} width={500} src={"/images/posts/" + details.image} alt={details.title} className="w-full h-48 object-cover mt-4" />
                     <p className="mt-4">{details.description}</p>
                     <p className="text-xs text-gray-400 mt-2">Created: {formatFullDate(details.createdAt)}</p>
                 </div>
@@ -122,7 +122,7 @@ const BiniGrid = <T extends { id: string }>({
                         key={index}
                         className="bg-white flex flex-col justify-between shadow-md rounded-lg overflow-hidden border border-gray-200 relative"
                     >   
-                        <Link href={link && (`${link}/${item?._id?.toString()??""}`)} className="block w-full h-full hover:opacity-60">
+                        <Link href={link && (`${link}/${item?._id?.toString()??""}`)}  className="block w-full h-full hover:opacity-60">
                             <BiniCard type={type} details={item} />
                         </Link>
 

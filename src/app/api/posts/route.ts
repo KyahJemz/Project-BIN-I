@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
 	await validateRequest(req);
 	try {
 		
-		const postService = new PostService(PostsModel);
+		const postService = new PostService(PostsModel, req.headers);
 		const parsedRequest = CreatePostRequestSchema.parse(
 			await req.json(),
 		);
@@ -32,7 +32,7 @@ export async function GET(req: NextRequest) {
 	const id = url.searchParams.get('id');
 	try {
 		
-		const postService = new PostService(PostsModel);
+		const postService = new PostService(PostsModel, req.headers);
 		if (id) {
 			const Post =
 				await postService.getPostById(id);
@@ -60,7 +60,7 @@ export async function PUT(req: NextRequest) {
 				await req.json(),
 			);
 			const postService = new PostService(
-				PostsModel,
+				PostsModel, req.headers
 			);
 			const updatedPost =
 				await postService.updatePost(id, parsedRequest);
@@ -85,7 +85,7 @@ export async function DELETE(req: NextRequest) {
 		if (id) {
 			
 			const postService = new PostService(
-				PostsModel,
+				PostsModel, req.headers
 			);
 			await postService.deletePost(id);
 			return NextResponse.json({

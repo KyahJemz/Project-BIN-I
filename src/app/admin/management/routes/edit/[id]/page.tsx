@@ -79,13 +79,14 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 			await getAllSchedules();
 		};
 		fetch();
-
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
 		if (isUpdateRouteResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [isUpdateRouteResponse]);
 
 	useEffect(() => {
@@ -97,6 +98,7 @@ const IdEditRoute = ({ params }: { params: { id: string } }) => {
 			setNotes(getRouteByIdResponse?.notes);
 			setPickupPoints(getRouteByIdResponse?.pickupPoints);
 		}
+		// eslint-disable-next-line
 	}, [getRouteByIdResponse]);
 
 	function onUpdateRoute() {

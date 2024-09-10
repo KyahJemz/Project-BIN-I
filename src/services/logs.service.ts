@@ -4,16 +4,25 @@ import {
 	ICreateLogsRequest,
 } from '@/validation/logs.validation';
 import { MongoDbConnect } from '@/utils/mongodb';
+import { decodeJwt } from '@/utils/jwt';
+import { NextRequest } from 'next/server';
 
 export class LogsService {
 	constructor(private readonly logsModel: Model<ILogDocument>) {}
+
+	async processRequest(rqst: any) {
+		const autHeader = rqst.get('authorization');
+		const token = autHeader.split(' ')[1];
+		const decode = await decodeJwt(token);
+		return decode._id;
+	}
 
 	async createLogs(request: ICreateLogsRequest) {
 		try {
 			await MongoDbConnect();
 			const parsedRequest = {
 				...request,
-				account_id: '66db1eba7ae01d46018e2878',
+				account_id: await this.processRequest(request?.account_id??""),
 				action_id: request.action_id,
 			}
 			const logs = await this.logsModel.create(parsedRequest);
@@ -28,7 +37,7 @@ export class LogsService {
 	async getLogsById(id: string) {
 		try {
 			await MongoDbConnect();
-			const logs = await this.logsModel.findOne({ _id: id }).lean();
+			const logs = await this.logsModel.findOne({ _id: id }).populate('account_id').lean();
 			if (!logs) {
 				throw new Error('No log found');
 			}
@@ -43,8 +52,9 @@ export class LogsService {
 			const count = await this.logsModel.countDocuments().lean();
 			const logs = await this.logsModel
 				.find()
-				.sort({ "createdAt": -1})
-				.skip(page)
+				.populate('account_id')
+				.sort({ createdAt: -1})
+				.skip((+page-1) * +pageSize)
 				.limit(pageSize)
 				.lean();
 			if (!logs) {

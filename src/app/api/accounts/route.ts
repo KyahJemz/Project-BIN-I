@@ -16,12 +16,12 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function POST(req: NextRequest) {
 	const url = new URL(req.url);
 	const action = url.searchParams.get('action');
-	const accountService = new AccountService(AccountModel);
+	const accountService = new AccountService(AccountModel, req.headers);
 	try {
 		if (action && action.includes('verify')) {
 			const parsedRequest = LoginRequestSchema.parse(await req.json());
 			const account = await accountService.validateAccount(parsedRequest);
-			const token = signJwt({...account, password: null});
+			const token = signJwt({...account, password: null, token: null});
 			await accountService.updateAccount(account._id as string, { token: token });
 			return NextResponse.json({...account, token}, { status: 200 });
 		} else {
@@ -44,7 +44,7 @@ export async function GET(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		const accountService = new AccountService(AccountModel);
+		const accountService = new AccountService(AccountModel, req.headers);
 		if (id) {
 			const account = await accountService.getAccountById(id);
 			return NextResponse.json(account);
@@ -67,7 +67,7 @@ export async function PUT(req: NextRequest) {
 		const parsedRequest = UpdateAccountRequestSchema.parse(
 			await req.json(),
 		);
-		const accountService = new AccountService(AccountModel);
+		const accountService = new AccountService(AccountModel, req.headers);
 		if (id) {
 			const updatedAccount = await accountService.updateAccount(
 				id,
@@ -94,7 +94,7 @@ export async function PATCH(req: NextRequest) {
 
 	if (action && action.includes('change-password')) {
 		try {
-			const accountService = new AccountService(AccountModel);
+			const accountService = new AccountService(AccountModel, req.headers);
 			const parsedRequest = ChangeAccountPasswordRequestSchema.parse(
 				await req.json(),
 			);
@@ -127,7 +127,7 @@ export async function DELETE(req: NextRequest) {
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
-		const accountService = new AccountService(AccountModel);
+		const accountService = new AccountService(AccountModel, req.headers);
 		if (id) {
 			await accountService.deleteAccount(id);
 			return NextResponse.json({

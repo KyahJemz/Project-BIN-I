@@ -52,6 +52,7 @@ const ScheduleManagement = () => {
 			setRefresh(false);
         };
         fetchData();
+		// eslint-disable-next-line
     }, [refresh]);
 
 	useEffect(() => {

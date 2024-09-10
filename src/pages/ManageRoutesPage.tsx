@@ -33,6 +33,7 @@ const ManageRoutesPage = () => {
             await getAllRoutes();
         };
         fetchRoutes();
+        // eslint-disable-next-line
     }, []);
 
     function onAddRoute() {

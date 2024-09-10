@@ -7,7 +7,7 @@ export interface NewsPageProps {
 }
 
 export const getNewsPageProps = async () => {
-    const newsService = new NewsService(NewsModel);
+    const newsService = new NewsService(NewsModel, null);
 
     try {
         const [allNews] = await Promise.all([
@@ -29,15 +29,8 @@ export const getNewsPageProps = async () => {
     } 
 };
 
-export default function NewsPage({
-    allNews,
-}: NewsPageProps) {
+export default function NewsPage() {
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* News Highlights Section */}
-            <NewsSection data={allNews.reverse()} />
-
-        </div>
+		<></>
 	);
 }

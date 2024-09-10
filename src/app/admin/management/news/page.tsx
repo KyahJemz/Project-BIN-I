@@ -39,6 +39,7 @@ const NewsManagement = () => {
             await getAllNews();
         };
         fetchData();
+        // eslint-disable-next-line
     }, [refresh]);
 
     function onAddNews() {

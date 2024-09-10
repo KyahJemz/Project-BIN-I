@@ -6,7 +6,7 @@ import React from "react";
 const PostCard = ({ details }: { details: IPostDocument }) => {
     return (
         <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center shadow-md">
-            <Link href={`/posts/${details._id}`} className="w-full">
+            <Link href={`/posts/${details._id}`}  className="w-full">
                 <div className="relative w-full h-48 mb-4">
                     <Image 
                         src={`/images/posts/${details.image}`} 

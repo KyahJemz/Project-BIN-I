@@ -7,7 +7,7 @@ export interface PostsPageProps {
 }
 
 export const getIdPostPageProps = async (id: string) => {
-    const postService = new PostService(PostsModel);
+    const postService = new PostService(PostsModel, null);
     try {
         const idPosts = await postService.getPostById(id)
         return { props: { idPosts }};
@@ -16,16 +16,9 @@ export const getIdPostPageProps = async (id: string) => {
         return { props: { idPosts: null }}} 
 };
 
-export default function IdPostsPage({
-	idPosts,
-}: PostsPageProps) {
+export default function IdPostsPage() {
 
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* Posts Section */}
-            <IdPostsSection post={idPosts}/>
-
-        </div>
+		<></>
 	);
 }

@@ -22,9 +22,9 @@ export function verifyJwt(token: string) {
   }
 }
 
-export function decodeJwt(token: string) {
+export async function decodeJwt(token: string) {
   try {
-    const decode = jwt.decode(token);
+    const decode = await jwt.decode(token);
     return decode;
   } catch (error) {
     return error;

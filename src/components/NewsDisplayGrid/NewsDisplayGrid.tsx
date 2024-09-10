@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 
 const Card= ({
     title,
@@ -13,7 +14,7 @@ const Card= ({
     return (
         <div className={`overflow-hidden rounded-md bg-white border border-gray-200 ${isMainCard ? 'col-span-2 row-span-2 h-full flex flex-col' : ''}`}>
             <div className={`${isMainCard ? 'h-40' : 'h-32'} flex-1 w-full`}>
-                <img src={image} alt={title} className="w-full h-full object-cover" />
+                <Image width={500} height={500} src={image} alt={title} className="w-full h-full object-cover" />
             </div>
             
             {/* Content section */}

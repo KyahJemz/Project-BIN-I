@@ -32,6 +32,7 @@ export default function AnnouncementId({ params }: { params: { id: string } }) {
 			await getAnnouncementById(params.id);
 		};
 		fetchData();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
@@ -45,6 +46,7 @@ export default function AnnouncementId({ params }: { params: { id: string } }) {
 			setImage(getEventByIdResponse?.image ?? image);
 			setContent(JSON.parse(getEventByIdResponse?.content ?? "[]")?.blocks ?? content);
 		}
+		// eslint-disable-next-line
 	}, [getEventByIdResponse]);
 
     return (

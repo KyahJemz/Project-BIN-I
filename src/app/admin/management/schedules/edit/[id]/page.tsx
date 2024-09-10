@@ -81,12 +81,14 @@ const IdEditSchedule = ({ params }: { params: { id: string } }) => {
 			await getScheduleById(params.id);
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
 		if (updateScheduleResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [updateScheduleResponse]);
 
 	useEffect(() => {

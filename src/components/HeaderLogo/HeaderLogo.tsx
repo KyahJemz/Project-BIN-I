@@ -18,7 +18,7 @@ export function HeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoProps) 
         <>
             <div className="flex lg:flex-1 w-auto items-center">
             
-                <Link href={headerTitle.href} className="flex items-center -m-1.5 p-1.5 h-auto relative">
+                <Link href={headerTitle.href}  className="flex items-center -m-1.5 p-1.5 h-auto relative">
                     <Image
                         alt={headerTitle.name}
                         src={headerTitle.image}
@@ -50,7 +50,7 @@ export function HeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoProps) 
 export function MobileHeaderLogo({ headerTitle, setMobileMenuOpen }: HeaderLogoProps) {
     return (
         <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center -m-1.5 p-1.5">
+            <Link href="/"  className="flex items-center -m-1.5 p-1.5">
                 <span className="sr-only">{headerTitle.name}</span>
                 <Image
                     alt={headerTitle.name}

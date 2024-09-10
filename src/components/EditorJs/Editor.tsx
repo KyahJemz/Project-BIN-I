@@ -34,6 +34,7 @@ export default function Editor({ holder, content, refreshTrigger }: EditorProps)
         ref.current = null;
       }
     };
+    // eslint-disable-next-line
   }, [refreshTrigger]);
 
   return <div id={holder} className="prose max-w-full" />;

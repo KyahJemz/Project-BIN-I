@@ -7,7 +7,7 @@ export interface EventsPageProps {
 }
 
 export const getIdEventPageProps = async (id: string) => {
-    const eventsService = new EventService(EventsModel);
+    const eventsService = new EventService(EventsModel, null);
     try {
         const idEvents = await eventsService.getEventById(id)
         return { props: { idEvents }};
@@ -16,16 +16,9 @@ export const getIdEventPageProps = async (id: string) => {
         return { props: { idEvents: null }}} 
 };
 
-export default function IdEventsPage({
-	idEvent,
-}: EventsPageProps) {
+export default function IdEventsPage() {
 
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* Events Section */}
-            <IdEventsSection event={idEvent}/>
-
-        </div>
+		<></>
 	);
 }

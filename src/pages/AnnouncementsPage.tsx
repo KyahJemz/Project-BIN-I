@@ -6,7 +6,7 @@ export interface AnnouncementsPageProps {
 }
 
 export const getAnnouncementPageProps = async () => {
-    const announcementService = new AnnouncementService(AnnouncementsModel);
+    const announcementService = new AnnouncementService(AnnouncementsModel, null);
 
     try {
         const [allAnnouncements] = await Promise.all([
@@ -29,15 +29,9 @@ export const getAnnouncementPageProps = async () => {
 };
 
 export default function AnnouncementsPage({
-	allAnnouncements,
-}: AnnouncementsPageProps) {
+}) {
 
 	return (
-		<div className="min-h-screen bg-gray-100">
-
-            {/* Announcements Section */}
-            <AnnouncementsSection data={allAnnouncements.reverse()}/>
-
-        </div>
+		<></>
 	);
 }

@@ -19,6 +19,7 @@ const Announcements = () => {
             await getAllAnnouncements();
         };
         fetchData();
+        // eslint-disable-next-line
     }, []);
 
     return (

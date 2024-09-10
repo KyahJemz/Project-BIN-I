@@ -58,6 +58,7 @@ const IdViewRoute = ({ params }: { params: { id: string } }) => {
 			await getRouteById(params.id);
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {

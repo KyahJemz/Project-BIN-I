@@ -11,7 +11,7 @@ import { NextResponse, NextRequest } from 'next/server';
 // POST method: Create a new routes
 export async function POST(req: NextRequest) {
 	await validateRequest(req);
-	const routesService = new RoutesService(RoutesModel);
+	const routesService = new RoutesService(RoutesModel, req.headers);
 	try {
 		
 		const parsedRequest = CreateRoutesRequestSchema.parse(await req.json());
@@ -30,7 +30,7 @@ export async function GET(req: NextRequest) {
 	const action = url.searchParams.get('action');
 	try {
 		
-		const routesService = new RoutesService(RoutesModel);
+		const routesService = new RoutesService(RoutesModel, req.headers);
 		if (action && action.includes('by-schedule') && id) {
 			const routes = await routesService.getRouteByScheduleId(id);
 			return NextResponse.json(routes);
@@ -59,7 +59,7 @@ export async function PUT(req: NextRequest) {
 			const parsedRequest = UpdateRoutesRequestSchema.parse(
 				await req.json(),
 			);
-			const routesService = new RoutesService(RoutesModel);
+			const routesService = new RoutesService(RoutesModel, req.headers);
 			const updatedEvent = await routesService.updateRoute(
 				id,
 				parsedRequest,
@@ -84,7 +84,7 @@ export async function DELETE(req: NextRequest) {
 	try {
 		if (id) {
 			
-			const routesService = new RoutesService(RoutesModel);
+			const routesService = new RoutesService(RoutesModel, req.headers);
 			await routesService.deleteRoute(id);
 			return NextResponse.json({
 				message: `Routes with ID: ${id} deleted successfully`,

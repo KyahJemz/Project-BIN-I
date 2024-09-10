@@ -6,7 +6,7 @@ import React from "react";
 const AnnouncementCard = ({ details }: { details: IAnnouncementDocument }) => {
     return (
         <div className="bg-white p-4 rounded-lg shadow-md flex flex-col items-center shadow-md">
-            <Link href={`/announcements/${details._id}`} className="w-full">
+            <Link  href={`/announcements/${details._id}`} className="w-full">
                 <div className="relative w-full h-48 mb-4">
                     <Image 
                         src={`/images/announcements/${details.image}`} 

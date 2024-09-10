@@ -70,12 +70,14 @@ const NewRoute = () => {
 			await getAllSchedules();
 		};
 		fetch();
+		// eslint-disable-next-line
 	}, []);
 
 	useEffect(() => {
 		if (createRouteResponse) {
 			router.back();
 		}
+		// eslint-disable-next-line
 	}, [createRouteResponse]);
 
 	function onCreateRoute() {

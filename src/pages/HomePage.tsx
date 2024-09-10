@@ -32,13 +32,13 @@ export interface HomePageProps {
 }
 
 export const getHomePageProps = async () => {
-    const announcementService = new AnnouncementService(AnnouncementsModel);
-    const newsService = new NewsService(NewsModel);
-    const eventsService = new EventService(EventsModel);
+    const announcementService = new AnnouncementService(AnnouncementsModel, null);
+    const newsService = new NewsService(NewsModel, null);
+    const eventsService = new EventService(EventsModel, null);
     const contactDetailsService = new ContactDetailsService(ContactDetailsModel);
-	const schedulesService = new ScheduleService(SchedulesModel);
-	const routesService = new RoutesService(RoutesModel);
-    const postsService = new PostService(PostsModel);
+	const schedulesService = new ScheduleService(SchedulesModel, null);
+	const routesService = new RoutesService(RoutesModel, null);
+    const postsService = new PostService(PostsModel, null);
 
     try {
         const [allAnnouncements, allNews, allEvents, allContactDetails, allSchedules, allRoutes, allPosts] = await Promise.all([
@@ -79,76 +79,10 @@ export const getHomePageProps = async () => {
 };
 
 export default function HomePage({
-	allAnnouncements,
-    allNews,
-    allEvents,
-    allContactDetails,
-	allSchedules,
-	allRoutes
-}: HomePageProps) {
 
-    function getRandomItems(array: IScheduleDocument[], count: number) {
-        const shuffled = array.slice().sort(() => 0.5 - Math.random());
-        return shuffled.slice(0, count);
-    }
-
-    function getAllRoutes(array: IRoutesDocument[] = []) {
-        const routes: LatLngExpression[] = [];
-        array.forEach((route) => {
-            routes.push(route.pickupPoints as unknown as LatLngExpression);
-        })
-        return routes;
-    }
-
-    const last5Announcements = allAnnouncements.slice(-6).reverse();
-    const last5Events = allEvents.slice(-3).reverse();
-    const last5News = allNews.slice(-4).reverse();
-    const random5Schedules = getRandomItems(allSchedules, 5);
-    const allRoutesGathered = getAllRoutes(allRoutes);
+}) {
 
 	return (
-		<div className="min-h-screen bg-gray-100 max-w-7xl mx-auto">
-
-            {/* Hero Section */}
-            <HeroSection />
-
-            {/* Upcoming Events Section */}
-            <EventsSection data={last5Events}/>
-
-            {/* News Highlights Section */}
-            <NewsSection data={last5News} />
-
-            {/* Announcements Section */}
-            <AnnouncementsSection data={last5Announcements}/>
-
-            {/* Garbage Collection Schedules Section */}
-            <section className="bg-light-gray py-10 px-4">
-                <div className="container mx-auto text-center">
-                    <h2 className="text-3xl font-bold mb-2 text-dark-gray">Garbage Collection Schedules</h2>
-                    <p className="text-lg mb-6 text-dark-gray">Check the schedule for garbage collection in your area.</p>
-                    <SchedulesSection data={random5Schedules} />
-                    <div className="mt-2 flex justify-center">
-                        <Link href="/schedules" className="inline-flex items-center mt-4 bg-sun-yellow text-dark-gray px-4 py-2 rounded shadow">
-                            View All Schedules
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-            {/* Routes Section */}
-            <section className="py-10 px-4 bg-white">
-                <div className="container mx-auto text-center">
-                    <h2 className="text-3xl font-bold mb-2 text-dark-gray">Garbage Collection Routes</h2>
-                    <p className="text-lg mb-3 text-dark-gray">Check the garbage collection routes in cavite city.</p>
-                    <RoutesSection data={allRoutesGathered as unknown as LatLngExpression[][]}  />
-                    <div className="mt-2 flex justify-center">
-                        <Link href="/routes" className="inline-flex items-center mt-4 bg-sun-yellow text-dark-gray px-4 py-2 rounded shadow">
-                            View Routes Details
-                        </Link>
-                    </div>
-                </div>
-            </section>
-
-        </div>
+		<></>
 	);
 }

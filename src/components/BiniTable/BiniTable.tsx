@@ -88,7 +88,7 @@ const BiniTable = <T extends { id: string }>({
 
                                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium flex justify-left  z-10">
                                         {link && (
-                                            <Link href={`${link}/${item._id}`} className="text-indigo-600 hover:text-indigo-900">
+                                            <Link href={`${link}/${item._id}`}  className="text-indigo-600 hover:text-indigo-900">
                                                 <ViewIcon />
                                             </Link>
                                         )}

@@ -8,7 +8,7 @@ export interface SchedulesPageProps {
 }
 
 export const getSchedulesPageProps = async () => {
-	const schedulesService = new ScheduleService(SchedulesModel);
+	const schedulesService = new ScheduleService(SchedulesModel, null);
 
     try {
         const [allSchedules] = await Promise.all([
@@ -30,15 +30,11 @@ export const getSchedulesPageProps = async () => {
     } 
 };
 
-const ManageSchedulesPage = ({schedules} : { schedules: IScheduleDocument[]}) => {
+const ManageSchedulesPage = () => {
     
 
     return (
-    <div>
-
-        <SchedulesSection data={schedules}/>
-
-    </div>
+    <></>
 );
 }
 
