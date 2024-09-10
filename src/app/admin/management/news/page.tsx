@@ -1,13 +1,10 @@
 "use client";
 
 import BiniGrid from '@/components/BiniGrid/BiniGrid';
-import NewsDisplayGrid from '@/components/NewsDisplayGrid/NewsDisplayGrid';
-import NewsSection from '@/components/NewsSection/NewsSection';
 import {
     useGetAllNewsHook,
     useDeleteNewsHook,
 } from '@/hooks/news.hooks';
-import { INewsDocument } from '@/models/news';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from "react";
 

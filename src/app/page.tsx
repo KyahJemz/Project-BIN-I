@@ -1,9 +1,72 @@
-import {getHomePageProps} from "@/pages/HomePage";
 import React from "react";
 import Image from 'next/image'
 import Link from "next/link";
 import NewsDisplayGrid from "@/components/NewsDisplayGrid/NewsDisplayGrid";
 import BiniGrid from "@/components/BiniGrid/BiniGrid";
+import AnnouncementsModel, { IAnnouncementDocument } from "@/models/announcements";
+import EventsModel, { IEventDocument } from "@/models/events";
+import NewsModel, { INewsDocument } from "@/models/news";
+import PostsModel, { IPostDocument } from "@/models/posts";
+import RoutesModel, { IRoutesDocument } from "@/models/routes";
+import SchedulesModel, { IScheduleDocument } from "@/models/schedules";
+import { AnnouncementService } from "@/services/announcements.service";
+import { EventService } from "@/services/events.service";
+import { NewsService } from "@/services/news.service";
+import { PostService } from "@/services/posts.service";
+import { RoutesService } from "@/services/routes.service";
+import { ScheduleService } from "@/services/schedule.service";
+
+export interface HomePageProps {
+    allAnnouncements: IAnnouncementDocument[]; 
+    allNews: INewsDocument[];           
+    allEvents: IEventDocument[];         
+	allSchedules: IScheduleDocument[];
+	allRoutes: IRoutesDocument[];
+    allPosts: IPostDocument[];
+}
+
+export const getHomePageProps = async () => {
+    const announcementService = new AnnouncementService(AnnouncementsModel, null);
+    const newsService = new NewsService(NewsModel, null);
+    const eventsService = new EventService(EventsModel, null);
+	const schedulesService = new ScheduleService(SchedulesModel, null);
+	const routesService = new RoutesService(RoutesModel, null);
+    const postsService = new PostService(PostsModel, null);
+
+    try {
+        const [allAnnouncements, allNews, allEvents, allSchedules, allRoutes, allPosts] = await Promise.all([
+            announcementService.getAllAnnouncements(),
+            newsService.getAllNews(),
+            eventsService.getAllEvent(),
+			schedulesService.getAllSchedules(),
+			routesService.getAllRoutes(),
+            postsService.getAllPosts(),
+        ]);
+
+        return {
+            props: {
+                allAnnouncements,
+                allNews,
+                allEvents,
+				allSchedules,
+				allRoutes,
+                allPosts
+            },
+        };
+    } catch (error) {
+        console.error(error);
+        return {
+            props: {
+                allAnnouncements: [],
+                allNews: [],
+                allEvents: [],
+				allSchedules: [],
+				allRoutes: [],
+                allPosts: []
+            },
+        };
+    } 
+};
 
 const HeroSection = () => {
 	return (

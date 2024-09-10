@@ -24,13 +24,6 @@ const apiRoutes = {
 	updatePost: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/posts?id=${id}`, // PUT
 	deletePost: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/posts?id=${id}`, // DELETE
 
-	// Contact Details
-	createContactDetails: () => `${env.NEXT_PUBLIC_API_BASE_URL}/contact-details`, // POST
-	getContactDetailsById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/contact-details?id=${id}`, // GET
-	getAllContactDetails: () => `${env.NEXT_PUBLIC_API_BASE_URL}/contact-details`, // GET
-	updateContactDetails: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/contact-details?id=${id}`, // PUT
-	deleteContactDetails: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/contact-details?id=${id}`, // DELETE
-
 	// Events
 	createEvent: () => `${env.NEXT_PUBLIC_API_BASE_URL}/events`, // POST
 	getEventById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/events?id=${id}`, // GET

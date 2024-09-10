@@ -32,7 +32,7 @@ export async function decodeJwt(token: string) {
 }
 
 export async function validateRequest(req: NextRequest) {
-  const accountService = new AccountService(AccountModel);
+  const accountService = new AccountService(AccountModel, req.headers);
   const auth = req.headers.get('authorization');
   if (!auth) {
     return NextResponse.json({ message: 'No authorization headers provided' }, { status: 401 });

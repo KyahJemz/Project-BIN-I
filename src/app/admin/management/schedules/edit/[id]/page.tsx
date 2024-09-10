@@ -7,7 +7,6 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { IUpdateScheduleRequest } from '@/validation/schedule.validation';
-import { IScheduleSchedule } from '@/types/IScheduleSchedule';
 
 type scheduleScheduleProps = {
 	frequency: 'weekly' | 'biweekly' | 'monthly';
