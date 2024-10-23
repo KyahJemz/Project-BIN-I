@@ -4,11 +4,20 @@ import { NextResponse, NextRequest } from 'next/server';
 
 // POST method: Validate
 export async function POST(req: NextRequest) {
-    await validateRequest(req);
-
+	const url = new URL(req.url);
+	const action = url.searchParams.get('action');
+    console.log(action)
     try {
-        await validateRequest(req);
-        return NextResponse.json({ message: 'Authenticated successfully.' }, { status: 200 });
+        if (!action) {
+            return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+        }
+        if(action === 'users') {
+            return await validateRequest(req, 'users');
+        } else if (action === 'accounts') { 
+            return await validateRequest(req, 'accounts');
+        } else {
+            return NextResponse.json({ message: 'Unauthorized' }, { status: 401 });
+        }
     } catch (error: any) {
         const { statusCode, message } = ErrorResponses.UNHANDLED_ERROR(error);
         return NextResponse.json({ message }, { status: statusCode });

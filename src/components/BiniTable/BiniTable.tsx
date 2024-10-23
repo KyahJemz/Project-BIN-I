@@ -3,7 +3,7 @@ import DeleteIcon from '@/svgs/delete.svg';
 import EditIcon from '@/svgs/edit.svg';
 import ViewIcon from '@/svgs/view.svg';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { redirect } from 'next/navigation';
 import React from 'react';
 
 interface ITableProps<T> {
@@ -16,6 +16,7 @@ interface ITableProps<T> {
     onDelete?: (id: string) => void;
     onAdd?: () => void;
 }
+
 const BiniTable = <T extends { id: string }>({
     header,
     columns,
@@ -26,11 +27,10 @@ const BiniTable = <T extends { id: string }>({
     onDelete,
     onAdd,
 }: ITableProps<T>) => {
-    const router = useRouter();
 
     function onLinkClick (link: string) {
         if(link === '') return;
-        router.push(link);
+        redirect(link);
     }
     
     return (

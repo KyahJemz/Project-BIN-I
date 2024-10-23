@@ -10,6 +10,20 @@ const apiRoutes = {
 	changeAccountPassword: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/accounts?id=${id}&action=change-password`, // PATCH
 	deleteAccount: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/accounts?id=${id}`, // DELETE
 
+	// User
+	registerUser: () => `${env.NEXT_PUBLIC_API_BASE_URL}/users?action=register`, // POST
+	validateUser: () => `${env.NEXT_PUBLIC_API_BASE_URL}/users?action=verify`, // POST
+	getUserById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}`, // GET
+	updateUserProgress: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}`, // PUT
+	changeUserPassword: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}&action=change-password`,
+
+	// Tutorial
+	getTutorialById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/tutorials?id=${id}`, // GET
+	getCertificate: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/tutorials?id=${id}&action=certificate`, // GET
+	getAllTutorials: () => `${env.NEXT_PUBLIC_API_BASE_URL}/tutorials`, // GET
+	updateTutorialStatus: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/tutorials?id=${id}`, // PUT
+
+
 	// Announcements
 	createAnnouncement: () => `${env.NEXT_PUBLIC_API_BASE_URL}/announcements`, // POST
 	getAnnouncementById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/announcements?id=${id}`, // GET
@@ -61,7 +75,7 @@ const apiRoutes = {
 	uploadFile: () => `${env.NEXT_PUBLIC_API_BASE_URL}/upload`, // POST
 
 	// Auth
-	authenticate: () => `${env.NEXT_PUBLIC_API_BASE_URL}/authenticate`, // POST
+	authenticate: (action: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/authenticate?action=${action}`, // POST
 };
 
 export default apiRoutes;

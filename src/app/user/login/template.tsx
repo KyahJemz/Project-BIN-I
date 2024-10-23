@@ -1,7 +1,7 @@
 "use client";
 
-import { sidebarItems } from '@/app/constants';
-import { useAccountsAuthenticateHook } from '@/hooks/authAccounts.hooks';
+import { sidebarUserItems } from '@/app/constants';
+import { useUsersAuthenticateHook } from '@/hooks/authUsers.hooks';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -13,7 +13,7 @@ export default function DashboardLayout({
 }) {
     const router = useRouter();
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-    const { authenticate, response, isLoading, error } = useAccountsAuthenticateHook();
+    const { authenticate, response, isLoading, error } = useUsersAuthenticateHook();
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -26,11 +26,9 @@ export default function DashboardLayout({
 
     useEffect(() => {
         if (error) {
-            router.push('/admin');
-        } else if (response) {
-            router.push('/admin/management/accounts');
+            router.push('/user');
         }
-    }, [response, error, router]);
+    }, [error, router]);
 
     if (isLoading) {
         return <></>;
@@ -65,7 +63,7 @@ export default function DashboardLayout({
                 <div className="text-xl font-semibold mb-6 text-gray-700">Bin-I Management</div>
                 <nav className="space-y-2">
                     <ul>
-                        {sidebarItems.map((item, key) => (
+                        {sidebarUserItems.map((item, key) => (
                             <li key={key} className="my-2">
                                 {item.href ? (
                                     <Link

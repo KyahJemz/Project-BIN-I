@@ -1,7 +1,7 @@
 "use client"
 
 import { LatLngExpression } from "leaflet"
-import { BookTextIcon, CalendarCheck2Icon, CalendarCheckIcon, ContactIcon, LayoutDashboardIcon, LogOutIcon, LogsIcon, MegaphoneIcon, NewspaperIcon, UsersIcon, WaypointsIcon } from "lucide-react"
+import { AwardIcon, BookIcon, BookTextIcon, CalendarCheck2Icon, CalendarCheckIcon, LayoutDashboardIcon, LogOutIcon, LogsIcon, MegaphoneIcon, NewspaperIcon, UserIcon, UsersIcon, WaypointsIcon } from "lucide-react"
 
 
 // Menu Items
@@ -62,5 +62,12 @@ export const sidebarItems = [
     { name: 'Events', href: '/admin/management/events', icon: CalendarCheckIcon },
     { name: 'Schedules', href: '/admin/management/schedules', icon: CalendarCheck2Icon },
     { name: 'Routes', href: '/admin/management/routes', icon: WaypointsIcon },
+    { name: 'Logout', icon: LogOutIcon, onClickEvent: () => (localStorage.removeItem('authorization'),localStorage.removeItem('account'), window.location.reload())},
+];
+
+export const sidebarUserItems = [
+    { name: 'Tutorials', href: '/user/login/tutorials', icon: BookIcon },
+    { name: 'Certificates', href: '/user/login/certificates', icon: AwardIcon },
+    { name: 'MyAccount', href: '/user/login/my-profile', icon: UserIcon },
     { name: 'Logout', icon: LogOutIcon, onClickEvent: () => (localStorage.removeItem('authorization'),localStorage.removeItem('account'), window.location.reload())},
 ];

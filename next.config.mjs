@@ -30,6 +30,9 @@ const nextConfig = {
 		ApiBaseUrl: env.NEXT_PUBLIC_API_BASE_URL,
 		BaseUrl: env.NEXT_PUBLIC_BASE_URL,
 	},
+	images: {
+		domains: ['localhost'],
+	},
 };
 
 export default nextConfig;

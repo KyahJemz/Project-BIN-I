@@ -3,6 +3,8 @@ import { env } from '@/env.mjs';
 import { NextRequest, NextResponse } from 'next/server';
 import { AccountService } from '@/services/accounts.service';
 import AccountModel from '@/models/accounts';
+import { UsersService } from '@/services/users.service';
+import UserModel from '@/models/users';
 
 export function signJwt(payload: any) {
   return jwt.sign(payload, env.JWT_SECRET, {
@@ -31,8 +33,9 @@ export async function decodeJwt(token: string) {
   }
 }
 
-export async function validateRequest(req: NextRequest) {
+export async function validateRequest(req: NextRequest, target: string = 'accounts') {
   const accountService = new AccountService(AccountModel, req.headers);
+  const userService = new UsersService(UserModel, req.headers);
   const auth = req.headers.get('authorization');
   if (!auth) {
     return NextResponse.json({ message: 'No authorization headers provided' }, { status: 401 });
@@ -48,15 +51,25 @@ export async function validateRequest(req: NextRequest) {
     return NextResponse.json({ message: 'Error verifying token' }, { status: 401 });
   }
   console.log("verified: ", verified);
-  if (verified && verified.token === null) {
-    return true;
+  if (!verified) {
+    return NextResponse.json({ message: 'Authorization headers is not valid' }, { status: 401 });
   }
 
-  const accountToken = await accountService.getAccountById(verified._id) ?? null;
-  console.log("accountToken: ", accountToken);
-  if (accountToken.toString() === token.toString()) {
-    return true;
-  } else {
-    return NextResponse.json({ message: 'Authorization headers is not valid' }, { status: 401 });
+  if(target === 'users') {
+    console.log("user: ", verified._id);
+    const user = await userService.getById(verified._id) ?? null;
+    if (user) {
+      return NextResponse.json({ message: 'Authorization User is valid' }, { status: 200 });
+    } else {
+      return NextResponse.json({ message: 'Authorization User headers is not valid' }, { status: 401 });
+    }
+  } else if (target === 'accounts') {
+    console.log("account: ", verified._id);
+    const account = await accountService.getAccountById(verified._id) ?? null;
+    if (account) {
+      return NextResponse.json({ message: 'Authorization Account is valid' }, { status: 200 });
+    } else {
+      return NextResponse.json({ message: 'Authorization Account headers is not valid' }, { status: 401 });
+    }
   }
 }

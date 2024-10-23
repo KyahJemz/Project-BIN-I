@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import apiRoutes from '@/utils/apiRoutes';
 
-export const useAuthenticateHook = () => {
+export const useAccountsAuthenticateHook = () => {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState<null | string>(null);
 	const [response, setResponse] = useState<null | any>(null);
@@ -12,7 +12,7 @@ export const useAuthenticateHook = () => {
 		setIsLoading(true);
 		setError(null);
 		try {
-			const res = await fetch(`${apiRoutes.authenticate()}`, {
+			const res = await fetch(`${apiRoutes.authenticate("accounts")}`, {
 				method: 'POST',
 				body: formData,
 				headers: {
