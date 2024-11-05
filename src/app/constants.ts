@@ -1,7 +1,7 @@
 "use client"
 
 import { LatLngExpression } from "leaflet"
-import { AwardIcon, BookIcon, BookTextIcon, CalendarCheck2Icon, CalendarCheckIcon, LayoutDashboardIcon, LogOutIcon, LogsIcon, MegaphoneIcon, NewspaperIcon, UserIcon, UsersIcon, WaypointsIcon } from "lucide-react"
+import { AwardIcon, BookIcon, BookTextIcon, CalendarCheck2Icon, CalendarCheckIcon, LayoutDashboardIcon, LogOutIcon, LogsIcon, MegaphoneIcon, NewspaperIcon, User2Icon, UserIcon, UsersIcon, WaypointsIcon } from "lucide-react"
 
 
 // Menu Items
@@ -14,13 +14,21 @@ export const headerMoreItems = [
     { name: 'Schedules', description: 'Check the schedule for garbage collection in your area', href: '/schedules', icon: CalendarCheck2Icon },
     { name: 'Routes', description: 'View and track waste collection routes and timings', href: '/routes', icon: WaypointsIcon },
 ]
+
+export const loginItems = [
+    { name: 'User Login', description: 'Login to your account to access user features', href: '/user', icon: UserIcon },
+    { name: 'Admin Login', description: 'Admin Only', href: '/admin', icon: User2Icon },
+]
+
 export const headerItems = [
     { name: 'Home', href: '/', items: null },
     { name: 'About', href: '/about', items: null },
     { name: 'News', href: '/news', items: null },
     { name: 'Announcements', href: '/announcements', items: null },
     { name: 'More', href: null, items: headerMoreItems },
+    { name: 'login', href: null, items: loginItems },
 ]
+
 export const headerButton = {
     name: 'Login',
     href: '/admin'

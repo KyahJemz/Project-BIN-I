@@ -4,6 +4,8 @@ import * as bcrypt from 'bcryptjs';
 import { MongoDbConnect } from '@/utils/mongodb';
 import { ILoginRequest, IUpdateUserProgressRequest } from '@/validation/users.validation';
 import { ICreateUserRequest } from '@/validation/users.validation';
+import { TutorialsService } from './tutorials.service';
+import TutorialModel from '@/models/tutorials';
 
 export class UsersService {
 	private readonly rqst: any;
@@ -143,23 +145,36 @@ export class UsersService {
 		try {
 			await MongoDbConnect();
 			const user = await this.userModel.findById(id);
+			const tutorialService = new TutorialsService(TutorialModel, this.rqst);
 			if (!user) {
 				throw new Error('User not found');
 			}
 			if (request.progress) {
-				request.progress.forEach((progressUpdate) => {
+				for (const progressUpdate of request.progress) {
+					const tutorial = await tutorialService.getTutorialById(progressUpdate.tutorial_id);
+					if (!tutorial) {
+						throw new Error('Tutorial not found');
+					}
 					const existingTutorial = user.progress.find(
 						(p: any) => p.tutorial_id === progressUpdate.tutorial_id
 					);
-	
 					if (existingTutorial) {
 						existingTutorial.count = progressUpdate.count ?? existingTutorial.count;
 						existingTutorial.dateCompleted = progressUpdate.dateCompleted ?? existingTutorial.dateCompleted;
 						existingTutorial.certificateLink = progressUpdate.certificateLink ?? existingTutorial.certificateLink;
+
+						const isCompleted = !!progressUpdate.dateCompleted;
+						if (isCompleted) {
+							tutorial.tutorial_status.completers += 1;
+							tutorial.tutorial_status.ongoing = Math.max(0, tutorial.tutorial_status.ongoing - 1);
+							await tutorial.save();
+						}
 					} else {
 						user.progress.push(progressUpdate);
+						tutorial.tutorial_status.ongoing += 1;
+						await tutorial.save();
 					}
-				});
+				}
 			}
 			const updatedUser = await user.save();
 			return updatedUser.toObject();
@@ -167,4 +182,5 @@ export class UsersService {
 			throw error;
 		}
 	}
+	
 }

@@ -116,7 +116,7 @@ export const useUpdateUserProgressHook = () => {
 	const [response, setResponse] = useState<null | any>(null);
 
 
-	const updateUser = async (
+	const updateUserProgress = async (
 		id: string,
 		request: IUpdateUserProgressRequest,
 	) => {
@@ -145,7 +145,7 @@ export const useUpdateUserProgressHook = () => {
 			setIsLoading(false);
 		}
 	};
-	return { updateUser, isLoading, error, response };
+	return { updateUserProgress, isLoading, error, response };
 };
 
 export const useChangeUserPasswordHook = () => {

@@ -94,6 +94,25 @@ export async function PATCH(req: NextRequest) {
 				await req.json(),
 			);
 			if (id && parsedRequest.newPassword && parsedRequest.oldPassword) {
+				const userById = await userService.getUserById(id);
+
+				if (!userById) {
+					const { statusCode, message } =
+						ErrorResponses.MISSING_PARAMETER('id');
+					return NextResponse.json({ message }, { status: statusCode });
+				}
+
+				const userValidate = await userService.validateUser({
+					email: userById.email,
+					password: parsedRequest.oldPassword,
+				});
+
+				if (!userValidate) {
+					const { statusCode, message } =
+						ErrorResponses.MISSING_PARAMETER('oldPassword');
+					return NextResponse.json({ message }, { status: statusCode });
+				}
+
 				const result = await userService.changeUserPassword(
 					id,
 					parsedRequest.newPassword,

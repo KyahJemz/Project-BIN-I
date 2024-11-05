@@ -130,7 +130,7 @@ const HeroSection = () => {
 }
 
 const NewsSection = ({ props }: any) => {
-	return (<NewsDisplayGrid data={props?.allNews.slice(0, 7)} />)
+	return (<NewsDisplayGrid data={props?.allNews.slice(0, 7)} link={"/news"} />)
 }
 
 const AnnouncementsSection = ({ props }: any) => {

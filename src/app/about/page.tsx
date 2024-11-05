@@ -57,9 +57,6 @@ export default function About() {
 					<p className="text-md text-dark-gray mb-4">
 						Want to contribute to our mission? Reach out to us or get involved in community events!
 					</p>
-					<a href="/contact" className="inline-block bg-forest-green text-white px-6 py-3 rounded">
-						Contact Us
-					</a>
 				</section>
 			</div>
 		</main>

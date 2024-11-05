@@ -4,7 +4,7 @@ import React, { useRef } from 'react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 
-const Certificate = () => {
+const Certificate = ({date, name, title}: {date: string, name: string, title: string}) => {
 	const certificateRef = useRef(null);
 
 	const generatePDF = async () => {
@@ -14,20 +14,20 @@ const Certificate = () => {
 			throw new Error('Certificate element not found');
 		}
 
-		// Increase the scale to improve quality
-		const canvas = await html2canvas(certificateElement, { scale: 3 }); // Higher scale for better resolution
+		const canvas = await html2canvas(certificateElement, { scale: 3 });
 		const imgData = canvas.toDataURL('image/png');
 
-		const pdf = new jsPDF('landscape', 'mm', 'a4'); // Landscape A4
-		const imgWidth = 297; // A4 width in mm (landscape)
-		const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+		const pdf = new jsPDF('landscape', 'mm', 'a4');
 
-		pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+		const pageWidth = pdf.internal.pageSize.getWidth();
+		const pageHeight = pdf.internal.pageSize.getHeight();
+
+		pdf.addImage(imgData, 'PNG', 0, 0, pageWidth, pageHeight);
 		pdf.save('certificate.pdf');
 	};
 
 	return (
-		<div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+		<div style={{ padding: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative' }}>
 			<button
 				onClick={generatePDF}
 				style={{
@@ -43,10 +43,9 @@ const Certificate = () => {
 				Download Certificate as PDF
 			</button>
 			<div
-				ref={certificateRef}
 				style={{
-					width: '1122px',  // 1122px = 297mm at 96 DPI
-					height: '810px',  // 793px = 210mm at 96 DPI
+					width: '1140px',
+					height: '800px',
 					position: 'relative',
 					backgroundImage: 'url("/images/cert-template.png")',
 					backgroundSize: 'cover',
@@ -65,14 +64,44 @@ const Certificate = () => {
 						width: '100%',
 					}}
 				>
-					<div style={{ fontSize: '40px', marginTop: '305px', width: '100%' }}>
-						Certificate of Completion
-					</div>
-					<div style={{ fontSize: '25px', marginTop: '5px' }}>John Doe</div>
-					<div style={{ fontSize: '13px', marginTop: '90px' }}>Given this 27th of December 2022</div>
+					<div style={{ fontSize: '40px', marginTop: '310px', width: '100%' }}>{name}</div>
+					<div style={{ fontSize: '25px', marginTop: '5px', }}>{title}</div>
+					<div style={{ fontSize: '15px', marginTop: '100px',  }}>Given this {date}</div>
+				</div>
+			</div>
+			<div
+				ref={certificateRef}
+				style={{
+					width: '1140px',
+					height: '800px',
+					position: 'absolute',
+					backgroundImage: 'url("/images/cert-template.png")',
+					backgroundSize: 'cover',
+					margin: '0 auto',
+					border: '1px solid #000',
+					marginTop: '46px',
+					zIndex: -1,
+				}}
+			>
+				<div
+					style={{
+						position: 'absolute',
+						top: '0',
+						left: '50%',
+						transform: 'translate(-50%, 0)',
+						color: '#000',
+						textAlign: 'center',
+						width: '100%',
+					}}
+				>
+					<div style={{ fontSize: '40px', marginTop: '295px', width: '100%' }}>{name}</div>
+					<div style={{ fontSize: '25px', marginTop: '5px', }}>{title}</div>
+					<div style={{ fontSize: '15px', marginTop: '100px',  }}>Given this {date}</div>
 				</div>
 			</div>
 		</div>
+
+		
 	);
 };
 

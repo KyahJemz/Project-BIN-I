@@ -25,7 +25,7 @@ export const UpdateUserProgressRequest = z.object({
 		z.object({
 			tutorial_id: z.string().min(1).trim(),  
 			count: z.number().min(0).optional().default(0), 
-			dateCompleted: z.date().optional().nullable().default(null),
+			dateCompleted: z.string().optional().nullable().default(null),
 			certificateLink: z.string().optional().nullable().default(null)  
 		})
 	).optional(),
