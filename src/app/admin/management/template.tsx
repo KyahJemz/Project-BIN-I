@@ -28,7 +28,7 @@ export default function DashboardLayout({
         if (error) {
             router.push('/admin');
         } else if (response) {
-            router.push('/admin/management/accounts');
+            // router.push('/admin/management/accounts');
         }
     }, [response, error, router]);
 

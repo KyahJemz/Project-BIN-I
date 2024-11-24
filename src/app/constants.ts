@@ -61,7 +61,6 @@ export const routeColorsWeight = 5;
 // Admin Sidebar Constants
 
 export const sidebarItems = [
-    { name: 'Dashboard', href: '/admin/management', icon: LayoutDashboardIcon },
     { name: 'Accounts', href: '/admin/management/accounts', icon: UsersIcon },
     { name: 'Logs', href: '/admin/management/logs', icon: LogsIcon },
     { name: 'Announcements', href: '/admin/management/announcements', icon: MegaphoneIcon },

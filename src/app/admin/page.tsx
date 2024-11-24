@@ -35,7 +35,7 @@ export default function AdminLogin() {
     useEffect(() => {
         if (validateAccountResponse) {
             setAccountData(validateAccountResponse);
-            router.replace('/admin/management');
+            router.replace('/admin/management/accounts');
         }
         if (validateAccountError) {
             setError('Invalid email or password.');
