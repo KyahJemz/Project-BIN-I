@@ -159,9 +159,6 @@ export class AccountService {
 			const account = await this.accountModel
 				.findOne({ email: string })
 				.lean();
-			if (!account) {
-				throw new Error('Account not found');
-			}
 			return account;
 		} catch (error) {
 			throw error;

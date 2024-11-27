@@ -57,7 +57,7 @@ export function FlyoutMenu({ name, items }: FlyoutMenuProps) {
 export function MobileFlyoutMenu({ name, items }: FlyoutMenuProps) {
     const validItems = items || [];
     return (
-        <div className="space-y-2 py-6">
+        <div className="space-y-2">
             <Disclosure as="div" className="-mx-3">
                 <DisclosureButton className="group flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                     {name}

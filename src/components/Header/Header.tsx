@@ -60,7 +60,7 @@ export default function Header({ headerItems, headerTitle, headerButton}: Header
                             <MobileHeaderLogo headerTitle={headerTitle} setMobileMenuOpen={setMobileMenuOpen} />
                         ) : null}
 
-                        <div className="mt-6 flow-root">
+                        <div className="flow-root">
                             <div className="-my-6 divide-y divide-gray-500/10">
 
                                 {headerItems ? (

@@ -292,7 +292,7 @@ export default async function Home() {
 					<Link href={"/news"} className="text-forest-green font-medium hover:underline block mt-4 mx-2 border-2 w-max border-green-800 px-4 py-2">View all news</Link>
 				</section>
 
-				<section className="bg-white text-dark-gray py-6 px-4 grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 grid-cols-4">
+				<section className="bg-white text-dark-gray py-6 px-4 grid xs:grid-cols-1 sm:grid-cols-3">
 					<section className="bg-white text-dark-gray px-4 col-span-2">
 						<h2 className="text-xl font-bold mb-2 text-dark-gray border-l-4 pl-2 border-forest-green">Don’t Miss Out: Announcements</h2>
 						<p className="text-md mb-4 text-dark-gray">Stay ahead with important updates and official notices.</p>
@@ -300,7 +300,7 @@ export default async function Home() {
 						<Link href={"/announcements"} className="text-forest-green font-medium hover:underline block mt-4 mx-2 border-2 w-max border-green-800 px-4 py-2">View all announcements</Link>
 					</section>
 
-					<section className="bg-white text-dark-gray px-4">
+					<section className="bg-white text-dark-gray px-4 mt-12 sm:mt-0">
 						<h2 className="text-xl font-bold mb-2 text-dark-gray border-l-4 pl-2 border-forest-green">Save the Date: Upcoming Events</h2>
 						<p className="text-md mb-4 text-dark-gray">Don’t miss out—discover events happening near you.</p>
 						<EventsSection props={props} />

@@ -17,6 +17,7 @@ export const headerMoreItems = [
 
 export const loginItems = [
     { name: 'User Login', description: 'Login to your account to access user features', href: '/user', icon: UserIcon },
+    { name: 'User Registration', description: 'Create an account to access user features', href: '/user/registration', icon: UserIcon },
     { name: 'Admin Login', description: 'Admin Only', href: '/admin', icon: User2Icon },
 ]
 
