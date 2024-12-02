@@ -1,6 +1,6 @@
-'use client'
+"use client"
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import {
     Dialog,
     DialogPanel,
@@ -9,8 +9,6 @@ import {
 import { FlyoutMenu, FlyoutMenuProps, MobileFlyoutMenu } from '../FlyoutMenu/FlyoutMenu'
 import { HeaderMenu, HeaderMenuProps, MobileHeaderMenu } from '../HeaderMenu/HeaderMenu'
 import { HeaderLogo, MobileHeaderLogo, HeaderTitleProps } from '../HeaderLogo/HeaderLogo'
-import Link from 'next/link';
-import { useAccountStore } from '@/stores/useAccountStore';
 
 export interface headerButtonProps {
     name: string;

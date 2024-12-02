@@ -1,7 +1,9 @@
+
 import { Disclosure, DisclosureButton, DisclosurePanel, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import Link from 'next/link';
-import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { use, useEffect, useState } from 'react';
 
 export interface FlyoutMenuProps {
     name: string,
@@ -13,9 +15,10 @@ export interface FlyoutMenuProps {
 }
 
 export function FlyoutMenu({ name, items }: FlyoutMenuProps) {
+    const router = useRouter();
     const validItems = items || [];
     const [open, setOpen] = useState(false);
-    
+
     return (
         <Popover className="relative">
             <PopoverButton

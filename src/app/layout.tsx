@@ -21,9 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <div className="max-h-screen pt-12 bg-gray-100" id="root">
-          <Header headerTitle={headerTitle} headerItems={headerItems} />
-                {children}
-            <Footer />
+          <Header key={Date()} headerTitle={headerTitle} headerItems={headerItems} />
+            {children}
+          <Footer />
         </div>
       </body>
     </html>

@@ -63,6 +63,7 @@ export const routeColorsWeight = 5;
 
 export const sidebarItems = [
     { name: 'Accounts', href: '/admin/management/accounts', icon: UsersIcon },
+    { name: 'Users', href: '/admin/management/users', icon: UsersIcon },
     { name: 'Logs', href: '/admin/management/logs', icon: LogsIcon },
     { name: 'Announcements', href: '/admin/management/announcements', icon: MegaphoneIcon },
     { name: 'Posts', href: '/admin/management/posts', icon: BookTextIcon },

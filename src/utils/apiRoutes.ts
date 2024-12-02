@@ -16,6 +16,10 @@ const apiRoutes = {
 	getUserById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}`, // GET
 	updateUserProgress: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}`, // PUT
 	changeUserPassword: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}&action=change-password`,
+	createUser: () => `${env.NEXT_PUBLIC_API_BASE_URL}/users?action=create`, // POST
+	getAllUsers: () => `${env.NEXT_PUBLIC_API_BASE_URL}/users`, // GET
+	updateUser: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}&action=update`, // PUT
+	deleteUser: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/users?id=${id}`, // DELETE
 
 	// Tutorial
 	getTutorialById: (id: string) => `${env.NEXT_PUBLIC_API_BASE_URL}/tutorials?id=${id}`, // GET

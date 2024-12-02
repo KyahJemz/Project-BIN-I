@@ -2,18 +2,30 @@ import { IUserDocument } from '@/models/users';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcryptjs';
 import { MongoDbConnect } from '@/utils/mongodb';
-import { ILoginRequest, IUpdateUserProgressRequest } from '@/validation/users.validation';
+import { ILoginRequest, IUpdateUserProgressRequest, IUpdateUserRequest } from '@/validation/users.validation';
 import { ICreateUserRequest } from '@/validation/users.validation';
 import { TutorialsService } from './tutorials.service';
 import TutorialModel from '@/models/tutorials';
+import { CollectionsEnum } from '@/enums/collections.enum';
+import { ActionsEnum } from '@/enums/actions.enum';
+import LogsModel from '@/models/logs';
+import { LogsService } from './logs.service';
+import { ICreateLogsRequest } from '@/validation/logs.validation';
 
 export class UsersService {
 	private readonly rqst: any;
+	private readonly logsService: LogsService;
 	constructor(
 		private readonly userModel: Model<IUserDocument>,
 		private readonly rqst: any,
+		logsService: LogsService = new LogsService(LogsModel)
 	) {
 		this.rqst = rqst;
+		this.logsService = logsService;
+	}
+
+	private async createLogs(request: ICreateLogsRequest) {
+		return await this.logsService.createLogs(request);
 	}
 
 	async createUser(request: ICreateUserRequest) {
@@ -124,23 +136,6 @@ export class UsersService {
 		}
 	}
 
-	async updateUser(id: string, request: any) {
-		try {
-			await MongoDbConnect();
-			const user = await this.userModel.findById(id);
-			if (!user) {
-				throw new Error('User not found');
-			}
-			const updatedAccount = await user.save();
-			if (request.token !== undefined){
-				return updatedAccount.toObject();
-			}
-			return updatedAccount.toObject();
-		} catch (error) {
-			throw error;
-		}
-	}
-
 	async updateUserProgress(id: string, request: IUpdateUserProgressRequest) {
 		try {
 			await MongoDbConnect();
@@ -178,6 +173,82 @@ export class UsersService {
 			}
 			const updatedUser = await user.save();
 			return updatedUser.toObject();
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	async getAllUsers() {
+		try {
+			await MongoDbConnect();
+			const user = await this.userModel
+				.find({ deletedAt: null })
+				.sort({ createdAt: -1 })
+				.lean();
+			if (!user) {
+				throw new Error('No user found');
+			}
+			return user;
+		} catch (error) {
+			throw error;
+		}
+	}
+
+
+	async updateUser(id: string, request: IUpdateUserRequest) {
+		try {
+			await MongoDbConnect();
+			const user = await this.userModel.findById(id);
+			if (!user) {
+				throw new Error('User not found');
+			}
+			if (request.firstName !== undefined) {
+				user.firstName = request.firstName;
+			}
+			if (request.lastName !== undefined) {
+				user.lastName = request.lastName;
+			}
+			if (request.middleName !== undefined) {
+				user.middleName = request.middleName;
+			}
+			if (request.email !== undefined && request.email !== user.email) {
+				const existing = await this.getByEmail(request.email);
+				if (existing) {
+					throw new Error('Email already exists');
+				}
+				user.email = request.email;
+			}
+			const updatedUser = await user.save();
+			if (request.token !== undefined){
+				return updatedUser.toObject();
+			}
+			await this.createLogs({
+				account_id: this.rqst,
+				actionCollection: CollectionsEnum.Users,
+				action: ActionsEnum.Update,
+				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(user),
+				newDocument: JSON.stringify(updatedUser)
+			})
+			return updatedUser.toObject();
+		} catch (error) {
+			throw error;
+		}
+	}
+
+	async deleteUser(id: string) {
+		try {
+			await MongoDbConnect();
+			const user = await this.userModel.findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true }).lean();
+			await this.createLogs({
+				account_id: this.rqst,
+				actionCollection: CollectionsEnum.Users,
+				action: ActionsEnum.Delete,
+				action_id: (id || "").toString(),
+				oldDocument: JSON.stringify(user),
+				newDocument: null
+			})
+			return user;
 		} catch (error) {
 			throw error;
 		}

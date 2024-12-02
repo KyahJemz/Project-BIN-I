@@ -185,3 +185,107 @@ export const useChangeUserPasswordHook = () => {
 	};
 	return { changeUserPassword, isLoading, error, response };
 };
+
+export const useUpdateUserHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+
+	const updateUser = async (
+		id: string,
+		request: any,
+	) => {
+		setIsLoading(true);
+		setError(null);
+		try {
+			const res = await fetch(`${apiRoutes.updateUser(id)}`, {
+				method: 'PUT',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+				},
+				body: JSON.stringify(request),
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to update user',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return { updateUser, isLoading, error, response };
+};
+
+export const useDeleteUserHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+
+	const deleteUser = async (id: string) => {
+		setIsLoading(true);
+		setError(null);
+		try {
+			const res = await fetch(`${apiRoutes.deleteUser(id)}`, {
+				method: 'DELETE',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(
+					errorData.message || 'Failed to delete user',
+				);
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return { deleteUser, isLoading, error, response };
+};
+
+export const useGetAllUsersHook = () => {
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState<null | string>(null);
+	const [response, setResponse] = useState<null | any>(null);
+
+
+	const getAllUsers = async () => {
+		setIsLoading(true);
+		setError(null);
+		try {
+			const res = await fetch(`${apiRoutes.getAllUsers()}`, {
+				method: 'GET',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${localStorage.getItem("authorization")}`,
+				},
+			});
+			if (!res.ok) {
+				const errorData = await res.json();
+				throw new Error(errorData.message || 'Failed to get users');
+			}
+			const data = await res.json();
+			setResponse(data);
+		} catch (err: any) {
+			setError(err.message || 'An error occurred');
+		} finally {
+			setIsLoading(false);
+		}
+	};
+	return { getAllUsers, isLoading, error, response };
+};

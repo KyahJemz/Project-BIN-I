@@ -6,4 +6,5 @@ export enum CollectionsEnum {
 	Schedules = 'schedules',
 	Events = 'events',
 	Routes = 'routes',
+	Users = 'users'
 }

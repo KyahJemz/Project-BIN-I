@@ -25,6 +25,13 @@ export async function POST(req: NextRequest) {
 			);
 			const user = await userService.createUser(parsedRequest);
 			return NextResponse.json(user, { status: 201 });
+		} else if (action && action.includes('create')) {
+			console.log("create")
+			const parsedRequest = CreateUserRequestSchema.parse(
+				await req.json(),
+			);
+			const user = await userService.createUser(parsedRequest);
+			return NextResponse.json(user, { status: 201 });
 		}
 	} catch (error: any) {
 		const { statusCode, message } = ErrorResponses.UNHANDLED_ERROR(error);
@@ -34,18 +41,18 @@ export async function POST(req: NextRequest) {
 
 // GET method: Fetch user details
 export async function GET(req: NextRequest) {
-	await validateRequest(req, 'users');
 	const url = new URL(req.url);
 	const id = url.searchParams.get('id');
 	try {
 		const userService = new UsersService(UserModel, req.headers);
 		if (id) {
+			await validateRequest(req, 'users');
 			const user = await userService.getUserById(id);
 			return NextResponse.json(user);
 		} else {
-			const { statusCode, message } =
-				ErrorResponses.MISSING_PARAMETER('id');
-			return NextResponse.json({ message }, { status: statusCode });
+			await validateRequest(req, 'accounts');
+			const user = await userService.getAllUsers();
+			return NextResponse.json(user);
 		}
 	} catch (error: any) {
 		const { statusCode, message } = ErrorResponses.UNHANDLED_ERROR(error);
@@ -131,6 +138,29 @@ export async function PATCH(req: NextRequest) {
 	} else {
 		const { statusCode, message } =
 			ErrorResponses.MISSING_PARAMETER('endpoint mismatch');
+		return NextResponse.json({ message }, { status: statusCode });
+	}
+}
+
+// DELETE method: Delete an user
+export async function DELETE(req: NextRequest) {
+	await validateRequest(req);
+	const url = new URL(req.url);
+	const id = url.searchParams.get('id');
+	try {
+		const userService = new UsersService(UserModel, req.headers);
+		if (id) {
+			await userService.deleteUser(id);
+			return NextResponse.json({
+				message: `User with ID: ${id} deleted successfully`,
+			});
+		} else {
+			const { statusCode, message } =
+				ErrorResponses.MISSING_PARAMETER('id');
+			return NextResponse.json({ message }, { status: statusCode });
+		}
+	} catch (error: any) {
+		const { statusCode, message } = ErrorResponses.UNHANDLED_ERROR(error);
 		return NextResponse.json({ message }, { status: statusCode });
 	}
 }

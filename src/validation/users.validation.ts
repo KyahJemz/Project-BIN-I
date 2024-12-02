@@ -31,6 +31,15 @@ export const UpdateUserProgressRequest = z.object({
 	).optional(),
 });
 
+export type IUpdateUserRequest = z.infer<typeof UpdateUserRequestSchema>
+export const UpdateUserRequestSchema = z.object({
+	firstName: z.string().optional(),
+	lastName: z.string().optional(),
+	middleName: z.string().optional().nullable(),
+	email: z.string().email().optional(),
+	token: z.string().optional(),
+});
+
 export type IChangeUserPasswordRequest = z.infer<typeof ChangeUserPasswordRequestSchema>
 export const ChangeUserPasswordRequestSchema = z
 	.object({
