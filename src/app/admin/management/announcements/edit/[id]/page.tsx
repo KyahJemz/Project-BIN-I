@@ -202,6 +202,15 @@ const IdEditAnnouncement = ({ params }: EditAnnouncementProps) => {
 										className="w-24 h-24 object-cover rounded-md border border-gray-300"
 									/>
 								)}
+								{uploadedImage && (
+									<Image
+										width={200}
+										height={200}
+										src={uploadedImage}
+										alt="Preview"
+										className="w-24 h-24 object-cover rounded-md border border-gray-300"
+									/>
+								)}
 								{isGettingAnnouncementById ?
 									'Loading...'
 									: (
